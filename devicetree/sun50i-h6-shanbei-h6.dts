@@ -3,9 +3,6 @@
  * Copyright (C) 2021 ChalesYu <574249312@qq.com>
  */
 
-/*  !!! NOTICE NOTICE NOTICE !!!  */
-/* WIP status, NOT Final version */
-
 #include "sun50i-h6-beelink-gs1.dts"
 
 / {
