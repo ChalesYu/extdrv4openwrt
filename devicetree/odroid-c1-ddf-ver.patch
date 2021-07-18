@@ -1,0 +1,56 @@
+7c7 change "real" board name
+< 	model = "Hardkernel ODROID-C1";
+---
+> 	model = "Hardkernel ODROID-C1 DDF Ver (Van♂Cloud)";
+147c147 enable 2nd USB phy
+< 				status = "disabled";
+---
+> 				status = "okay";
+453d452 delete usb hub gpio for LED
+< 						gpios = <0x4 0x0>;
+490c489  enable 2nd USB node
+< 			status = "disabled";
+---
+> 			status = "okay";
+525c524 for rtl8211
+< 			amlogic,tx-delay-ns = <0x4>;
+---
+> 			amlogic,tx-delay-ns = <0x2>;
+537c536 for rtl8211
+< 					reset-deassert-us = <0x7530>;
+---
+> 					reset-deassert-us = <0xf4240>;
+819a819,831 add reset key
+> 	gpio-keys {
+> 		compatible = "gpio-keys-polled";
+> 		#address-cells = <0x1>;
+> 		#size-cells = <0x0>;
+> 		poll-interval = <0x64>;
+> 
+> 		reset-button {
+> 			label = "power";
+> 			linux,code = <0x74>;
+> 			gpios = <0x22 0x5 0x0>;
+> 		};
+> 	};
+> 
+822a835,846 add led
+> 		red {
+> 			label = "c1:red:alive";
+> 			gpios = <0x22 0x2 0x0>;
+> 			default-state = "off";
+> 		};
+> 
+> 		green {
+> 			label = "c1:green:alive";
+> 			gpios = <0x22 0x3 0x0>;
+> 			default-state = "off";
+> 		};
+> 
+825,826c849 fix blue led
+< 			gpios = <0x22 0xd 0x1>;
+< 			linux,default-trigger = "heartbeat";
+---
+> 			gpios = <0x22 0x4 0x0>;
+856d878   remove TF IO for LED
+< 		gpios = <0x22 0x3 0x0>;

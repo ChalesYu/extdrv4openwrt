@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: (GPL-2.0+)
+/*
+ * Copyright (C) 2021 ChalesYu <574249312@qq.com>
+ */
+
+/*  !!! NOTICE NOTICE NOTICE !!!  */
+/* WIP status, NOT Final version */
+
+#include "sun50i-h6-beelink-gs1.dts"
+
+/ {
+	model = "Shan Bei H6";
+	compatible = "azw,beelink-gs1", "allwinner,sun50i-h6";
+
+};
+
+
