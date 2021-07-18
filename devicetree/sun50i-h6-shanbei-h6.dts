@@ -28,3 +28,49 @@
 	vcc-pg-supply = <&reg_aldo1>;
 };
 
+//i2c3
+&i2c3_pins {
+	drive-strength = <20>;
+	bias-pull-up;
+};
+&i2c3 {
+	status = "okay";
+};
+
+//AC200
+&pwm {
+	status = "okay";
+};
+
+&ac200_pwm_clk {
+	status = "okay";
+
+};
+
+&ac200 {
+	interrupt-parent = <&pio>;
+	interrupts = <1 20 IRQ_TYPE_LEVEL_LOW>; //PB20 for H6
+	interrupt-controller;
+	interrupt-cells = <1>;
+	clocks = <&ac200_pwm_clk>;
+	status = "okay";
+};
+
+&ac200_ephy {
+	clocks = <&ac200_pwm_clk>;
+	status = "okay";
+};
+
+//board using ac200-ephy but not rtl8211
+&emac {
+	pinctrl-names = "default";
+	pinctrl-0 = <&ext_rmii_pins>;
+	phy-mode = "rmii";
+	phy-handle = <&ext_rgmii_phy>;
+	phy-supply = <&reg_aldo2>;
+	allwinner,rx-delay-ps = <200>;
+	allwinner,tx-delay-ps = <200>;
+	status = "okay";
+};
+
+
