@@ -14,4 +14,17 @@
 
 };
 
+//pio for i2c3 and ac200 , emac power
+&reg_aldo2 {
+//tanix tx6 don't have PMU
+//use this ugly solution
+	regulator-always-on;
+};
+
+//from orange pi dtsi
+&pio {
+	vcc-pc-supply = <&reg_bldo2>;
+	vcc-pd-supply = <&reg_cldo1>;
+	vcc-pg-supply = <&reg_aldo1>;
+};
 
