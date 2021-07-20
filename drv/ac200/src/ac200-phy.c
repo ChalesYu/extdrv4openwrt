@@ -138,23 +138,42 @@ static int ac200_ephy_probe(struct platform_device *pdev)
 	calcell = devm_nvmem_cell_get(dev, "ephy_calib");
 	if (IS_ERR(calcell)) {
 		dev_err(dev, "Unable to find calibration data!\n");
-		return PTR_ERR(calcell);
+		dev_err(dev, "Will force set to H6\n");
+		goto Calibration_for_h6;
+//		return PTR_ERR(calcell);
 	}
 
 	caldata = nvmem_cell_read(calcell, &callen);
 	if (IS_ERR(caldata)) {
 		dev_err(dev, "Unable to read calibration data!\n");
-		return PTR_ERR(caldata);
+		dev_err(dev, "Will force set to H6\n");
+		goto Calibration_for_h6;
+//		return PTR_ERR(caldata);
 	}
 
 	if (callen != 2) {
 		dev_err(dev, "Calibration data has wrong length: 2 != %lu\n",
 			callen);
-		kfree(caldata);
-		return -EINVAL;
+		dev_err(dev, "Will force set to H6\n");
+		goto Calibration_for_h6;
+//		kfree(caldata);
+//		return -EINVAL;
 	}
 
 	calib = *caldata + 3;
+	dev_err(dev, "[Calibration] (u16)calib from FUSE set to : %d \n",
+			calib);
+	goto get_calibration_end;
+
+Calibration_for_h6:
+	dev_err(dev, "[Calibration] (u16)calib for H6 \n");
+	calib = 6; //for Allwinner H6
+	dev_err(dev, "[Calibration] (u16)calib from FUSE FORCE set to : %d \n",
+			calib);
+
+get_calibration_end:
+	dev_err(dev, "[Calibration] get_calibration_end \n");
+
 	kfree(caldata);
 
 	ephy->phy_id = AC200_EPHY_ID;
