@@ -1,0 +1,23 @@
+// SPDX-License-Identifier: (GPL-2.0+)
+/*
+ * Copyright (C) 2021 Zhao Yu <574249312@qq.com>
+ */
+
+#include "sun8i-h3-beelink-x2.dts"
+
+/ {
+	model = "Skyworth T2 Plus Q1001";
+	compatible = "roofull,beelink-x2", "allwinner,sun8i-h3";
+
+	wifi_pwrseq: wifi-pwrseq {
+		compatible = "mmc-pwrseq-simple";
+		reset-gpios = <&r_pio 0 0 GPIO_ACTIVE_LOW>; /* PL0 */
+		post-power-on-delay-ms = <200>;
+	};
+
+};
+
+&reg_usb0_vbus {
+	/delete-property/ gpio; /* PL2 */
+};
+
