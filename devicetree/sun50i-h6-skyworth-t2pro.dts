@@ -1,0 +1,56 @@
+// SPDX-License-Identifier: (GPL-2.0+)
+/*
+ * Copyright (C) 2021 Zhao Yu <574249312@qq.com>
+ */
+
+#include "sun50i-h6-tanix-tx6.dts"
+
+/ {
+	model = "Skyworth T2 Pro LB1805/Q3042";
+	compatible = "oranth,tanix-tx6", "allwinner,sun50i-h6";
+
+	leds {
+		compatible = "gpio-leds";
+
+		power {
+			label = "cw:white:power";
+			gpios = <&r_pio 0 4 GPIO_ACTIVE_HIGH>; /* PL4 */
+			default-state = "on";
+		};
+	};
+
+	reg_usb_vbus: usb-vbus {
+		compatible = "regulator-fixed";
+		regulator-name = "usb-vbus";
+		regulator-min-microvolt = <5000000>;
+		regulator-max-microvolt = <5000000>;
+		gpio = <&r_pio 0 5 GPIO_ACTIVE_HIGH>; /* PL5 */
+		enable-active-high;
+	};
+
+};
+
+/* board use for uart pins, No SD Card Solt */
+&uart0-ph-pins {
+	pins = "PF2", "PF4";
+};
+
+/* sdcard */
+&mmc0 {
+	status = "disabled";
+};
+
+/* eMMC */
+&mmc2 {
+	max-frequency = <150000000>;
+	mmc-ddr-1_8v;
+	mmc-hs200-1_8v;
+	mmc-hs400-1_8v;
+	status = "okay";
+};
+
+&usb3phy {
+	phy-supply = <&reg_usb_vbus>;
+	status = "okay";
+};
+
