@@ -1,0 +1,23 @@
+From fb9bdadf5e4d5a62a4fa2330187db62cf815a7b2 Mon Sep 17 00:00:00 2001
+From: chalesyu <574249312@qq.com>
+Date: Wed, 21 Jul 2021 00:00:00 +0800
+Subject: [PATCH 3/6] add pull up PM2 for AXP2402
+
+---
+ arch/arm/mach-sunxi/board.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm/mach-sunxi/board.c b/arch/arm/mach-sunxi/board.c
+index 19db406ad5..5f72d0f512 100644
+--- a/arch/arm/mach-sunxi/board.c
++++ b/arch/arm/mach-sunxi/board.c
+@@ -121,6 +121,7 @@ static int gpio_init(void)
+ 	sunxi_gpio_set_pull(SUNXI_GPF(4), SUNXI_GPIO_PULL_UP);
+ 	sunxi_gpio_set_pull(SUNXI_GPL(4), SUNXI_GPIO_PULL_UP); /* Power led */
+ 	sunxi_gpio_set_pull(SUNXI_GPL(5), SUNXI_GPIO_PULL_UP); /* USB Power */
++	sunxi_gpio_set_pull(SUNXI_GPM(2), SUNXI_GPIO_PULL_UP); /* PMU AXP2402 */
+ #elif CONFIG_CONS_INDEX == 1 && defined(CONFIG_MACH_SUN50I_H616)
+ 	sunxi_gpio_set_cfgpin(SUNXI_GPH(0), SUN50I_H616_GPH_UART0);
+ 	sunxi_gpio_set_cfgpin(SUNXI_GPH(1), SUN50I_H616_GPH_UART0);
+-- 
+
