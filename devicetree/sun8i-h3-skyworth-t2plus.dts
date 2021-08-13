@@ -16,6 +16,24 @@
 	post-power-on-delay-ms = <200>;
 };
 
+/* sdcard */
+&mmc0 {
+	status = "disabled";
+};
+
+&sdiowifi {
+	compatible = "xradio,xr819";
+	interrupt-parent = <&pio>;
+	interrupts = <0 11 IRQ_TYPE_EDGE_RISING>; /* PA11 */
+	interrupt-names = "host-wake";
+}
+
+/* eMMC */
+&mmc2 {
+	max-frequency = <150000000>;
+	status = "okay";
+};
+
 &reg_usb0_vbus {
 	regulator-always-on;
 	status = "okay";
