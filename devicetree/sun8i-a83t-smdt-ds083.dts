@@ -1,8 +1,19 @@
 /*
  * chalesyu
  * 2021-11-10
- * board will halt/reboot after 5 minutes.
+ * Board will halt/reboot after 5 minutes.
+ * 2021-11-17
+ * This board has been released more than 3 years.
+ * A way to disable MCU, short GND and NRST pin.
+ * This way will cause vendor kernel refuse boot.
+ *            MCU               __
+ * __________            _______\/_
+ * |                _____________  |
+ * |     *     *    |_*_|   |_*_|  |
+ * |    VCC  SWIM    NRST    GND   |
+ * |_______________________________|
 */
+
 /dts-v1/;
 #include "sun8i-a83t.dtsi"
 
@@ -25,10 +36,76 @@
 	backlight: backlight {
 		compatible = "pwm-backlight";
 		pwms = <&pwm 0 50000 PWM_POLARITY_INVERTED>;
-		enable-gpios = <&pio 3 28 GPIO_ACTIVE_HIGH>; /* PD28 */
+		enable-gpios = <&pio 3 29 GPIO_ACTIVE_HIGH>; /* PD29 */
 
 		brightness-levels = <0 1 2 4 8 16 32 64 128 255>;
 		default-brightness-level = <9>;
+	};
+
+	lvds-encoder {
+	// THine THC63LVD827 RGB to LVDS
+		compatible = "thine,thc63lvd1024", "lvds-encoder";
+		// Not work yet
+		status = "disabled";
+
+		vcc-supply = <&reg_sw>;
+
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			port@0 {
+				reg = <0>;
+
+				lvds_encoder_input: endpoint {
+					remote-endpoint = <&rgb_output>;
+				};
+			};
+
+			port@1 {
+				reg = <1>;
+
+				lvds_encoder_output: endpoint {
+					remote-endpoint = <&panel_input>;
+				};
+			};
+		};
+	};
+
+	panel {
+		// Not work yet
+		status = "disabled";
+
+		compatible = "panel-lvds";
+		backlight = <&backlight>;
+		power-supply = <&lcd_panel_pwr>;
+
+		width-mm = <0>;
+		height-mm = <0>;
+		rotation = <0>;
+
+		data-mapping = "vesa-24";
+
+		panel-timing {
+			clock-frequency = <71980000>;
+
+			hactive = <1920>;
+			vactive = <1080>;
+
+			hfront-porch = <56>;
+			hsync-len = <14>;
+			hback-porch = <106>;
+
+			vfront-porch = <3>;
+			vsync-len = <1>;
+			vback-porch = <6>;
+		};
+
+		port {
+			panel_input: endpoint {
+				remote-endpoint = <&lvds_encoder_output>;
+			};
+		};
 	};
 
 	hdmi-connector {
@@ -64,6 +141,18 @@
 		};
 	};
 
+	sound_hdmi: sound-hdmi {
+		compatible = "allwinner,sun9i-a80-hdmi-audio", "allwinner,sun8i-a83t-hdmi-audio";
+		status = "okay";
+
+		codec {
+			sound-dai = <&hdmi>;
+		};
+
+		cpu {
+			sound-dai = <&i2s2>;
+		};
+	};
 
 	usb-hub {
 		/* I2C is not connected */
@@ -84,6 +173,16 @@
 		regulator-always-on;
 		enable-active-high;
 		gpio = <&pio 4 17 GPIO_ACTIVE_LOW>; /* PE17 */
+	};
+
+	lcd_panel_pwr: lcd-panel-pwr {
+		compatible = "regulator-fixed";
+		regulator-name = "lcd_panel_pwr";
+		regulator-min-microvolt = <5000000>;
+		regulator-max-microvolt = <5000000>;
+		regulator-always-on;
+		enable-active-high;
+		gpio = <&pio 6 12 GPIO_ACTIVE_HIGH>; // PG12
 	};
 
 
@@ -153,10 +252,6 @@ gpio_pin_12 = port:PB02<1><default><default><0> //red led mcu
 	cpu-supply = <&reg_dcdc3>;
 };
 
-&de {
-	status = "okay";
-};
-
 &ehci0 {
 	status = "okay";
 };
@@ -166,6 +261,7 @@ gpio_pin_12 = port:PB02<1><default><default><0> //red led mcu
 };
 
 &hdmi {
+	#sound-dai-cells = <0>;
 	status = "okay";
 };
 
@@ -173,6 +269,16 @@ gpio_pin_12 = port:PB02<1><default><default><0> //red led mcu
 	hdmi_out_con: endpoint {
 		remote-endpoint = <&hdmi_con_in>;
 	};
+};
+
+&de {
+	status = "okay";
+};
+
+&pwm {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pwm_pin>;
+	status = "okay";
 };
 
 &mmc0 {
@@ -207,9 +313,47 @@ gpio_pin_12 = port:PB02<1><default><default><0> //red led mcu
 		x-powers,drive-vbus-en;
 	};
 
+	ac100: codec@e89 {
+		compatible = "x-powers,ac100";
+		reg = <0xe89>;
+
+		ac100_codec: codec {
+			compatible = "x-powers,ac100-codec";
+			interrupt-parent = <&r_pio>;
+			interrupts = <0 11 IRQ_TYPE_LEVEL_LOW>; /* PL11 */
+			#clock-cells = <0>;
+			clock-output-names = "4M_adda";
+		};
+
+		ac100_rtc: rtc {
+			compatible = "x-powers,ac100-rtc";
+			interrupt-parent = <&r_intc>;
+			interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
+			clocks = <&ac100_codec>;
+			#clock-cells = <1>;
+			clock-output-names = "cko1_rtc",
+					     "cko2_rtc",
+					     "cko3_rtc";
+		};
+	};
+
 };
 
 #include "axp81x.dtsi"
+
+&gpio0_ldo {
+	regulator-always-on;
+	regulator-min-microvolt = <3100000>;
+	regulator-max-microvolt = <3100000>;
+	regulator-name = "gpio0_ldo";
+};
+
+&gpio1_ldo {
+	regulator-always-on;
+	regulator-min-microvolt = <3100000>;
+	regulator-max-microvolt = <3100000>;
+	regulator-name = "vcc-ctp";
+};
 
 &reg_dcdc1 {
 	regulator-always-on;
@@ -256,14 +400,14 @@ gpio_pin_12 = port:PB02<1><default><default><0> //red led mcu
 	regulator-always-on;
 	regulator-min-microvolt = <1800000>;
 	regulator-max-microvolt = <1800000>;
-	regulator-name = "vcc-1v8";
+	regulator-name = "avdd-csi";
 };
 
 &reg_aldo2 {
 	regulator-always-on;
 	regulator-min-microvolt = <1800000>;
 	regulator-max-microvolt = <1800000>;
-	regulator-name = "dram-pll";
+	regulator-name = "iovdd-csi";
 };
 
 &reg_aldo3 {
@@ -291,7 +435,7 @@ gpio_pin_12 = port:PB02<1><default><default><0> //red led mcu
 	regulator-always-on;
 	regulator-min-microvolt = <3100000>;
 	regulator-max-microvolt = <3100000>;
-	regulator-name = "vdd-ephy";
+	regulator-name = "vcc-wifi-io";
 };
 
 &reg_dldo3 {
@@ -337,7 +481,24 @@ gpio_pin_12 = port:PB02<1><default><default><0> //red led mcu
 };
 
 &reg_sw {
-	regulator-name = "vcc-wifi-io";
+	regulator-name = "vcc-lcd-0";
+};
+
+&pio {
+	lcd0_pins: lcd0-pins {
+		pins = "PD2", "PD3", "PD4", "PD5", "PD6", "PD7",
+			/* "PD8", "PD9", */ 
+			"PD10", "PD11", "PD12",
+			"PD13", "PD14", "PD15",
+			/* "PD16", "PD17", */
+			"PD18", "PD19", "PD20", "PD21", "PD22",
+		       "PD23", "PD24", "PD25", "PD26", "PD27";
+		function = "lcd0";
+	};
+};
+
+&i2s2 {
+	status = "okay";
 };
 
 &i2c0 {
@@ -347,35 +508,12 @@ gpio_pin_12 = port:PB02<1><default><default><0> //red led mcu
 
 	clock-frequency = <400000>;
 
-	ac100: codec@1a {
-		compatible = "x-powers,ac100";
-		reg = <0x1a>;
-
-		ac100_codec: codec {
-			compatible = "x-powers,ac100-codec";
-			interrupt-parent = <&r_pio>;
-			interrupts = <0 11 IRQ_TYPE_LEVEL_LOW>; /* PL11 */
-			#clock-cells = <0>;
-			clock-output-names = "4M_adda";
-		};
-
-		ac100_rtc: rtc {
-			compatible = "x-powers,ac100-rtc";
-			interrupt-parent = <&r_intc>;
-			interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
-			clocks = <&ac100_codec>;
-			#clock-cells = <1>;
-			clock-output-names = "cko1_rtc",
-					     "cko2_rtc",
-					     "cko3_rtc";
-		};
-	};
-
 	//mcu_detect: Detected chip mcuinf at adapter 0, address 0x62
 	mcuinf@62 {
 		// STM 8S003F3P6
+		//  This MCU have burned SMDT private firmware.
 		//  If didn't configure this MCU
-		//  After 5 minutes system will reboot or halt
+		//  After 5 minutes system will force reboot.
 		reg = <0x62>;
 	};
 
@@ -417,8 +555,17 @@ gpio_pin_12 = port:PB02<1><default><default><0> //red led mcu
 	wdt87xx@2c {
 		reg = <0x2c>;
 	};
+};
 
+&tcon0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&lcd0_pins>;
+};
 
+&tcon0_out {
+	rgb_output: endpoint {
+		remote-endpoint = <&lvds_encoder_input>;
+	};
 };
 
 &uart0 {
