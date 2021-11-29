@@ -15,10 +15,10 @@ include $(INCLUDE_DIR)/package.mk
 
 define KernelPackage/sr9700-jl
   SUBMENU:=Other modules
-  DEPENDS:=
+  DEPENDS:= +kmod-usb-net
   TITLE:=Driver for KY-RD9700 USB ethernet devices
-  AUTOLOAD:=$(call AutoLoad,70,sr9700)
-  FILES:=$(PKG_BUILD_DIR)/sr9700.ko
+  AUTOLOAD:=$(call AutoLoad,70,sr9700_ml)
+  FILES:=$(PKG_BUILD_DIR)/sr9700_ml.ko
 endef
 
 define Build/Compile

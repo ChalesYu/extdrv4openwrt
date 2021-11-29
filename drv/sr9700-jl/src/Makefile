@@ -10,7 +10,7 @@
 #
 
 obj-m		:=
-obj-m		+= sr9700.o
+obj-m		+= sr9700_ml.o
 
 
 ifeq ($(MAKING_MODULES),1)
