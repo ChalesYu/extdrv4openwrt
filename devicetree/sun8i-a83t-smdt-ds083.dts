@@ -44,11 +44,11 @@
 
 	lvds-encoder {
 	// THine THC63LVD827 RGB to LVDS
-		compatible = "thine,thc63lvd1024", "lvds-encoder";
+		compatible = "thine,thc63lvdm83d", "lvds-encoder";
 		// Not work yet
 		status = "disabled";
-
-		vcc-supply = <&reg_sw>;
+		powerdown-gpios = <&pio 4 4 GPIO_ACTIVE_HIGH>; //PE4 //maybe error
+		vcc-supply = <&reg_eldo1>;
 
 		ports {
 			#address-cells = <1>;
@@ -73,12 +73,13 @@
 	};
 
 	panel {
-		// Not work yet
+		// FIX ME
 		status = "disabled";
 
-		compatible = "panel-lvds";
+		//compatible = "panel-lvds"; //error
 		backlight = <&backlight>;
-		power-supply = <&lcd_panel_pwr>;
+		power-supply = <&reg_eldo2>;
+		enable-gpios = <&pio 6 12 GPIO_ACTIVE_HIGH>; // PG12
 
 		width-mm = <0>;
 		height-mm = <0>;
@@ -174,7 +175,7 @@
 		enable-active-high;
 		gpio = <&pio 4 17 GPIO_ACTIVE_LOW>; /* PE17 */
 	};
-
+/*
 	lcd_panel_pwr: lcd-panel-pwr {
 		compatible = "regulator-fixed";
 		regulator-name = "lcd_panel_pwr";
@@ -184,7 +185,7 @@
 		enable-active-high;
 		gpio = <&pio 6 12 GPIO_ACTIVE_HIGH>; // PG12
 	};
-
+*/
 
 // for gpios
 /*
@@ -203,7 +204,7 @@ gpio_pin_11 = port:PG12<1><default><default><1> //gpio_lcd_panel_pwr
 gpio_pin_12 = port:PB02<1><default><default><0> //red led mcu
 */
 
-
+/*
 	ph9 {
 		compatible = "regulator-fixed";
 		regulator-name = "ph9";
@@ -211,6 +212,7 @@ gpio_pin_12 = port:PB02<1><default><default><0> //red led mcu
 		enable-active-high;
 		gpio = <&pio 7 9 GPIO_ACTIVE_HIGH>;
 	};
+
 	pe4 {
 		compatible = "regulator-fixed";
 		regulator-name = "pe4";
@@ -218,6 +220,7 @@ gpio_pin_12 = port:PB02<1><default><default><0> //red led mcu
 		enable-active-high;
 		gpio = <&pio 4 4 GPIO_ACTIVE_HIGH>;
 	};
+
 	pg3 {
 		compatible = "regulator-fixed";
 		regulator-name = "pg3";
@@ -239,7 +242,7 @@ gpio_pin_12 = port:PB02<1><default><default><0> //red led mcu
 		enable-active-high;
 		gpio = <&pio 6 5 GPIO_ACTIVE_HIGH>;
 	};
-
+*/
 // gpio --- end
 
 };
@@ -446,6 +449,7 @@ gpio_pin_12 = port:PB02<1><default><default><0> //red led mcu
 };
 
 &reg_dldo4 {
+	regulator-always-on;
 	regulator-enable-ramp-delay = <100000>;
 	regulator-min-microvolt = <3000000>;
 	regulator-max-microvolt = <3000000>;
