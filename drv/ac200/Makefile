@@ -19,6 +19,7 @@ define KernelPackage/ac200
   TITLE:=Driver for AC200
   AUTOLOAD:=$(call AutoLoad,70,ac200-mfd)
   FILES:=$(PKG_BUILD_DIR)/ac200-mfd.ko \
+		$(PKG_BUILD_DIR)/clk-pwm.ko \
 		$(PKG_BUILD_DIR)/ac200-phy.ko
 endef
 
