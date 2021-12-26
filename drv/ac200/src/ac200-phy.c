@@ -167,7 +167,9 @@ static int ac200_ephy_probe(struct platform_device *pdev)
 
 Calibration_for_h6:
 	dev_err(dev, "[Calibration] (u16)calib for H6 \n");
-	calib = 6; //for Allwinner H6
+//Different device have different value
+//So this value maybe need Change
+	calib = 6;
 	dev_err(dev, "[Calibration] (u16)calib from FUSE FORCE set to : %d \n",
 			calib);
 

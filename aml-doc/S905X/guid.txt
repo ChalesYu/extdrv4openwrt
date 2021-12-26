@@ -1,0 +1,209 @@
+下回可不买这板子了，做开发还是老实用开发板吧
+
+本文基本在linux环境下操作，请读者确保有一定的linux使用基础，和python使用基础。
+简介：
+  晶晨S905的板子默认带的安卓可以通过串口访问命令行
+  一般输入su来获取超级用户权限，获取后可以擦除EMMC
+  的数据如 mmcblk0,mmcblk0boot0,mmcblk0boot1
+  就可以把它变成一个开发板，然后我们就可以通过USB
+  类似刷机的方式启动u-boot,进而引导启动linux内核
+  然后挂载一个文件系统(可以在U盘上，也可以在SD上)。
+  文件系统(rootfs)内包含linux发行版的文件。这样
+  启动完成后我们就进入了linux发行版的shell。
+
+1. 清除板载EMMC的启动数据
+	注意我以EMMC显示为mmcblk0为例子，你的板子上
+	可能为mmcblk1或mmcblk2。对应的也应该改为
+	mmcblk1boot0,mmcblk1boot1或mmcblk2boot0,
+	mmcblk2boot1。小心别擦除错了数据。
+
+BSP:
+	晶晨的BSP linux 3.14内核(内置安卓)不会保护 boot0 boot1
+	所以串口命令为：
+	dd if=/dev/zero of=/dev/block/mmcblk0 bs=512 count=8192 #擦除eMMC前面的数据(因为包含bootloader)
+	dd if=/dev/zero of=/dev/block/mmcblk0boot0
+	dd if=/dev/zero of=/dev/block/mmcblk0boot1
+
+上游主线：
+	Armbian,LibreELEC等发行版基本用的上游主线内核，在上游主线(kernel.org)内核(linux版本大于4.19)
+	(S905L系列的板子有缩水，需要改dtb来识别板载eMMC，详细在后面说)
+	eMMC的boot0，boot1默认被保护，无法写入数据，需要先解除保护,操作方法：
+
+	root@aml:/sys# cd /
+	root@aml:/# find /sys |grep force_ro                                                                                                                                                          
+	/sys/devices/platform/soc/d0000000.apb/d0074000.mmc/mmc_host/mmc1/mmc1:0001/block/mmcblk1/mmcblk1boot0/force_ro
+	/sys/devices/platform/soc/d0000000.apb/d0074000.mmc/mmc_host/mmc1/mmc1:0001/block/mmcblk1/force_ro
+	/sys/devices/platform/soc/d0000000.apb/d0074000.mmc/mmc_host/mmc1/mmc1:0001/block/mmcblk1/mmcblk1boot1/force_ro
+	root@aml:/#
+
+	可以看到我的板子的eMMC被识别为mmcblk1，需要让这些force_ro为0来解除保护，所以命令为
+
+	echo 0 > /sys/devices/platform/soc/d0000000.apb/d0074000.mmc/mmc_host/mmc1/mmc1:0001/block/mmcblk1/mmcblk1boot0/force_ro
+	echo 0 > /sys/devices/platform/soc/d0000000.apb/d0074000.mmc/mmc_host/mmc1/mmc1:0001/block/mmcblk1/force_ro
+	echo 0 > /sys/devices/platform/soc/d0000000.apb/d0074000.mmc/mmc_host/mmc1/mmc1:0001/block/mmcblk1/mmcblk1boot1/force_ro
+
+	执行完命令后， 我们可以像操作BSP 内核一样擦除eMMC 但注意命令不同
+
+	root@aml:/# dd if=/dev/zero of=/dev/mmcblk1boot0
+	dd: writing to '/dev/mmcblk1boot0': No space left on device
+	8193+0 records in
+	8192+0 records out
+	4194304 bytes (4.2 MB, 4.0 MiB) copied, 0.383001 s, 11.0 MB/s
+	root@aml:/# dd if=/dev/zero of=/dev/mmcblk1boot1
+	dd: writing to '/dev/mmcblk1boot1': No space left on device
+	8193+0 records in
+	8192+0 records out
+	4194304 bytes (4.2 MB, 4.0 MiB) copied, 0.388641 s, 10.8 MB/s
+	root@aml:/# dd if=/dev/zero of=/dev/mmcblk1 bs=1M count=128
+	128+0 records in
+	128+0 records out
+	134217728 bytes (134 MB, 128 MiB) copied, 3.47444 s, 38.6 MB/s
+	root@aml:/#
+
+	上面这些命令中， 我成功擦除了eMMC的 boot0,boot1, 和前128M。 然后让板子重启，重新通电。
+	(eMMC rpmb 分区没找到方法怎么读写，里面应该是存了序列号什么的)
+
+	成功后重新通电，串口(波特率115200)会看到以下输出(我以那个板子作为例子)，证明已经进入到刷机模式了。
+		GXLX:BL1:9ac50e:4a8da0;FEAT:ADFC318C:0;POC:3;RCY:0;EMMC:0;READ:0;CHK:A0;READ:0;CHK:A0;READ:0;CHK:A0;SD:800;USB:8;
+
+	然后用公对公的USB线连电脑,电脑会识别到一个新设备： ID 1B8E:C003 ,然后可以继续。
+	(临时进入刷机模式：板子上一般有短接点， MGV2000 是用个导电的针短接CPU旁边的电阻和屏蔽罩(GND),也能临时禁用eMMC，短接后通电即可)
+
+
+2. 使用USB启动厂商 u-boot
+	首先用到的工具来自 https://github.com/superna9999/pyamlboot
+	我克隆了一份，加上了p211的启动文件，你自己看git log吧	压缩包为：file/pyamlboot_p211.zip
+	我相信搞ai机器学习的你应该会玩python吧，需要把python的依赖库补全，像pyusb什么的库，你应该能自己折腾明白。
+
+	双公头USB连上电脑，电脑识别到usb设备,接上串口，波特率115200 。
+	看好串口输出，电脑上运行python命令:
+	sudo python boot.py p211
+
+	然后串口有输出了，过一会，这时你看串口，结尾那块
+
+	U-Boot 2015.01 (Oct 28 2020 - 09:55:21)
+
+	DRAM:  1 GiB
+	Relocation Offset is: 36ea6000
+	[MSG]MMC init in usb
+	aml_priv->desc_buf = 0x0000000033e96630
+	aml_priv->desc_buf = 0x0000000033e98950
+	SDIO Port B: 0, SDIO Port C: 1
+	Enter USB burn
+	Set Addr 16
+	Get DT cfg
+	Get DT cfg
+	set CFG
+
+	证明启动到厂商的u-boot了, 但是是厂商u-boot的刷机模式了(你可以看pyamlboot的README.md，他会告诉你如何启动kernel(用英文))
+	但这不是我想要的，我想要启动到u-boot shell，这里有个技巧，失败了多试几次
+	(在出现"U-Boot 2015.01 ..."之后且在出现"Enter USB burn"之前拔掉usb,它会卡在Enter USB burn 等一会，然后会继续启动，这时在串口终端狂按回车，就会中断启动，给你u-boot shell)
+	附部分 log:
+
+	...
+
+	U-Boot 2015.01 (Oct 28 2020 - 09:55:21)
+
+	DRAM:  1 GiB
+	Relocation Offset is: 36ea6000
+	[MSG]MMC init in usb
+	aml_priv->desc_buf = 0x0000000033e96630
+	aml_priv->desc_buf = 0x0000000033e98950
+	SDIO Port B: 0, SDIO Port C: 1
+	Enter USB burn
+	Try connect time out 20001, 20000, 1906
+	gpio: pin GPIODV_24 (gpio 43) value is 1
+	register usb cfg[0][1] = 0000000037f598c0
+	[CANVAS]canvas init
+
+	...
+
+	Usage:
+	irkey 
+	rebootmode=normal
+	Hit any key to stop autoboot:  0 
+	gxl_p211_v1#
+	gxl_p211_v1#
+	gxl_p211_v1#
+
+	有了u-boot shell就很舒服, 我们可以把linux发行版刷到U盘上，插U盘启动它
+	(甚至可以把BSP 安卓4.4 刷到U盘上，插U盘启动安卓-能成功)
+
+3. 使用SD卡启动厂商u-boot
+	注意：某些S905板子没有SD卡槽，默认系统储存在EMMC上。(有些在NAND上，这种的暂时没法支持)
+	我给你的那个板子用的EMMC启动，无SD卡槽。(如果boot0或boot1有bootloader，cpu会从这读取然后启动)
+	由于EMMC与SD卡控制方式相同，几乎可以看作是SD卡加上boot0,boot1,rpmb分区。
+	目前厂商的bl2等底层的引导代码没开源，但我们仍然可以启动到基于主线linux内核的发行版。
+	启动过程：  厂商u-boot -> 上游主线u-boot -> 上游主线kernel (具体在后面说)
+
+	厂商u-boot.bin在 file/vendor_u-boot.bin , 支持p211,p261,p291等1G内存的S905L系列板子。
+	SD卡的写入命令：
+	sudo dd if=vendor_u-boot.bin of=/dev/mmcblk0 conv=fsync,notrunc bs=1 count=444
+	sudo dd if=vendor_u-boot.bin of=/dev/mmcblk0 conv=fsync,notrunc bs=512 skip=1 seek=1
+
+	直接刷到eMMC的boot0里也可以，下次插电就重新启动这个u-boot了
+	echo 0 > /sys/devices/platform/soc/d0000000.apb/d0074000.mmc/mmc_host/mmc1/mmc1:0001/block/mmcblk1/mmcblk1boot0/force_ro
+	echo 0 > /sys/devices/platform/soc/d0000000.apb/d0074000.mmc/mmc_host/mmc1/mmc1:0001/block/mmcblk1/mmcblk1boot1/force_ro
+	sudo dd if=/dev/zero of=/dev/block/mmcblk1boot1
+	sudo dd if=vendor_u-boot.bin of=/dev/block/mmcblk0boot1
+
+4. 启动厂商u-boot后需要做一些事
+	如果顺利，厂商u-boot会在eMMC里找dtb，然后应用dtb里的一些数据，包括env分区的位置，然后从env读取运行bootcmd,启动安卓boot.img
+	现在我们需要让厂商u-boot找到dtb。
+	准备个U盘，格式化为fat32格式，把 file/vendor_dtb.img 复制到里面。
+	然后启动到u-boot shell, 插上U盘。
+
+	usb start
+	fatload usb 0 $dtb_mem_addr vendor_dtb.img
+	store dtb write $dtb_mem_addr
+
+	上面的命令是把dtb写入到eMMC中。
+	可以用命令 printenv 和 saveenv 看看变量是否能正常保存。
+
+
+5. [可选]让厂商u-boot找外置(或内置)的存储设备内的s905_autosript启动
+	这个厂商u-boot执行的默认脚本(bootcmd)大致是找安卓的bootimg启动，由于我几乎擦除了整个eMMC,基本会失败。
+	然后它就会找aml_autoscript来试图恢复(参见 printenv 命令的输出)。
+	我的目的是让它在启动时找到U盘上的s905_autoscript 并运行，这个脚本会告诉厂商u-boot下一步做什么。
+
+	file/aml_autoscript 让厂商u-boot在每次启动时找内/外置存储设备的 s905_autoscript 然后运行
+	(file/aml_autoscript.cmd 是它的源码，最后一行告诉你了如何重新编译它)
+
+	file/s905_autoscript 让厂商u-boot找U盘上的u-boot-cc.bin 然后链式加载它
+	(file/s905_autoscript.cmd 是它的源码，最后一行告诉你了如何重新编译它)
+
+	运行命令：  usb start;run recovery_from_udisk
+	可以执行U盘上的aml_autoscript
+
+
+6. [可选]用厂商u-boot链式加载上游主线u-boot
+	拿到厂商u-boot shell,后，我们可以让它引导主线u-boot,或主线linux。
+	这个缩水的S905L2板子非常像libretech-cc, 可以用p212的defconfig编译主线u-boot。
+	具体看wiki吧 参考(https://linux-meson.com) 主线u-boot的源码在这 (https://git.denx.de/u-boot/u-boot.git)
+
+	file/u-boot-cc.bin 为从librePC(https://libre.computer)官网下载的主线u-boot。版本可能比较旧，不兼容最新的主线内核，建议从源码编译。
+	用命令加载U盘上的主线u-boot：
+
+	usb start
+	fatload usb 0 1000000 u-boot-cc.bin
+	go 1000000
+
+	上游主线u-boot 就不用我教了吧， 这个主线uboot支持非常多的厂商SoC，引导linux主线内核的命令都是通用的，大同小异。
+	(所以看看别的Arm64芯片厂商提供的开发板的教程，肯定有教你怎么用主线uboot的，活学活用，你懂的。)
+
+6. [杂谈]其他随便谈谈这些S905的板子
+	S905系列的变体板非常多，在这简单列举一下我目前所知道的(和猜的)
+	S905/S905M (gxbb_p200_1g ,gxbb_p201_1g) 最早期的 meson GX BaBy 板，有很多坑，系统运行时插上个USB Hub直接重启(硬件的锅)。
+	S905L/S905X (gxl_p211_1g,gxl_p212_1g) 开始启动了一些安全措施，但也是硬件缩水(降低成本和售价)的开始。
+	S905D (gxl_p231_1g) 在某讯N1上采用,T1用的是S912，庞氏骗局崩盘的矿渣，在国外的论坛上也出现过。
+	S905L2 (gxlx_p261_1g) 给运营商交押金"免费借"的缩水盒子，在国产杂牌机也出现过。比S905L在GPU砍了一个PP，gxlx在时钟也有修改，eMMC频率缩水的和S905W一样。
+	S905W (gxl_p281_1g) 基本是国外的"缩水版"，面向国外的linux-meson.com有介绍，国内有广告机采用。
+	S905L3 (gxlx2_p291_1g) 继承了S905L2缩水的特点，顺便把HDMI的寄存器换了，vpu缩了，eMMC的频率更低了。用给S905L2的X7-5G的dtb能启动到linux shell。
+	感觉S905L系列更像是次品，用的芯片厂商测试用的片，把不工作的地方屏蔽屏蔽，降降频，次品当好的卖，利润更多，内存都缩到512M了，对手变成MT7622/7623了。
+	有趣的是目前S905L3在主线内核5.10 音频和HDMI都不工作(我没找到方法)，只能像某讯N1那样刷刷openwrt那样子。
+	目前居然有个手机也叫X7-5G，注意这只是名字一样，这手机一般用的高通cpu,手机的串口可不好找，找着了BSP源码也有NDA，总之和本文提到的(X7-5G)S905L2电视盒子板子没有任何关系。
+	所以给你的那个就像某讯N1矿渣一样，对于主线linux内核是通用的,对于S905L2的板子需要改一下dtb。
+	(具体：用dtc把dtb文件转成dts，给GPU节点(gpu@c0000)加个status="disabled",然后找到emmc节点(mmc@74000)，把max-frequency改为0x2faf080。再用dtc把改好的dts转成dtb)。
+
+
+

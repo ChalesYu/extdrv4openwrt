@@ -1,0 +1,274 @@
+﻿Support for Hardkernel ODROID-C1-DDF-Ver(Van♂Cloud)
+
+# Odroid-C1 BSP u-boot command play guide
+
+this guide will abandoned until mainline u-boot support this board.
+
+# enable load script from storage
+
+press key to enter u-boot command line
+
+input these lines
+
+```
+
+setenv bootcmd "run start_autoscript; run storeboot;"
+setenv start_autoscript "if usb start ; then run start_usb_autoscript; fi; if mmcinfo; then run start_mmc_autoscript; fi; run start_emmc_autoscript;"
+setenv start_emmc_autoscript "if fatload mmc 1 1020000 emmc_autoscript; then autoscr 1020000; fi;"
+setenv start_mmc_autoscript "if fatload mmc 0 1020000 s805_autoscript; then autoscr 1020000; fi;"
+setenv start_usb_autoscript "if fatload usb 0 1020000 s805_autoscript; then autoscr 1020000; fi; if fatload usb 1 1020000 s805_autoscript; then autoscr 1020000; fi; if fatload usb 2 1020000 s805_autoscript; then autoscr 1020000; fi; if fatload usb 3 1020000 s805_autoscript; then autoscr 1020000; fi;"
+setenv upgrade_step "2"
+saveenv
+sleep 1
+reboot
+
+```
+
+then it will reboot , auto load and run  s805_autoscript from storage
+
+
+# boot from  s805_autoscript
+
+an example s805_autoscript.txt:
+
+```
+
+setenv condev "console=ttyAML0,115200n8 no_console_suspend consoleblank=0"
+setenv bootargs "root=/dev/sda2 rootwait rw ${condev} fsck.repair=yes"
+setenv bootargs_sd "root=/dev/mmcblk0p2 rootwait rw ${condev}"
+
+#setenv bootargs_sd "boot=UUID=XXXX storage=UUID=XXXX rootwait rw ${condev}"
+setenv bootargs "root=/dev/mmcblk0p2 rootwait rw ${condev}"
+
+setenv kernel_loadaddr "0x00208000"
+setenv dtb_loadaddr "0x21800000"
+setenv initrd_loadaddr "0x22000000"
+setenv dtb_name "a.dtb"
+#setenv dtb_name "meson8b-odroidc1.dtb"
+setenv kernel_name "uImage"
+#setenv kernel_name "KERNEL"
+setenv initrd_name "uInitrd"
+setenv boot_start bootm ${kernel_loadaddr} ${initrd_loadaddr} ${dtb_loadaddr}
+#setenv boot_start bootm ${kernel_loadaddr} - ${dtb_loadaddr}
+
+if fatload usb 0 ${initrd_loadaddr} ${initrd_name}; then if fatload usb 0 ${kernel_loadaddr} ${kernel_name}; then if fatload usb 0 ${dtb_loadaddr} ${dtb_name}; then run boot_start; else imgread dtb boot ${loadaddr} ${dtb_loadaddr}; run boot_start;fi;fi;fi;
+if fatload usb 1 ${initrd_loadaddr} ${initrd_name}; then if fatload usb 1 ${kernel_loadaddr} ${kernel_name}; then if fatload usb 1 ${dtb_loadaddr} ${dtb_name}; dthen run boot_start; else imgread dtb boot ${loadaddr} ${dtb_loadaddr}; run boot_start;fi;fi;fi;
+if fatload usb 2 ${initrd_loadaddr} ${initrd_name}; then if fatload usb 2 ${kernel_loadaddr} ${kernel_name}; then if fatload usb 2 ${dtb_loadaddr} ${dtb_name}; then run boot_start; else imgread dtb boot ${loadaddr} ${dtb_loadaddr}; run boot_start;fi;fi;fi;
+if fatload usb 3 ${initrd_loadaddr} ${initrd_name}; then if fatload usb 3 ${kernel_loadaddr} ${kernel_name}; then if fatload usb 3 ${dtb_loadaddr} ${dtb_name}; then run boot_start; else imgread dtb boot ${loadaddr} ${dtb_loadaddr}; run boot_start;fi;fi;fi;
+if fatload mmc 0 ${initrd_loadaddr} ${initrd_name}; setenv bootargs ${bootargs_sd}; then if fatload mmc 0 ${kernel_loadaddr} ${kernel_name}; then if fatload mmc 0 ${dtb_loadaddr} ${dtb_name}; then run boot_start; else imgread dtb boot ${loadaddr} ${dtb_loadaddr}; run boot_start;fi;fi;fi;
+
+#rebuild
+#mkimage -A arm -O linux -T script -C none -a 0 -e 0 -n "s805_autoscript" -d s805_autoscript.txt  ./s805_autoscript
+
+```
+
+#### Build s805_autoscript
+
+use command
+
+```
+mkimage -A arm -O linux -T script -C none -a 0 -e 0 -n "s805_autoscript" -d s805_autoscript.txt  ./s805_autoscript
+```
+
+
+#### we can adjust this script to let it boot different linux distro.
+
+an example to boot openWRT:
+
+```
+
+setenv condev "console=ttyAML0,115200n8 no_console_suspend consoleblank=0"
+setenv bootargs_sd "root=/dev/mmcblk0p2 rootwait rw ${condev}"
+setenv bootargs "root=/dev/sda2 rootwait rw ${condev}"
+
+setenv kernel_loadaddr "0x00208000"
+setenv dtb_loadaddr "0x21800000"
+setenv initrd_loadaddr "0x22000000"
+setenv dtb_name "meson8b-odroidc1.dtb"
+setenv kernel_name "uImage"
+setenv boot_start bootm ${kernel_loadaddr} - ${dtb_loadaddr}
+
+if fatload usb 0 ${initrd_loadaddr} ${initrd_name}; then if fatload usb 0 ${kernel_loadaddr} ${kernel_name}; then if fatload usb 0 ${dtb_loadaddr} ${dtb_name}; then run boot_start; else imgread dtb boot ${loadaddr} ${dtb_loadaddr}; run boot_start;fi;fi;fi;
+if fatload usb 1 ${initrd_loadaddr} ${initrd_name}; then if fatload usb 1 ${kernel_loadaddr} ${kernel_name}; then if fatload usb 1 ${dtb_loadaddr} ${dtb_name}; dthen run boot_start; else imgread dtb boot ${loadaddr} ${dtb_loadaddr}; run boot_start;fi;fi;fi;
+if fatload usb 2 ${initrd_loadaddr} ${initrd_name}; then if fatload usb 2 ${kernel_loadaddr} ${kernel_name}; then if fatload usb 2 ${dtb_loadaddr} ${dtb_name}; then run boot_start; else imgread dtb boot ${loadaddr} ${dtb_loadaddr}; run boot_start;fi;fi;fi;
+if fatload usb 3 ${initrd_loadaddr} ${initrd_name}; then if fatload usb 3 ${kernel_loadaddr} ${kernel_name}; then if fatload usb 3 ${dtb_loadaddr} ${dtb_name}; then run boot_start; else imgread dtb boot ${loadaddr} ${dtb_loadaddr}; run boot_start;fi;fi;fi;
+if fatload mmc 0 ${initrd_loadaddr} ${initrd_name}; setenv bootargs ${bootargs_sd}; then if fatload mmc 0 ${kernel_loadaddr} ${kernel_name}; then if fatload mmc 0 ${dtb_loadaddr} ${dtb_name}; then run boot_start; else imgread dtb boot ${loadaddr} ${dtb_loadaddr}; run boot_start;fi;fi;fi;
+
+#rebuild
+#mkimage -A arm -O linux -T script -C none -a 0 -e 0 -n "s805_autoscript" -d s805_autoscript.txt  ./s805_autoscript
+
+```
+
+an example to boot LibreELEC:
+
+
+```
+
+setenv condev "console=ttyAML0,115200n8 no_console_suspend consoleblank=0"
+setenv bootargs_sd "boot=/dev/mmcblk0p1 storage=/dev/mmcblk0p2 rootwait rw ${condev}"
+setenv bootargs "boot=/dev/sda1 storage=/dev/sda2 rootwait rw ${condev}"
+#setenv bootargs "boot=UUID=XXXX storage=UUID=XXXX rootwait rw ${condev}"
+
+setenv kernel_loadaddr "0x00208000"
+setenv dtb_loadaddr "0x21800000"
+setenv initrd_loadaddr "0x22000000"
+setenv dtb_name "meson8b-odroidc1.dtb"
+setenv kernel_name "KERNEL"
+setenv boot_start bootm ${kernel_loadaddr} - ${dtb_loadaddr}
+
+if fatload usb 0 ${initrd_loadaddr} ${initrd_name}; then if fatload usb 0 ${kernel_loadaddr} ${kernel_name}; then if fatload usb 0 ${dtb_loadaddr} ${dtb_name}; then run boot_start; else imgread dtb boot ${loadaddr} ${dtb_loadaddr}; run boot_start;fi;fi;fi;
+if fatload usb 1 ${initrd_loadaddr} ${initrd_name}; then if fatload usb 1 ${kernel_loadaddr} ${kernel_name}; then if fatload usb 1 ${dtb_loadaddr} ${dtb_name}; dthen run boot_start; else imgread dtb boot ${loadaddr} ${dtb_loadaddr}; run boot_start;fi;fi;fi;
+if fatload usb 2 ${initrd_loadaddr} ${initrd_name}; then if fatload usb 2 ${kernel_loadaddr} ${kernel_name}; then if fatload usb 2 ${dtb_loadaddr} ${dtb_name}; then run boot_start; else imgread dtb boot ${loadaddr} ${dtb_loadaddr}; run boot_start;fi;fi;fi;
+if fatload usb 3 ${initrd_loadaddr} ${initrd_name}; then if fatload usb 3 ${kernel_loadaddr} ${kernel_name}; then if fatload usb 3 ${dtb_loadaddr} ${dtb_name}; then run boot_start; else imgread dtb boot ${loadaddr} ${dtb_loadaddr}; run boot_start;fi;fi;fi;
+if fatload mmc 0 ${initrd_loadaddr} ${initrd_name}; setenv bootargs ${bootargs_sd}; then if fatload mmc 0 ${kernel_loadaddr} ${kernel_name}; then if fatload mmc 0 ${dtb_loadaddr} ${dtb_name}; then run boot_start; else imgread dtb boot ${loadaddr} ${dtb_loadaddr}; run boot_start;fi;fi;fi;
+
+#rebuild
+#mkimage -A arm -O linux -T script -C none -a 0 -e 0 -n "s805_autoscript" -d s805_autoscript.txt  ./s805_autoscript
+
+```
+
+an example to boot linux with ramdisk(initrd,initramfs):
+
+```
+
+setenv condev "console=ttyAML0,115200n8 no_console_suspend consoleblank=0"
+setenv bootargs "root=/dev/sda2 rootwait rw ${condev} fsck.repair=yes"
+setenv bootargs_sd "root=/dev/mmcblk0p2 rootwait rw ${condev} fsck.repair=yes"
+
+setenv kernel_loadaddr "0x00208000"
+setenv dtb_loadaddr "0x21800000"
+setenv initrd_loadaddr "0x22000000"
+setenv dtb_name "meson8b-odroidc1.dtb"
+setenv kernel_name "uImage"
+setenv initrd_name "uInitrd"
+setenv boot_start bootm ${kernel_loadaddr} ${initrd_loadaddr} ${dtb_loadaddr}
+
+if fatload usb 0 ${initrd_loadaddr} ${initrd_name}; then if fatload usb 0 ${kernel_loadaddr} ${kernel_name}; then if fatload usb 0 ${dtb_loadaddr} ${dtb_name}; then run boot_start; else imgread dtb boot ${loadaddr} ${dtb_loadaddr}; run boot_start;fi;fi;fi;
+if fatload usb 1 ${initrd_loadaddr} ${initrd_name}; then if fatload usb 1 ${kernel_loadaddr} ${kernel_name}; then if fatload usb 1 ${dtb_loadaddr} ${dtb_name}; dthen run boot_start; else imgread dtb boot ${loadaddr} ${dtb_loadaddr}; run boot_start;fi;fi;fi;
+if fatload usb 2 ${initrd_loadaddr} ${initrd_name}; then if fatload usb 2 ${kernel_loadaddr} ${kernel_name}; then if fatload usb 2 ${dtb_loadaddr} ${dtb_name}; then run boot_start; else imgread dtb boot ${loadaddr} ${dtb_loadaddr}; run boot_start;fi;fi;fi;
+if fatload usb 3 ${initrd_loadaddr} ${initrd_name}; then if fatload usb 3 ${kernel_loadaddr} ${kernel_name}; then if fatload usb 3 ${dtb_loadaddr} ${dtb_name}; then run boot_start; else imgread dtb boot ${loadaddr} ${dtb_loadaddr}; run boot_start;fi;fi;fi;
+if fatload mmc 0 ${initrd_loadaddr} ${initrd_name}; setenv bootargs ${bootargs_sd}; then if fatload mmc 0 ${kernel_loadaddr} ${kernel_name}; then if fatload mmc 0 ${dtb_loadaddr} ${dtb_name}; then run boot_start; else imgread dtb boot ${loadaddr} ${dtb_loadaddr}; run boot_start;fi;fi;fi;
+
+#rebuild
+#mkimage -A arm -O linux -T script -C none -a 0 -e 0 -n "s805_autoscript" -d s805_autoscript.txt  ./s805_autoscript
+
+```
+
+# flash and boot from eMMC
+
+the BSP u-boot should placed in eMMC boot0/1 .Should NOT create partition at the first 900M of 8G eMMC storage.
+
+an example
+
+#### load files to memory
+
+
+```
+m8b_m201_1G#usb start
+board_usb_stop cfg: 0
+(Re)start USB(0)...
+USB:   dwc_usb driver version: 2.94 6-June-2012
+USB (1) peri reg base: c1108820
+USB (1) use clock source: XTAL input
+USB (1) base addr: 0xc90c0000
+Force id mode: Host
+dwc_otg: Highspeed device found !
+
+scanning bus for devices... 1 USB Device(s) found
+       scanning bus for storage devices... 1 Storage Device(s) found
+                                                                                                                             
+m8b_m201_1G#fatload usb 0 $dtb_loadaddr a.dtb                                                                                                 
+reading a.dtb                                                                                                                                 
+..                                                                                                                                            
+                                                                                                                                              
+24623 bytes read                                                                                                                              
+m8b_m201_1G#fatload usb 0 $kernel_loadaddr uImage                                                                                             
+reading uImage                                                                                                                                
+..........................................
+                                                                                                                                              
+11341056 bytes read                                                                                                                           
+m8b_m201_1G#fatload usb 0 $initrd_loadaddr uInitrd                                                                                            
+reading uInitrd                                                                                                                               
+..........................................
+                                                                                                                                              
+6634592 bytes read                                                                                                                            
+m8b_m201_1G#
+
+```
+
+covert dec to hex :
+
+24623 bytes read =>  602f 
+11341056 bytes read => ad0d00 
+6634592 bytes read => 653c60 
+
+#### erase partition
+
+```
+m8b_m201_1G#mmc erase logo                                                                                                                    
+emmckey_is_protected : protect                                                                                                                
+ card_type:mmc or emmc, csd:erase_unit = 1024, is being erased ...                                                                            
+erase 0x142000 --> 0x151fff OK                                                                                                                
+m8b_m201_1G#mmc erase boot                                                                                                                    
+emmckey_is_protected : protect                                                                                                                
+ card_type:mmc or emmc, csd:erase_unit = 1024, is being erased ...                                                                            
+erase 0x17e000 --> 0x18dfff OK                                                                                                                
+m8b_m201_1G#mmc erase cache                                                                                                                   
+emmckey_is_protected : protect                                                                                                                
+ card_type:mmc or emmc, csd:erase_unit = 1024, is being erased ...                                                                            
+erase 0x36000 --> 0x135fff OK                                                                                                                 
+m8b_m201_1G#
+```
+
+#### write files to emmc
+
+```
+m8b_m201_1G#mmc write logo $dtb_loadaddr 0x142000  602f                                                                                       
+m8b_m201_1G#mmc write boot $kernel_loadaddr 0x17e000   ad0d00                                                                                 
+m8b_m201_1G#mmc write cache $initrd_loadaddr 0x36000 653c60
+```
+
+#### try read files from emmc
+
+```
+m8b_m201_1G#mmc read logo $dtb_loadaddr 0x142000  602f                                                              
+m8b_m201_1G#mmc read boot $kernel_loadaddr 0x17e000   ad0d00                                                              
+m8b_m201_1G#mmc read cache $initrd_loadaddr 0x36000 653c60
+```
+
+#### prepare for u-boot auto boot
+
+```
+setenv boot_start bootm ${kernel_loadaddr} ${initrd_loadaddr} ${dtb_loadaddr}
+
+setenv bootargs_ab "setenv bootargs "root=/dev/mmcblk1p2 rootwait rw ${condev}""
+setenv emmc2ram_ab "mmc read logo $dtb_loadaddr 0x142000 602f;mmc read boot $kernel_loadaddr 0x17e000 ad0d00;mmc read cache $initrd_loadaddr 0x36000 653c60;"
+setenv start_emmc_autoscript "run emmc2ram_ab;run bootargs_ab;run boot_start;"
+
+saveenv
+reset
+
+```
+
+### See also
+
+#### prepare for u-boot auto boot for openWRT
+
+```
+setenv boot_start "bootm ${kernel_loadaddr} - ${dtb_loadaddr}"
+setenv bootargs_wrt "setenv bootargs "root=/dev/mmcblk1p2 rootwait rw ${condev} coherent_pool=4M""
+setenv emmc2ram_wrt "mmc read logo $dtb_loadaddr 0x142000  24425;mmc read boot $kernel_loadaddr 0x17e000 B97E20;"
+setenv start_emmc_autoscript "run emmc2ram_wrt;run bootargs_wrt;run boot_start;"
+```
+
+#### prepare for u-boot auto boot for LibreELEC
+
+```
+setenv boot_start "bootm ${kernel_loadaddr} - ${dtb_loadaddr}"
+setenv bootargs_elec "setenv bootargs "boot=/dev/mmcblk1p1 storage=/dev/mmcblk1p2 rootwait rw ${condev}""
+setenv emmc2ram_elec "mmc read logo $dtb_loadaddr 0x142000  24425;mmc read boot $kernel_loadaddr 0x17e000 A9D240;"
+setenv start_emmc_autoscript "run emmc2ram_elec;run bootargs_elec;run boot_start;"
+```
+
+
+

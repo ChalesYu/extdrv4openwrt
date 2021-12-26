@@ -8,19 +8,17 @@
 include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/kernel.mk
 
-PKG_NAME:=ac200
+PKG_NAME:=sr9700-jl
 PKG_RELEASE:=1
 
 include $(INCLUDE_DIR)/package.mk
 
-define KernelPackage/ac200
+define KernelPackage/sr9700-jl
   SUBMENU:=Other modules
-  DEPENDS:=
-  TITLE:=Driver for AC200
-  AUTOLOAD:=$(call AutoLoad,70,ac200-mfd)
-  FILES:=$(PKG_BUILD_DIR)/ac200-mfd.ko \
-		$(PKG_BUILD_DIR)/clk-pwm.ko \
-		$(PKG_BUILD_DIR)/ac200-phy.ko
+  DEPENDS:= +kmod-usb-net
+  TITLE:=Driver for KY-RD9700 USB ethernet devices
+  AUTOLOAD:=$(call AutoLoad,70,sr9700_ml)
+  FILES:=$(PKG_BUILD_DIR)/sr9700_ml.ko
 endef
 
 define Build/Compile
@@ -31,4 +29,4 @@ define Build/Compile
 		modules
 endef
 
-$(eval $(call KernelPackage,ac200))
+$(eval $(call KernelPackage,sr9700-jl))

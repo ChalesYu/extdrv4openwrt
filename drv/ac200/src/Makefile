@@ -10,6 +10,8 @@
 # 2 of the License, or (at your option) any later version.
 #
 
+obj-m		+= clk-pwm.o
+
 #CONFIG_MFD_AC200
 obj-m		+= ac200-mfd.o
 #CONFIG_AC200_PHY
