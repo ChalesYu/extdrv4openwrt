@@ -1,0 +1,28 @@
+From 269989e329e7a35c7a8b98a6dc710391eb2f102b Mon Sep 17 00:00:00 2001
+From: chalesyu <574249312@qq.com>
+Date: Sun, 26 Dec 2021 00:00:00 +0800
+Subject: [PATCH 7/8] Add board init GPIO
+
+skyworth t2 pro box use pl4 for led, use pl5 for usb power.
+skyworth p2 projector use pm2 for axp2402 power.
+---
+ arch/arm/mach-sunxi/board.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/arm/mach-sunxi/board.c b/arch/arm/mach-sunxi/board.c
+index cfca6a54dc..4e47e3985b 100644
+--- a/arch/arm/mach-sunxi/board.c
++++ b/arch/arm/mach-sunxi/board.c
+@@ -103,6 +103,10 @@ static int gpio_init(void)
+ 	sunxi_gpio_set_cfgpin(SUNXI_GPF(2), SUN8I_GPF_UART0);
+ 	sunxi_gpio_set_cfgpin(SUNXI_GPF(4), SUN8I_GPF_UART0);
+ 	sunxi_gpio_set_pull(SUNXI_GPF(4), SUNXI_GPIO_PULL_UP);
++
++	sunxi_gpio_set_pull(SUNXI_GPL(4), SUNXI_GPIO_PULL_UP); /* Power led */
++	sunxi_gpio_set_pull(SUNXI_GPL(5), SUNXI_GPIO_PULL_UP); /* USB Power */
++	sunxi_gpio_set_pull(SUNXI_GPM(2), SUNXI_GPIO_PULL_UP); /* PMU AXP2402 */
+ #endif
+ 
+ #elif CONFIG_CONS_INDEX == 1 && (defined(CONFIG_MACH_SUN4I) || \
+-- 
+

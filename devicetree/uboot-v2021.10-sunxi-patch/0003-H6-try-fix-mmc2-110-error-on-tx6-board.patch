@@ -1,0 +1,48 @@
+From cabda555a6371ec4d025e0fb8327b84168673526 Mon Sep 17 00:00:00 2001
+From: chalesyu <574249312@qq.com>
+Date: Wed, 28 Jul 2021 00:00:00 +0800
+Subject: [PATCH 3/8] H6: try fix  mmc2 -110 error on tx6 board
+
+---
+ arch/arm/dts/sun50i-h6-tanix-tx6.dts | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/arch/arm/dts/sun50i-h6-tanix-tx6.dts b/arch/arm/dts/sun50i-h6-tanix-tx6.dts
+index be81330db1..654b0ff037 100644
+--- a/arch/arm/dts/sun50i-h6-tanix-tx6.dts
++++ b/arch/arm/dts/sun50i-h6-tanix-tx6.dts
+@@ -32,6 +32,12 @@
+ 		};
+ 	};
+ 
++	reg_vcc1v8: vcc1v8 {
++		compatible = "regulator-fixed";
++		regulator-name = "vcc1v8";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++	};
+ 	reg_vcc3v3: vcc3v3 {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vcc3v3";
+@@ -88,6 +94,19 @@
+ 	vmmc-supply = <&reg_vcc3v3>;
+ 	cd-gpios = <&pio 5 6 GPIO_ACTIVE_LOW>;
+ 	bus-width = <4>;
++	status = "disabled";
++};
++
++&mmc2 {
++	vmmc-supply = <&reg_vcc3v3>;
++	vqmmc-supply = <&reg_vcc1v8>;
++	max-frequency = <150000000>;
++	mmc-ddr-1_8v;
++	mmc-hs200-1_8v;
++	mmc-hs400-1_8v;
++	cap-mmc-hw-reset;
++	non-removable;
++	bus-width = <8>;
+ 	status = "okay";
+ };
+ 
+-- 
+

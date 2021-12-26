@@ -1,0 +1,248 @@
+From b7f3a60cfb2e3274a40a6930978a712224ca0363 Mon Sep 17 00:00:00 2001
+From: chalesyu <574249312@qq.com>
+Date: Tue, 7 Dec 2021 00:00:00 +0800
+Subject: [PATCH 5/8] add support for TQC-A01
+
+---
+ arch/arm/dts/Makefile              |   1 +
+ arch/arm/dts/sun50i-h6-tqc-a01.dts | 187 +++++++++++++++++++++++++++++
+ configs/tqc_a01_defconfig          |  22 ++++
+ 3 files changed, 210 insertions(+)
+ create mode 100644 arch/arm/dts/sun50i-h6-tqc-a01.dts
+ create mode 100644 configs/tqc_a01_defconfig
+
+diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
+index d0b4f472fe..ece983c1bf 100644
+--- a/arch/arm/dts/Makefile
++++ b/arch/arm/dts/Makefile
+@@ -643,6 +643,7 @@ dtb-$(CONFIG_MACH_SUN50I_H6) += \
+ 	sun50i-h6-orangepi-lite2.dtb \
+ 	sun50i-h6-orangepi-one-plus.dtb \
+ 	sun50i-h6-pine-h64.dtb \
++	sun50i-h6-tqc-a01.dtb \
+ 	sun50i-h6-tanix-tx6.dtb
+ dtb-$(CONFIG_MACH_SUN50I_H616) += \
+ 	sun50i-h616-orangepi-zero2.dtb
+diff --git a/arch/arm/dts/sun50i-h6-tqc-a01.dts b/arch/arm/dts/sun50i-h6-tqc-a01.dts
+new file mode 100644
+index 0000000000..8e3aaf76ce
+--- /dev/null
++++ b/arch/arm/dts/sun50i-h6-tqc-a01.dts
+@@ -0,0 +1,187 @@
++// SPDX-License-Identifier: (GPL-2.0+)
++/*
++ * Copyright (C) 2021 ChalesYu <574249312@qq.com>
++ */
++
++/*  !!! NOTICE NOTICE NOTICE !!!  */
++/* WIP station, NOT Final version */
++/*
++ * board marked AZW-KT02 Ver2.0.
++ * It has the following features:
++ * 
++ * - Allwinner H6 quad-core 64-bit ARM Cortex-A53
++ * - GPU Mali-T720
++ * - 1GB LPDDR3 RAM
++ * - AXP805 PMIC
++ * - AP6212 Wifi/BT
++ * - 1x USB 2.0 Host and 1x USB 3.0 Host
++ * - 1x USB 2.0 micro usb
++ * - 100M EMAC Ethernet via AC200
++ * - HDMI 2.0 port
++ * - 8GB eMMC
++ * - S/PDIF Tx
++ * - IR receiver
++ * - 5V/2A DC power supply
++ * 
++ * Add basic support for the board. 
++*/
++
++
++#include "sun50i-h6-beelink-gs1.dts"
++
++/ {
++	model = "Shan Bei H6 AZW-KT02 ver2.0";
++	compatible = "azw,beelink-gs1", "allwinner,sun50i-h6";
++
++	aliases {
++		ethernet0 = &emac;
++		serial0 = &uart0;
++		serial1 = &uart1;
++		mmc0 = &mmc0;
++		mmc1 = &mmc1;
++		mmc2 = &mmc2;
++	};
++
++/* copy from Orange Pi Lite2 dts */
++	wifi_pwrseq: wifi-pwrseq {
++		compatible = "mmc-pwrseq-simple";
++		clocks = <&rtc 1>;
++		clock-names = "ext_clock";
++		reset-gpios = <&r_pio 0 8 GPIO_ACTIVE_LOW>; /* PL8 */
++		post-power-on-delay-ms = <200>;
++	};
++
++//	/delete-node/ reg_gmac_3v3;
++};
++
++//pio for i2c3 and ac200 , emac power
++&reg_aldo2 {
++//tanix tx6 don't have PMU
++//use this ugly solution
++	regulator-always-on;
++};
++
++&pio {
++	vcc-pc-supply = <&reg_bldo2>;
++	vcc-pg-supply = <&reg_bldo3>;
++};
++
++/* //drop for u-boot
++//i2c3
++&i2c3_pins {
++	drive-strength = <20>;
++	bias-pull-up;
++};
++&i2c3 {
++	status = "okay";
++};
++*/
++
++//AC200
++&pwm {
++	status = "okay";
++//	status = "disabled";
++};
++
++/* //drop for u-boot
++&ac200_pwm_clk {
++	status = "okay";
++//	status = "disabled";
++
++};
++
++&ac200 {
++	interrupt-parent = <&pio>;
++	interrupts = <1 20 IRQ_TYPE_LEVEL_LOW>; //PB20 for H6
++	interrupt-controller;
++	interrupt-cells = <1>;
++	status = "okay";
++};
++
++&ac200_ephy {
++	clocks = <&ac200_pwm_clk>;
++	status = "okay";
++};
++*/
++
++//board using ac200-ephy but not rtl8211
++//fix for u-boot v2021.07
++&emac {
++	pinctrl-names = "default";
++	pinctrl-0 = <&ext_rmii_pins>;
++	phy-mode = "rmii";
++	phy-handle = <&rmii_phy>;
++	phy-supply = <&reg_aldo2>;
++	allwinner,rx-delay-ps = <200>;
++	allwinner,tx-delay-ps = <200>;
++	status = "okay";
++};
++&mdio {
++	rmii_phy: ethernet-phy@1 {
++		compatible = "ethernet-phy-ieee802.3-c22";
++		reg = <1>;
++	};
++};
++
++// MMC devices
++/* sdcard */
++&mmc0 {
++	vmmc-supply = <&reg_cldo1>;
++	cd-gpios = <&pio 5 6 GPIO_ACTIVE_LOW>; /* PF6 */
++	bus-width = <4>;
++	status = "okay";
++};
++
++/* SDIO WiFi */
++/* copy from Orange Pi Lite2 dts */
++&mmc1 {
++	vmmc-supply = <&reg_cldo3>;
++	vqmmc-supply = <&reg_bldo3>;
++	mmc-pwrseq = <&wifi_pwrseq>;
++	bus-width = <4>;
++	non-removable;
++	status = "okay";
++
++	/* AP6212 */
++	brcm: sdio-wifi@1 {
++		reg = <1>;
++		compatible = "brcm,bcm4329-fmac";
++		interrupt-parent = <&r_pio>;
++		interrupts = <1 0 IRQ_TYPE_LEVEL_LOW>; /* PM0 */
++		interrupt-names = "host-wake";
++	};
++};
++
++/* eMMC */
++&mmc2 {
++	vmmc-supply = <&reg_cldo1>;
++	vqmmc-supply = <&reg_bldo2>;
++	max-frequency = <150000000>;
++	mmc-ddr-1_8v;
++	mmc-hs200-1_8v;
++	mmc-hs400-1_8v;
++	cap-mmc-hw-reset;
++	non-removable;
++	bus-width = <8>;
++	status = "okay";
++};
++
++/* There's the BT part of the AP6212 connected to that UART */
++/* copy from Orange Pi Lite2 dts */
++&uart1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&uart1_pins>, <&uart1_rts_cts_pins>;
++	uart-has-rtscts;
++	status = "okay";
++
++	bluetooth {
++		compatible = "brcm,bcm4345c5";
++		clocks = <&rtc 1>;
++		clock-names = "lpo";
++		device-wakeup-gpios = <&r_pio 1 2 GPIO_ACTIVE_HIGH>; /* PM2 */
++		host-wakeup-gpios = <&r_pio 1 1 GPIO_ACTIVE_HIGH>; /* PM1 */
++		shutdown-gpios = <&r_pio 1 4 GPIO_ACTIVE_HIGH>; /* PM4 */
++		max-speed = <1500000>;
++	};
++};
++
+diff --git a/configs/tqc_a01_defconfig b/configs/tqc_a01_defconfig
+new file mode 100644
+index 0000000000..9e99f60c3d
+--- /dev/null
++++ b/configs/tqc_a01_defconfig
+@@ -0,0 +1,22 @@
++CONFIG_ARM=y
++CONFIG_ARCH_SUNXI=y
++CONFIG_DEFAULT_DEVICE_TREE="sun50i-h6-tqc-a01"
++CONFIG_SPL=y
++CONFIG_MACH_SUN50I_H6=y
++CONFIG_SUNXI_DRAM_H6_LPDDR3=y
++CONFIG_MMC0_CD_PIN="PF6"
++CONFIG_MMC_SUNXI_SLOT_EXTRA=2
++# CONFIG_SYS_MALLOC_CLEAR_ON_INIT is not set
++CONFIG_LED=y
++CONFIG_LED_GPIO=y
++CONFIG_I2C=y
++CONFIG_SPL_I2C=y
++CONFIG_SUN8I_EMAC=y
++CONFIG_I2C3_ENABLE=y
++CONFIG_PHY_SUN50I_USB3=y
++CONFIG_USB_XHCI_HCD=y
++CONFIG_USB_XHCI_DWC3=y
++CONFIG_USB_EHCI_HCD=y
++CONFIG_USB_OHCI_HCD=y
++CONFIG_USB_DWC3=y
++# CONFIG_USB_DWC3_GADGET is not set
+-- 
+

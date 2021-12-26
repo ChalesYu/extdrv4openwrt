@@ -1,0 +1,69 @@
+From 13e50ea2396e4fdc8ec7a6c02fd584c124ec4bc0 Mon Sep 17 00:00:00 2001
+From: chalesyu <574249312@qq.com>
+Date: Sat, 13 Feb 2021 00:00:00 +0800
+Subject: [PATCH 6/8] H6:fix uart over sd card solt
+
+---
+ arch/arm/mach-sunxi/board.c | 10 ++++++++++
+ board/sunxi/board.c         |  5 ++++-
+ drivers/mmc/Kconfig         |  2 +-
+ 3 files changed, 15 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm/mach-sunxi/board.c b/arch/arm/mach-sunxi/board.c
+index d9b04f75fc..cfca6a54dc 100644
+--- a/arch/arm/mach-sunxi/board.c
++++ b/arch/arm/mach-sunxi/board.c
+@@ -95,6 +95,16 @@ static int gpio_init(void)
+ 	sunxi_gpio_set_cfgpin(SUNXI_GPF(4), SUNXI_GPF_UART0);
+ #endif
+ 	sunxi_gpio_set_pull(SUNXI_GPF(4), 1);
++
++#if defined(CONFIG_MACH_SUN50I_H6)
++	/* disable GPH0,1 as uart0 tx,rx to avoid conflict */
++	sunxi_gpio_set_cfgpin(SUNXI_GPH(0), SUNXI_GPIO_INPUT);
++	sunxi_gpio_set_cfgpin(SUNXI_GPH(1), SUNXI_GPIO_INPUT);
++	sunxi_gpio_set_cfgpin(SUNXI_GPF(2), SUN8I_GPF_UART0);
++	sunxi_gpio_set_cfgpin(SUNXI_GPF(4), SUN8I_GPF_UART0);
++	sunxi_gpio_set_pull(SUNXI_GPF(4), SUNXI_GPIO_PULL_UP);
++#endif
++
+ #elif CONFIG_CONS_INDEX == 1 && (defined(CONFIG_MACH_SUN4I) || \
+ 				 defined(CONFIG_MACH_SUN7I) || \
+ 				 defined(CONFIG_MACH_SUN8I_R40))
+diff --git a/board/sunxi/board.c b/board/sunxi/board.c
+index a81ac2e014..6fc71c5421 100644
+--- a/board/sunxi/board.c
++++ b/board/sunxi/board.c
+@@ -430,13 +430,16 @@ static void mmc_pinmux_setup(int sdc)
+ 	switch (sdc) {
+ 	case 0:
+ 		/* SDC0: PF0-PF5 */
++
++//Some board doesn't have SD card port
++#if !defined(CONFIG_UART0_PORT_F)
+ 		for (pin = SUNXI_GPF(0); pin <= SUNXI_GPF(5); pin++) {
+ 			sunxi_gpio_set_cfgpin(pin, SUNXI_GPF_SDC0);
+ 			sunxi_gpio_set_pull(pin, SUNXI_GPIO_PULL_UP);
+ 			sunxi_gpio_set_drv(pin, 2);
+ 		}
++#endif
+ 		break;
+-
+ 	case 1:
+ 		pins = sunxi_name_to_gpio_bank(CONFIG_MMC1_PINS);
+ 
+diff --git a/drivers/mmc/Kconfig b/drivers/mmc/Kconfig
+index 1569e8c44a..7d2b941dff 100644
+--- a/drivers/mmc/Kconfig
++++ b/drivers/mmc/Kconfig
+@@ -723,7 +723,7 @@ config ZYNQ_HISPD_BROKEN
+ 
+ config MMC_SUNXI
+ 	bool "Allwinner sunxi SD/MMC Host Controller support"
+-	depends on ARCH_SUNXI && !UART0_PORT_F
++	depends on ARCH_SUNXI
+ 	default y
+ 	help
+ 	  This selects support for the SD/MMC Host Controller on
+-- 
+

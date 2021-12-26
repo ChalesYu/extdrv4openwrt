@@ -1,0 +1,102 @@
+From ba5c09375b254f345f2eb69edfd97e3cf6c5b9ef Mon Sep 17 00:00:00 2001
+From: chalesyu <574249312@qq.com>
+Date: Wed, 22 Dec 2021 00:00:00 +0800
+Subject: [PATCH 8/8] add skyworth t2pro and p2 defconfig
+
+all based on orangepi_3_defconfig
+
+    Tested devices:
+
+    TQC-A01 :
+          All worked, include 2 USB ports, SDcard and eMMC.
+
+    Skyworth T2 Pro :
+          LPDDR3 version may need command "gpio set pl5" use USB disk.
+          eMMC worked, no sdcard, Need set UART pin to pf2,pf4.
+          DDR3 version need reference tanix_tx6_defconfig to
+          change DDR3 part
+
+    Skyworth P2 :
+          Same as T2 Pro but Need PM2 pull up to avoid axp2402
+          shutdown CPU.
+---
+ configs/orangepi_3_defconfig             |  5 ++++-
+ configs/skyworth_p2_ddr3_defconfig       | 19 +++++++++++++++++++
+ configs/skyworth_t2_pro_lpddr3_defconfig | 18 ++++++++++++++++++
+ 3 files changed, 41 insertions(+), 1 deletion(-)
+ create mode 100644 configs/skyworth_p2_ddr3_defconfig
+ create mode 100644 configs/skyworth_t2_pro_lpddr3_defconfig
+
+diff --git a/configs/orangepi_3_defconfig b/configs/orangepi_3_defconfig
+index ebecf49ebd..f23258389e 100644
+--- a/configs/orangepi_3_defconfig
++++ b/configs/orangepi_3_defconfig
+@@ -1,13 +1,16 @@
+ CONFIG_ARM=y
+ CONFIG_ARCH_SUNXI=y
++CONFIG_BOOTCOMMAND="gpio set pl5;usb stop;usb start;run distro_bootcmd"
+ CONFIG_DEFAULT_DEVICE_TREE="sun50i-h6-orangepi-3"
+ CONFIG_SPL=y
+ CONFIG_MACH_SUN50I_H6=y
+-CONFIG_SUNXI_DRAM_H6_LPDDR3=y
++CONFIG_SUNXI_DRAM_H6_DDR3_1333=y
++CONFIG_DRAM_CLK=840
+ CONFIG_MMC0_CD_PIN="PF6"
+ CONFIG_MMC_SUNXI_SLOT_EXTRA=2
+ CONFIG_BLUETOOTH_DT_DEVICE_FIXUP="brcm,bcm4345c5"
+ # CONFIG_SYS_MALLOC_CLEAR_ON_INIT is not set
++CONFIG_UART0_PORT_F=y
+ CONFIG_PHY_SUN50I_USB3=y
+ CONFIG_USB_XHCI_HCD=y
+ CONFIG_USB_XHCI_DWC3=y
+diff --git a/configs/skyworth_p2_ddr3_defconfig b/configs/skyworth_p2_ddr3_defconfig
+new file mode 100644
+index 0000000000..3f88f60c3b
+--- /dev/null
++++ b/configs/skyworth_p2_ddr3_defconfig
+@@ -0,0 +1,19 @@
++CONFIG_ARM=y
++CONFIG_ARCH_SUNXI=y
++CONFIG_BOOTCOMMAND="gpio set pl5;usb stop;usb start;run distro_bootcmd"
++CONFIG_DEFAULT_DEVICE_TREE="sun50i-h6-orangepi-3"
++CONFIG_SPL=y
++CONFIG_MACH_SUN50I_H6=y
++CONFIG_SUNXI_DRAM_H6_DDR3_1333=y
++CONFIG_DRAM_CLK=840
++CONFIG_MMC0_CD_PIN="PF6"
++CONFIG_MMC_SUNXI_SLOT_EXTRA=2
++# CONFIG_SYS_MALLOC_CLEAR_ON_INIT is not set
++CONFIG_UART0_PORT_F=y
++CONFIG_PHY_SUN50I_USB3=y
++CONFIG_USB_XHCI_HCD=y
++CONFIG_USB_XHCI_DWC3=y
++CONFIG_USB_EHCI_HCD=y
++CONFIG_USB_OHCI_HCD=y
++CONFIG_USB_DWC3=y
++# CONFIG_USB_DWC3_GADGET is not set
+diff --git a/configs/skyworth_t2_pro_lpddr3_defconfig b/configs/skyworth_t2_pro_lpddr3_defconfig
+new file mode 100644
+index 0000000000..b8b9bdc474
+--- /dev/null
++++ b/configs/skyworth_t2_pro_lpddr3_defconfig
+@@ -0,0 +1,18 @@
++CONFIG_ARM=y
++CONFIG_ARCH_SUNXI=y
++CONFIG_BOOTCOMMAND="gpio set pl5;usb stop;usb start;run distro_bootcmd"
++CONFIG_DEFAULT_DEVICE_TREE="sun50i-h6-orangepi-3"
++CONFIG_SPL=y
++CONFIG_MACH_SUN50I_H6=y
++CONFIG_SUNXI_DRAM_H6_LPDDR3=y
++CONFIG_MMC0_CD_PIN="PF6"
++CONFIG_MMC_SUNXI_SLOT_EXTRA=2
++# CONFIG_SYS_MALLOC_CLEAR_ON_INIT is not set
++CONFIG_UART0_PORT_F=y
++CONFIG_PHY_SUN50I_USB3=y
++CONFIG_USB_XHCI_HCD=y
++CONFIG_USB_XHCI_DWC3=y
++CONFIG_USB_EHCI_HCD=y
++CONFIG_USB_OHCI_HCD=y
++CONFIG_USB_DWC3=y
++# CONFIG_USB_DWC3_GADGET is not set
+-- 
+

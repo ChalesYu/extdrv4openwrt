@@ -1,0 +1,30 @@
+From 23999ba809a3bc79dd5bb0cdeec01d53db862d80 Mon Sep 17 00:00:00 2001
+From: chalesyu <574249312@qq.com>
+Date: Wed, 8 Dec 2021 00:00:00 +0800
+Subject: [PATCH 1/8] Add Skyworth T2 Plus H3 lpddr3 Support
+
+Based on beelink_x2_defconfig
+---
+ configs/skyworth_t2_plus_lpddr3_defconfig | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+ create mode 100644 configs/skyworth_t2_plus_lpddr3_defconfig
+
+diff --git a/configs/skyworth_t2_plus_lpddr3_defconfig b/configs/skyworth_t2_plus_lpddr3_defconfig
+new file mode 100644
+index 0000000000..7516fff45c
+--- /dev/null
++++ b/configs/skyworth_t2_plus_lpddr3_defconfig
+@@ -0,0 +1,12 @@
++CONFIG_ARM=y
++CONFIG_ARCH_SUNXI=y
++CONFIG_DEFAULT_DEVICE_TREE="sun8i-h3-beelink-x2"
++CONFIG_SPL=y
++CONFIG_MACH_SUN8I_H3=y
++CONFIG_SUNXI_DRAM_LPDDR3_STOCK=y
++CONFIG_DRAM_CLK=567
++CONFIG_MMC_SUNXI_SLOT_EXTRA=2
++# CONFIG_SYS_MALLOC_CLEAR_ON_INIT is not set
++CONFIG_SUN8I_EMAC=y
++CONFIG_USB_EHCI_HCD=y
++CONFIG_USB_MUSB_HOST=y
+-- 
