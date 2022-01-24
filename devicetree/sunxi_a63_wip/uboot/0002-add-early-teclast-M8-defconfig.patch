@@ -1,0 +1,33 @@
+From 60ca979d604bb86468b3a4cc0cc4997254d069f8 Mon Sep 17 00:00:00 2001
+From: chalesyu <574249312@qq.com>
+Date: Sat, 25 Dec 2021 00:00:00 +0800
+Subject: [PATCH 2/7] add early teclast M8 defconfig
+
+---
+ configs/teclast_m8_defconfig | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+ create mode 100644 configs/teclast_m8_defconfig
+
+diff --git a/configs/teclast_m8_defconfig b/configs/teclast_m8_defconfig
+new file mode 100644
+index 0000000000..1652c4b84d
+--- /dev/null
++++ b/configs/teclast_m8_defconfig
+@@ -0,0 +1,15 @@
++CONFIG_ARM=y
++CONFIG_ARCH_SUNXI=y
++CONFIG_DEFAULT_DEVICE_TREE="sun50i-h6-tanix-tx6"
++CONFIG_SPL=y
++CONFIG_MACH_SUN50I_H6=y
++#dram part almost same as R40 and T7
++#CONFIG_SUNXI_DRAM_LPDDR3_STOCK=y
++CONFIG_SUNXI_DRAM_H6_LPDDR3=y
++#lpddr3 aw52a8g32 1G clk-792MHZ ZQ-0x3d3dfb
++#lpddr3 h9tq26adftac 3G clk-720MHZ ZQ-0x3b3bfb
++CONFIG_DRAM_CLK=720
++CONFIG_DRAM_ZQ=3881979
++CONFIG_MMC0_CD_PIN="PF6"
++CONFIG_MMC_SUNXI_SLOT_EXTRA=2
++# CONFIG_SYS_MALLOC_CLEAR_ON_INIT is not set
+-- 
+

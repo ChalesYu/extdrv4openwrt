@@ -1,0 +1,27 @@
+From c63e907cd8dcb5665e9815ed05099f8dcdd2cfc4 Mon Sep 17 00:00:00 2001
+From: chalesyu <574249312@qq.com>
+Date: Sun, 2 Jan 2022 00:00:00 +0800
+Subject: [PATCH 3/7] update teclast m8 config
+
+---
+ configs/teclast_m8_defconfig | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/configs/teclast_m8_defconfig b/configs/teclast_m8_defconfig
+index 1652c4b84d..ddf60ce38b 100644
+--- a/configs/teclast_m8_defconfig
++++ b/configs/teclast_m8_defconfig
+@@ -13,3 +13,11 @@ CONFIG_DRAM_ZQ=3881979
+ CONFIG_MMC0_CD_PIN="PF6"
+ CONFIG_MMC_SUNXI_SLOT_EXTRA=2
+ # CONFIG_SYS_MALLOC_CLEAR_ON_INIT is not set
++CONFIG_LED=y
++CONFIG_LED_GPIO=y
++#CONFIG_I2C=y
++#CONFIG_SPL_I2C=y
++#CONFIG_I2C3_ENABLE=y
++CONFIG_USB_EHCI_HCD=y
++CONFIG_USB_OHCI_HCD=y
++
+-- 
+

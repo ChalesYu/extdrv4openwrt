@@ -1,0 +1,242 @@
+                                                                                     
+[106]HELLO! BOOT0 is starting!                                                                                     
+[109]boot0 commit : xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                                       
+                                                                                                                   
+[120]rsb_send_initseq: rsb clk 400Khz -> 3Mhz                                                                      
+[125]PMU: AXP803                                                                                                   
+[129]set pll start                                                                                                 
+[131]set pll end                                                                                                   
+[133]rtc[2] value = 0x5aa5a55a                                                                                     
+[136]rtc[3] value = 0x0000b00d                                                                                     
+[139]eraly jump fel                                                                                                
+[8981]HELLO! BOOT0 is starting!                                                                                    
+[8984]boot0 commit : xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                                      
+                                                                                                                   
+[8994]rsb_send_initseq: rsb clk 400Khz -> 3Mhz                                                                     
+[8998]PMU: AXP803                                                                                                  
+[9000]set pll start                                                                                                
+[9003]periph0 has been enabled                                                                                     
+[9006]set pll end                                                                                                  
+[9008]rtc[3] value = 0x0000b00d                                                                                    
+[9011]the chip id is 0x00000001                                                                                    
+[9014]the chip id is 0x00000001                                                                                    
+[9017]the chip id is 0x00000001                                                                                    
+[9020]the chip id is 0x00000001                                                                                    
+[9023]the chip id is 0x00000001                                                                                    
+[9026]chip id check OK                                                                                             
+[9029]DRAM BOOT DRIVE INFO: V0.571                                                                                 
+[9032]DRAM CLK = 792 MHZ                                                                                           
+[9034]DRAM Type = 7 (2:DDR2,3:DDR3,6:LPDDR2,7:LPDDR3)                                                              
+[9039]DRAM ZQ value: 0x003d3dfb                                                                                    
+[9044]DRAM SIZE =1024 M                                                                                            
+[9046]Disable Auto SR                                                                                              
+[9055]DRAM simple test OK.                                                                                         
+[9058]dram size =1024                                                                                              
+[9061]card no is 0                                                                                                 
+[9063]sdcard 0 line count 4                                                                                        
+[9065][mmc]: mmc driver ver 2017-9-26 13:50                                                                        
+[9070][mmc]: sdc0 spd mode error, 2                                                                                
+[9073][mmc]: mmc 0 bias 00000004                                                                                   
+[9082][mmc]: ***Try MMC card 0***                                                                                  
+[9089][mmc]: mmc 0 cmd 1 timeout, err 00000100                                                                     
+[9094][mmc]: mmc 0 cmd 1 err 00000100                                                                              
+[9098][mmc]: mmc 0 send op cond failed                                                                             
+[9101][mmc]: MMC card 0 Card did not respond to voltage select!                                                    
+[9108][mmc]: ***SD/MMC 0 init error!!!***                                                                          
+[9112][mmc]: mmc 0 register failed                                                                                 
+[9115]Loading boot-pkg fail(error=2)                                                                               
+[9119]Ready to disable icache.                                                                                     
+NOTICE:  BL31: v2.6(debug):v2.6-139-gab6ea0abf                                                                     
+NOTICE:  BL31: Built : 00:00:00, Jan  2 2022                                                                       
+NOTICE:  BL31: Detected Allwinner A63 SoC (1719)                                                                   
+NOTICE:  BL31: Found U-Boot DTB at 0xa0878f0, model: A63 Board                                                     
+INFO:    ARM GICv2 driver initialized                                                                              
+INFO:    Configuring SPC Controller                                                                                
+INFO:    PMIC: Probing AXP802 on RSB                                                                               
+INFO:    PMIC: Enabling DRIVEVBUS                                                                                  
+INFO:    PMIC: dcdc1 voltage: 3.300V                                                                               
+INFO:    PMIC: dcdc5 voltage: 1.500V                                                                               
+INFO:    PMIC: dcdc6 voltage: 0.900V                                                                               
+INFO:    PMIC: dldo1 voltage: 3.300V                                                                               
+INFO:    PMIC: dldo2 voltage: 3.300V                                                                               
+INFO:    PMIC: dldo3 voltage: 1.200V                                                                               
+INFO:    PMIC: dldo4 voltage: 1.800V                                                                               
+INFO:    PMIC: fldo1 voltage: 1.200V                                                                               
+INFO:    PMIC: Enabling DC SW                                                                                      
+INFO:    BL31: Platform setup done                                                                                 
+INFO:    BL31: Initializing runtime services                                                                       
+INFO:    BL31: cortex_a53: CPU workaround for 855873 was applied                                                   
+INFO:    BL31: cortex_a53: CPU workaround for 1530924 was applied                                                  
+INFO:    PSCI: Suspend is unavailable                                                                              
+INFO:    BL31: Preparing for EL3 exit to normal world                                                              
+INFO:    Entry point address = 0x4a000000                                                                          
+INFO:    SPSR = 0x3c9                                                                                              
+                                                                                                                   
+                                                                                                                   
+U-Boot 2021.10-00012-g5996ff978d-dirty (Jan 05 2022 - 00:00:00 +0800) Allwinner Technology                         
+                                                                                                                   
+CPU:   Allwinner H6 (SUN50I)                                                                                       
+Model: A63 Board                                                                                                   
+DRAM:  1 GiB                                                                                                       
+MMC:   mmc@4020000: 0, mmc@4021000: 2, mmc@4022000: 1                                                              
+Loading Environment from FAT... Unable to read "uboot.env" from mmc0:1... In:    serial@5000000                    
+Out:   serial@5000000                                                                                              
+Err:   serial@5000000                                                                                              
+Net:   No ethernet found.                                                                                          
+starting USB...                                                                                                    
+Bus usb@5101000: USB EHCI 1.00                                                                                     
+Bus usb@5101400: USB OHCI 1.0                                                                                      
+scanning bus usb@5101000 for devices... 1 USB Device(s) found                                                      
+scanning bus usb@5101400 for devices... 1 USB Device(s) found                                                      
+       scanning usb for storage devices... 0 Storage Device(s) found                                               
+Hit any key to stop autoboot:  0                                                                                   
+switch to partitions #0, OK                                                                                        
+mmc1(part 0) is current device                                                                                     
+Scanning mmc 1:1...                                                                                                
+libfdt fdt_check_header(): FDT_ERR_BADMAGIC                                                                        
+Scanning disk mmc@4020000.blk...                                                                                   
+Card did not respond to voltage select! : -110                                                                     
+Scanning disk mmc@4021000.blk...                                                                                   
+Disk mmc@4021000.blk not ready                                                                                     
+Scanning disk mmc@4022000.blk...                                                                                   
+Found 18 disks                                                                                                     
+No EFI system partition                                                                                            
+BootOrder not defined                                                                                              
+EFI boot manager: Cannot load any image                                                                            
+switch to partitions #0, OK                                                                                        
+mmc0 is current device                                                                                             
+Scanning mmc 0:1...                                                                                                
+Found /extlinux/extlinux.conf                                                                                      
+Retrieving file: /extlinux/extlinux.conf                                                                           
+196 bytes read in 4 ms (47.9 KiB/s)                                                                                
+1:      linux                                                                                                      
+Retrieving file: /initrd.img                                                                        
+12042995 bytes read in 708 ms (16.2 MiB/s)                                                                         
+Retrieving file: /a63/Image                                                                                        
+4454408 bytes read in 266 ms (16 MiB/s)                                                                            
+append: initrd=/initrd.img root=/dev/mmcblk0p1 rootwait rw console=ttyS0
+Retrieving file: /a63/sun50iw3p1-t1.dtb                                                                            
+262144 bytes read in 20 ms (12.5 MiB/s)                                                                            
+## Flattened Device Tree blob at 4fa00000                                                                          
+   Booting using the fdt blob at 0x4fa00000                                                                        
+   Loading Ramdisk to 49483000, end 49fff2f3 ... OK                                                                
+ERROR: reserving fdt memory region failed (addr=48000000 size=2000000 flags=0)                                     
+   Loading Device Tree to 0000000049440000, end 0000000049482fff ... OK                                            
+                                                                                                                   
+Starting kernel ...                                                                                                
+                                                                                                                   
+[    0.000000] Booting Linux on physical CPU 0x0                                                                   
+[    0.000000] Linux version 4.9.170+ (xxx@xxx) (gcc version x.x.x 
+[    0.000000] Boot CPU: AArch64 Processor [410fd034]                                                              
+[    0.000000] cma: Reserved 16 MiB at 0x000000007f000000                                                          
+[    0.000000] psci: probing for conduit method from DT.                                                           
+[    0.000000] psci: PSCIv1.1 detected in firmware.                                                                
+[    0.000000] psci: Using standard PSCI v0.2 function IDs                                                         
+[    0.000000] psci: MIGRATE_INFO_TYPE not supported.                                                              
+[    0.000000] psci: SMC Calling Convention v1.0                                                                   
+[    0.000000] percpu: Embedded 20 pages/cpu @ffffffc03ef4b000 s44176 r8192 d29552 u81920                          
+[    0.000000] Detected VIPT I-cache on CPU0                                                                       
+[    0.000000] CPU features: enabling workaround for ARM erratum 845719                                            
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 258048                         
+[    0.000000] Kernel command line: initrd=/initrd.img root=/dev/mmcblk0p1 rootwait rw console=ttyS0
+[    0.000000] log_buf_len individual max cpu contribution: 4096 bytes                                             
+[    0.000000] log_buf_len total cpu_extra contributions: 12288 bytes                                              
+[    0.000000] log_buf_len min size: 16384 bytes                                                                   
+[    0.000000] log_buf_len: 32768 bytes                                                                            
+[    0.000000] early log buf free: 14780(90%)                                                                      
+[    0.000000] PID hash table entries: 4096 (order: 3, 32768 bytes)                                                
+[    0.000000] Dentry cache hash table entries: 131072 (order: 8, 1048576 bytes)                                   
+[    0.000000] Inode-cache hash table entries: 65536 (order: 7, 524288 bytes)                                      
+[    0.000000] Memory: 976212K/1048576K available (2302K kernel code, 254K rwdata, 1412K rodata, 320K init, 133K b)
+[    0.000000] Virtual kernel memory layout:                                                                       
+[    0.000000]     modules : 0xffffff8000000000 - 0xffffff8008000000   (   128 MB)                                 
+[    0.000000]     vmalloc : 0xffffff8008000000 - 0xffffffbebfff0000   (   250 GB)                                 
+[    0.000000]       .text : 0xffffff8008080000 - 0xffffff80082c0000   (  2304 KB)                                 
+[    0.000000]     .rodata : 0xffffff80082c0000 - 0xffffff8008430000   (  1472 KB)                                 
+[    0.000000]       .init : 0xffffff8008430000 - 0xffffff8008480000   (   320 KB)                                 
+[    0.000000]       .data : 0xffffff8008480000 - 0xffffff80084bf808   (   255 KB)                                 
+[    0.000000]        .bss : 0xffffff80084bf808 - 0xffffff80084e0f94   (   134 KB)                                 
+[    0.000000]     fixed   : 0xffffffbefe7fb000 - 0xffffffbefec00000   (  4116 KB)                                 
+[    0.000000]     PCI I/O : 0xffffffbefee00000 - 0xffffffbeffe00000   (    16 MB)                                 
+[    0.000000]     vmemmap : 0xffffffbf00000000 - 0xffffffc000000000   (     4 GB maximum)                         
+[    0.000000]               0xffffffbf00000000 - 0xffffffbf01000000   (    16 MB actual)                          
+[    0.000000]     memory  : 0xffffffc000000000 - 0xffffffc040000000   (  1024 MB)                                 
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=4, Nodes=1                                          
+[    0.000000] Preemptible hierarchical RCU implementation.                                                        
+[    0.000000]  Build-time adjustment of leaf fanout to 64.                                                        
+[    0.000000] NR_IRQS:64 nr_irqs:64 0                                                                             
+[    0.000000] GIC: Using split EOI/Deactivate mode                                                                
+[    0.000000] clk lvds0 not found in of_sunxi_periph_clk_setup                                                    
+[    0.000000] clocksource: timer: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 58327039986419 ns         
+[    0.000000] arm_arch_timer: Architected cp15 timer(s) running at 24.00MHz (phys).                               
+[    0.000000] clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0x588fe9dc0, max_idle_ns: 4407952s
+[    0.000010] sched_clock: 56 bits at 24MHz, resolution 41ns, wraps every 4398046511097ns                         
+[    0.000514] Console: colour dummy device 80x25                                                                  
+[    0.003444] console [tty1] enabled                                                                              
+[    0.003520] Calibrating delay loop (skipped), value calculated using timer frequency.. 48.00 BogoMIPS (lpj=9600)
+[    0.003644] pid_max: default: 32768 minimum: 301                                                                
+[    0.004747] Mount-cache hash table entries: 2048 (order: 2, 16384 bytes)                                        
+[    0.004826] Mountpoint-cache hash table entries: 2048 (order: 2, 16384 bytes)                                   
+[    0.011461] sched-energy: CPU device node has no sched-energy-costs                                             
+[    0.011559] Invalid sched_group_energy for CPU0                                                                 
+[    0.011631] CPU0: update cpu_capacity 1024                                                                      
+[    0.023313] ASID allocator initialised with 32768 entries                                                       
+[    0.079913] Detected VIPT I-cache on CPU1                                                                       
+[    0.080001] Invalid sched_group_energy for CPU1                                                                 
+[    0.080009] CPU1: update cpu_capacity 1024                                                                      
+[    0.080016] CPU1: Booted secondary processor [410fd034]                                                         
+[    0.107931] Detected VIPT I-cache on CPU2                                                                       
+[    0.107997] Invalid sched_group_energy for CPU2                                                                 
+[    0.108004] CPU2: update cpu_capacity 1024                                                                      
+[    0.108011] CPU2: Booted secondary processor [410fd034]                                                         
+[    0.136092] Detected VIPT I-cache on CPU3                                                                       
+[    0.136154] Invalid sched_group_energy for CPU3                                                                 
+[    0.136160] CPU3: update cpu_capacity 1024                                                                      
+[    0.136167] CPU3: Booted secondary processor [410fd034]                                                         
+[    0.136339] Brought up 4 CPUs                                                                                   
+[    0.137095] SMP: Total of 4 processors activated.                                                               
+[    0.137171] CPU features: detected feature: 32-bit EL0 Support                                                  
+[    0.137248] CPU features: detected feature: Kernel page table isolation (KPTI)                                  
+[    0.140991] CPU: All CPU(s) started at EL2                                                                      
+[    0.141094] alternatives: patching kernel code                                                                  
+[    0.141824] Invalid sched_group_energy for Cluster3                                                             
+[    0.141902] Invalid sched_group_energy for Cluster2                                                             
+[    0.141976] Invalid sched_group_energy for Cluster1                                                             
+[    0.142050] Invalid sched_group_energy for Cluster0                                                             
+[    0.144441] devtmpfs: initialized                                                                               
+[    0.520306] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns     
+[    0.520464] futex hash table entries: 1024 (order: 5, 131072 bytes)                                             
+[    0.522159] atomic64_test: passed                                                                               
+[    0.522237] pinctrl core: initialized pinctrl subsystem                                                         
+[    0.533725] dump_class_init,861, success                                                                        
+[    0.534468] vdso: 2 pages (1 code @ ffffff80082c7000, 1 data @ ffffff8008484000)                                
+[    0.534636] hw-breakpoint: found 6 breakpoint and 4 watchpoint registers.                                       
+[    0.537673] DMA: preallocated 256 KiB pool for atomic allocations                                               
+[    0.586496] sun50iw3p1-r-pinctrl r_pio: initialized sunXi PIO driver                                            
+[    0.674855] sun50iw3p1-pinctrl pio: initialized sunXi PIO driver                                                
+[    0.862006] sunxi-pm debug v3.10                                                                                
+[    0.868125] SCSI subsystem initialized                                                                          
+[    0.869725] clocksource: Switched to clocksource arch_sys_counter                                               
+[    0.978319] Unpacking initramfs...                                                                              
+[    2.739777] Freeing initrd memory: 11760K                                                                       
+[    2.742695] hw perfevents: enabled with armv8_pmuv3 PMU driver, 7 counters available                            
+[    2.761385] workingset: timestamp_bits=61 max_order=18 bucket_order=0                                           
+[    2.914227] io scheduler noop registered                                                                        
+[    2.918892] io scheduler cfq registered (default)                                                               
+[    2.936331] sunxi_suspend_init, 0x40020000, 0x0, 0x800                                                          
+[    2.980514] sun50iw3p1-pinctrl pio: can not get function on pin PB9                                             
+[    2.980623] sun50iw3p1-pinctrl pio: can not get function on pin PB10                                            
+[    2.980963] sun50iw3p1-pinctrl pio: can not get function on pin PB9                                             
+[    2.981057] sun50iw3p1-pinctrl pio: can not get function on pin PB10                                            
+[    2.981791] uart uart0: get regulator failed                                                                    
+[    2.982633] sun50iw3p1-pinctrl pio: can not get function on pin PB9                                             
+[    2.982728] sun50iw3p1-pinctrl pio: can not get function on pin PB10                                            
+[    2.983039] sun50iw3p1-pinctrl pio: can not get function on pin PB9                                             
+[    2.983132] sun50iw3p1-pinctrl pio: can not get function on pin PB10                                            
+[    2.983320] sw_uart_select_gpio_state()1236 - UART0 pinctrl_lookup_state(default) failed! return ffffffffffffff 
+[    2.983471] uart0: ttyS0 at MMIO 0x5000000 (irq = 211, base_baud = 1500000) is a SUNXI                          
+[    2.983614] sw_console_setup()1706 - console setup baud 115200 parity n bits 8, flow n                          
+[    3.737588] console [ttyS0] enabled                                                                             
+[    3.746638] misc dump reg init                                                                                  
+[    3.753561] Unable to detect cache hierarchy for CPU 0                                                          
+[    3.839265] Freeing unused kernel memory: 320K

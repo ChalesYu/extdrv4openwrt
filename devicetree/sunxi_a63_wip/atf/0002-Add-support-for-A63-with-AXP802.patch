@@ -1,0 +1,163 @@
+From ab6ea0abfb88c19a1557b59b1308e2fbc8c82180 Mon Sep 17 00:00:00 2001
+From: chalesyu <574249312@qq.com>
+Date: Sun, 2 Jan 2022 00:00:00 +0800
+Subject: [PATCH 2/2] Add support for A63 with AXP802
+
+A63 almost same as H6
+AXP802 same as AXP803
+---
+ plat/allwinner/common/include/sunxi_def.h |  1 +
+ plat/allwinner/common/sunxi_bl31_setup.c  |  3 +++
+ plat/allwinner/common/sunxi_common.c      |  5 +++--
+ plat/allwinner/sun50i_a63/platform.mk     |  2 +-
+ plat/allwinner/sun50i_a63/sunxi_power.c   | 27 +++++++++++------------
+ 5 files changed, 21 insertions(+), 17 deletions(-)
+
+diff --git a/plat/allwinner/common/include/sunxi_def.h b/plat/allwinner/common/include/sunxi_def.h
+index ec50887d7..efa5c8b4b 100644
+--- a/plat/allwinner/common/include/sunxi_def.h
++++ b/plat/allwinner/common/include/sunxi_def.h
+@@ -16,6 +16,7 @@
+ 
+ #define SUNXI_SOC_A64			0x1689
+ #define SUNXI_SOC_H5			0x1718
++#define SUNXI_SOC_A63			0x1719
+ #define SUNXI_SOC_H6			0x1728
+ #define SUNXI_SOC_H616			0x1823
+ #define SUNXI_SOC_R329			0x1851
+diff --git a/plat/allwinner/common/sunxi_bl31_setup.c b/plat/allwinner/common/sunxi_bl31_setup.c
+index 14049e852..62040952d 100644
+--- a/plat/allwinner/common/sunxi_bl31_setup.c
++++ b/plat/allwinner/common/sunxi_bl31_setup.c
+@@ -122,6 +122,9 @@ void bl31_platform_setup(void)
+ 	case SUNXI_SOC_H5:
+ 		soc_name = "H5";
+ 		break;
++	case SUNXI_SOC_A63:
++		soc_name = "A63";
++		break;
+ 	case SUNXI_SOC_H6:
+ 		soc_name = "H6";
+ 		break;
+diff --git a/plat/allwinner/common/sunxi_common.c b/plat/allwinner/common/sunxi_common.c
+index 82410b1ed..776d9d0e7 100644
+--- a/plat/allwinner/common/sunxi_common.c
++++ b/plat/allwinner/common/sunxi_common.c
+@@ -118,6 +118,7 @@ int sunxi_init_platform_r_twi(uint16_t socid, bool use_rsb)
+ 		device_bit = BIT(6);
+ 		break;
+ 	case SUNXI_SOC_H6:
++	case SUNXI_SOC_A63:
+ 	case SUNXI_SOC_H616:
+ 		pin_func = use_rsb ? 0x22 : 0x33;
+ 		device_bit = BIT(16);
+@@ -133,7 +134,7 @@ int sunxi_init_platform_r_twi(uint16_t socid, bool use_rsb)
+ 	}
+ 
+ 	/* un-gate R_PIO clock */
+-	if (socid != SUNXI_SOC_H6 && socid != SUNXI_SOC_H616)
++	if (socid != SUNXI_SOC_H6 && socid != SUNXI_SOC_A63 && socid != SUNXI_SOC_H616)
+ 		mmio_setbits_32(SUNXI_R_PRCM_BASE + 0x28, BIT(0));
+ 
+ 	/* switch pins PL0 and PL1 to the desired function */
+@@ -146,7 +147,7 @@ int sunxi_init_platform_r_twi(uint16_t socid, bool use_rsb)
+ 	mmio_clrsetbits_32(SUNXI_R_PIO_BASE + 0x1c, 0x0fU, 0x5U);
+ 
+ 	/* un-gate clock */
+-	if (socid != SUNXI_SOC_H6 && socid != SUNXI_SOC_H616)
++	if (socid != SUNXI_SOC_H6 && socid != SUNXI_SOC_A63 && socid != SUNXI_SOC_H616)
+ 		mmio_setbits_32(SUNXI_R_PRCM_BASE + 0x28, device_bit);
+ 	else
+ 		mmio_setbits_32(SUNXI_R_PRCM_BASE + reset_offset, BIT(0));
+diff --git a/plat/allwinner/sun50i_a63/platform.mk b/plat/allwinner/sun50i_a63/platform.mk
+index e13e8cbd4..f895fe17c 100644
+--- a/plat/allwinner/sun50i_a63/platform.mk
++++ b/plat/allwinner/sun50i_a63/platform.mk
+@@ -7,7 +7,7 @@
+ # The differences between the platform are covered by the include files.
+ include plat/allwinner/common/allwinner-common.mk
+ 
+-BL31_SOURCES		+=	drivers/allwinner/axp/axp805.c		\
++BL31_SOURCES		+=	drivers/allwinner/axp/axp803.c		\
+ 				drivers/allwinner/sunxi_rsb.c
+ 
+ # Put NOBITS memory in SRAM A1, overwriting U-Boot's SPL.
+diff --git a/plat/allwinner/sun50i_a63/sunxi_power.c b/plat/allwinner/sun50i_a63/sunxi_power.c
+index d298e6b8a..c3ca9ac71 100644
+--- a/plat/allwinner/sun50i_a63/sunxi_power.c
++++ b/plat/allwinner/sun50i_a63/sunxi_power.c
+@@ -17,22 +17,26 @@
+ #include <sunxi_mmap.h>
+ #include <sunxi_private.h>
+ 
+-#define AXP805_HW_ADDR	0x745
+-#define AXP805_RT_ADDR	0x3a
++//A63 almost same as H6
++//AXP802 same as AXP803
++
++#define AXP802_HW_ADDR	0x3a3
++#define AXP802_RT_ADDR	0x2d
++
+ 
+ static enum pmic_type {
+ 	UNKNOWN,
+-	AXP805,
++	AXP802,
+ } pmic;
+ 
+ int axp_read(uint8_t reg)
+ {
+-	return rsb_read(AXP805_RT_ADDR, reg);
++	return rsb_read(AXP802_RT_ADDR, reg);
+ }
+ 
+ int axp_write(uint8_t reg, uint8_t val)
+ {
+-	return rsb_write(AXP805_RT_ADDR, reg, val);
++	return rsb_write(AXP802_RT_ADDR, reg, val);
+ }
+ 
+ static int rsb_init(void)
+@@ -54,7 +58,7 @@ static int rsb_init(void)
+ 		return ret;
+ 
+ 	/* Associate the 8-bit runtime address with the 12-bit bus address. */
+-	ret = rsb_assign_runtime_address(AXP805_HW_ADDR, AXP805_RT_ADDR);
++	ret = rsb_assign_runtime_address(AXP802_HW_ADDR, AXP802_RT_ADDR);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -65,7 +69,7 @@ int sunxi_pmic_setup(uint16_t socid, const void *fdt)
+ {
+ 	int ret;
+ 
+-	INFO("PMIC: Probing AXP805 on RSB\n");
++	INFO("PMIC: Probing AXP802 on RSB\n");
+ 
+ 	ret = sunxi_init_platform_r_twi(socid, true);
+ 	if (ret)
+@@ -75,12 +79,7 @@ int sunxi_pmic_setup(uint16_t socid, const void *fdt)
+ 	if (ret)
+ 		return ret;
+ 
+-	/* Switch the AXP805 to master/single-PMIC mode. */
+-	ret = axp_write(0xff, 0x0);
+-	if (ret)
+-		return ret;
+-
+-	pmic = AXP805;
++	pmic = AXP802;
+ 	axp_setup_regulators(fdt);
+ 
+ 	/* Switch the PMIC back to I2C mode. */
+@@ -94,7 +93,7 @@ int sunxi_pmic_setup(uint16_t socid, const void *fdt)
+ void sunxi_power_down(void)
+ {
+ 	switch (pmic) {
+-	case AXP805:
++	case AXP802:
+ 		/* (Re-)init RSB in case the rich OS has disabled it. */
+ 		sunxi_init_platform_r_twi(SUNXI_SOC_H6, true);
+ 		rsb_init();
+-- 
+
