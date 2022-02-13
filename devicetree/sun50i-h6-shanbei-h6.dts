@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: (GPL-2.0+)
 /*
- * Copyright (C) 2021 ChalesYu <574249312@qq.com>
+ * Copyright (C) 2022 ChalesYu <574249312@qq.com>
  */
 
 #include "sun50i-h6-beelink-gs1.dts"
@@ -27,11 +27,9 @@
 	regulator-always-on;
 };
 
-//from orange pi dtsi
 &pio {
 	vcc-pc-supply = <&reg_bldo2>;
-	vcc-pd-supply = <&reg_cldo1>;
-	vcc-pg-supply = <&reg_aldo1>;
+	vcc-pg-supply = <&reg_bldo3>;
 };
 
 //i2c3

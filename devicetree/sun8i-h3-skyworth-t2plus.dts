@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: (GPL-2.0+)
 /*
- * Copyright (C) 2021 Zhao Yu <574249312@qq.com>
+ * Copyright (C) 2022 Zhao Yu <574249312@qq.com>
  */
 
 #include "sun8i-h3-beelink-x2.dts"
@@ -35,7 +35,7 @@
 };
 
 &reg_usb0_vbus {
-	regulator-always-on;
+	//regulator-always-on;
 	status = "okay";
 };
 

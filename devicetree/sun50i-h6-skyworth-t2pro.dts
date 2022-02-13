@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: (GPL-2.0+)
 /*
- * Copyright (C) 2021 Zhao Yu <574249312@qq.com>
+ * Copyright (C) 2022 Zhao Yu <574249312@qq.com>
  */
 
 #include "sun50i-h6-tanix-tx6.dts"
@@ -31,8 +31,15 @@
 };
 
 /* board use for uart pins, No SD Card Solt */
-&uart0-ph-pins {
-	pins = "PF2", "PF4";
+&pio {
+	uart0_pf_pins: uart0-pf-pins {
+		pins = "PF2", "PF4";
+		function = "uart0";
+	};
+};
+
+&uart0 {
+	pinctrl-0 = <&uart0_pf_pins>;
 };
 
 /* sdcard */
