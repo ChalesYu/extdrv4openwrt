@@ -11,6 +11,7 @@
 
 obj-m		:=
 obj-m		+= sr9700_ml.o
+obj-m		+= sr9700.o
 
 
 ifeq ($(MAKING_MODULES),1)
