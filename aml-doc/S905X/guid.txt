@@ -194,7 +194,7 @@ BSP:
 6. [杂谈]其他随便谈谈这些S905的板子
 	S905系列的变体板非常多，在这简单列举一下我目前所知道的(和猜的)
 	S905/S905M (gxbb_p200_1g ,gxbb_p201_1g) 最早期的 meson GX BaBy 板，有很多坑，系统运行时插上个USB Hub直接重启(硬件的锅)。
-	S905L/S905X (gxl_p211_1g,gxl_p212_1g) 开始启动了一些安全措施，但也是硬件缩水(降低成本和售价)的开始。
+	S905L/S905X (gxl_p211_1g,gxl_p212_1g,gxl_p214_1g) 开始启动了一些安全措施，但也是硬件缩水(降低成本和售价)的开始。在一个p214的S905X板子中，CPU降到1.2GHz，内存为16位。
 	S905D (gxl_p231_1g) 在某讯N1上采用,T1用的是S912，庞氏骗局崩盘的矿渣，在国外的论坛上也出现过。
 	S905L2 (gxlx_p261_1g) 给运营商交押金"免费借"的缩水盒子，在国产杂牌机也出现过。比S905L在GPU砍了一个PP，gxlx在时钟也有修改，eMMC频率缩水的和S905W一样。
 	S905W (gxl_p281_1g) 基本是国外的"缩水版"，面向国外的linux-meson.com有介绍，国内有广告机采用。
@@ -205,5 +205,15 @@ BSP:
 	所以给你的那个就像某讯N1矿渣一样，对于主线linux内核是通用的,对于S905L2的板子需要改一下dtb。
 	(具体：用dtc把dtb文件转成dts，给GPU节点(gpu@c0000)加个status="disabled",然后找到emmc节点(mmc@74000)，把max-frequency改为0x2faf080。再用dtc把改好的dts转成dtb)。
 
+7. [可选]给emmc重新分区-仅供参考-可能会破坏原系统
+	创建MBR分区表并分区
+	DEV_EMMC=/dev/mmcblk2
+	parted -s "${DEV_EMMC}" mklabel msdos
+	parted -s "${DEV_EMMC}" mkpart primary fat32 700M 828M
+	parted -s "${DEV_EMMC}" mkpart primary ext4 829M 100%
+
+	把u-boot写入到emmc
+	dd if=/boot/u-boot-default.img of="${DEV_EMMC}" conv=fsync bs=1 count=442
+	dd if=/boot/u-boot-default.img of="${DEV_EMMC}" conv=fsync bs=512 skip=1 seek=1
 
 
