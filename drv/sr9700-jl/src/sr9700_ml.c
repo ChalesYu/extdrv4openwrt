@@ -322,7 +322,6 @@ static int sr9700_bind(struct usbnet *dev, struct usb_interface *intf)
 {
 	struct net_device *netdev;
 	struct mii_if_info *mii;
-	u8 addr[ETH_ALEN];
 	int ret;
 
 	ret = usbnet_get_endpoints(dev, intf);
@@ -356,17 +355,12 @@ static int sr9700_bind(struct usbnet *dev, struct usb_interface *intf)
 	if (sr_read(dev, SR_PAR, ETH_ALEN, addr) < 0) {
 		netdev_err(netdev, "Error reading MAC address\n");
 
-		/* Give it a default MAC address when reading failed */
-		netdev_err(netdev, "Will give it a default MAC address\n");
-		//default MAC address 00:01:02:03:04:05
-		addr[0] = 0x00;
-		addr[1] = 0x01;
-		addr[2] = 0x02;
-		addr[3] = 0x03;
-		addr[4] = 0x04;
-		addr[5] = 0x05;
-
-		memcpy(netdev->dev_addr, addr, netdev->addr_len);
+		/* Give it a random MAC address when reading failed */
+		netdev_err(netdev, "Will give it a random MAC address\n");
+		eth_random_addr(netdev->dev_addr);
+		netdev_err(netdev,
+			 "Invalid MAC address, using random address %pM\n",
+			 netdev->dev_addr);
 		sr_write_async(dev, SR_PAR, 6, netdev->dev_addr);
 
 	}
