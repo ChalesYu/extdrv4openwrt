@@ -1,0 +1,41 @@
+diff --git a/package/kernel/mac80211/Makefile b/package/kernel/mac80211/Makefile
+index 25f8675..7b580b7 100644
+--- a/package/kernel/mac80211/Makefile
++++ b/package/kernel/mac80211/Makefile
+@@ -28,6 +28,7 @@ PKG_DRIVERS = \
+ 	lib80211 \
+ 	mac80211-hwsim \
+ 	mt7601u \
++	cw1200 \
+ 	p54-common p54-pci p54-usb \
+ 	rsi91x rsi91x-usb rsi91x-sdio\
+ 	wlcore wl12xx wl18xx \
+@@ -279,6 +280,16 @@ define KernelPackage/mt7601u
+   AUTOLOAD:=$(call AutoProbe,mt7601u)
+ endef
+ 
++define KernelPackage/cw1200
++  $(call KernelPackage/mac80211/Default)
++  TITLE:=CW1200 XR819 SDIO Wireless Driver
++  DEPENDS+= +kmod-mac80211 +@DRIVER_11N_SUPPORT
++  FILES:= \
++	$(PKG_BUILD_DIR)/drivers/net/wireless/st/cw1200/cw1200_core.ko \
++	$(PKG_BUILD_DIR)/drivers/net/wireless/st/cw1200/cw1200_wlan_sdio.ko
++  AUTOLOAD:=$(call AutoProbe,cw1200_wlan_sdio)
++endef
++
+ define KernelPackage/p54/Default
+   $(call KernelPackage/mac80211/Default)
+   TITLE:=Prism54 Drivers
+@@ -412,6 +423,9 @@ config-$(call config_package,mac80211-hwsim) += MAC80211_HWSIM
+ config-$(call config_package,mt7601u) += MT7601U
+ config-y += WL_MEDIATEK
+ 
++config-$(call config_package,cw1200) += CW1200 CW1200_WLAN_SDIO
++config-y += WL_ST
++
+ config-$(call config_package,p54-common) += P54_COMMON
+ config-$(call config_package,p54-pci) += P54_PCI
+ config-$(call config_package,p54-usb) += P54_USB
+-- 
+

@@ -1,0 +1,48 @@
+diff --git a/package/kernel/mac80211/Makefile b/package/kernel/mac80211/Makefile
+index 4e84f92..25f8675 100644
+--- a/package/kernel/mac80211/Makefile
++++ b/package/kernel/mac80211/Makefile
+@@ -85,12 +85,12 @@ config-$(CONFIG_PACKAGE_CFG80211_TESTMODE) += NL80211_TESTMODE
+ config-$(call config_package,mac80211) += MAC80211
+ config-$(CONFIG_PACKAGE_MAC80211_MESH) += MAC80211_MESH
+ 
+-include ath.mk
+-include broadcom.mk
+-include intel.mk
+-include marvell.mk
+-include ralink.mk
+-include realtek.mk
++#include ath.mk
++#include broadcom.mk
++#include intel.mk
++#include marvell.mk
++#include ralink.mk
++#include realtek.mk
+ 
+ PKG_CONFIG_DEPENDS += \
+ 	$(patsubst %,CONFIG_PACKAGE_kmod-%,$(PKG_DRIVERS))
+@@ -383,7 +383,7 @@ define Download/zd1211rw
+   URL:=@SF/zd1211/
+   HASH:=866308f6f59f7075f075d4959dff2ede47735c751251fecd1496df1ba4d338e1
+ endef
+-$(eval $(call Download,zd1211rw))
++#$(eval $(call Download,zd1211rw))
+ 
+ define KernelPackage/zd1211rw
+   $(call KernelPackage/mac80211/Default)
+@@ -458,9 +458,10 @@ define Build/Prepare
+ 	mkdir -p $(PKG_BUILD_DIR)
+ 	$(PKG_UNPACK)
+ 	$(Build/Patch)
+-	$(TAR) -C $(PKG_BUILD_DIR) -xzf $(DL_DIR)/$(IPW2100_NAME)-$(IPW2100_VERSION).tgz
+-	$(TAR) -C $(PKG_BUILD_DIR) -xzf $(DL_DIR)/$(IPW2200_NAME)-$(IPW2200_VERSION).tgz
+-	$(TAR) -C $(PKG_BUILD_DIR) -xjf $(DL_DIR)/$(ZD1211FW_NAME)-$(ZD1211FW_VERSION).tar.bz2
++#	TODO: add some out-of-tree wireless driver here
++#	$(TAR) -C $(PKG_BUILD_DIR) -xzf $(DL_DIR)/$(IPW2100_NAME)-$(IPW2100_VERSION).tgz
++#	$(TAR) -C $(PKG_BUILD_DIR) -xzf $(DL_DIR)/$(IPW2200_NAME)-$(IPW2200_VERSION).tgz
++#	$(TAR) -C $(PKG_BUILD_DIR) -xjf $(DL_DIR)/$(ZD1211FW_NAME)-$(ZD1211FW_VERSION).tar.bz2
+ 	rm -rf \
+ 		$(PKG_BUILD_DIR)/include/linux/ssb \
+ 		$(PKG_BUILD_DIR)/include/linux/bcma \
+-- 
+
