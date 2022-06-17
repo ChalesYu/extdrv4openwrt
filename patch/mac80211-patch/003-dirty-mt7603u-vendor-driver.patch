@@ -1,0 +1,25 @@
+diff --git a/package/kernel/mac80211/Makefile b/package/kernel/mac80211/Makefile
+index b785f83..48cbbc0 100644
+--- a/package/kernel/mac80211/Makefile
++++ b/package/kernel/mac80211/Makefile
+@@ -102,6 +102,7 @@ define KernelPackage/cfg80211
+   ABI_VERSION:=$(PKG_VERSION)-$(PKG_RELEASE)
+   FILES:= \
+ 	$(PKG_BUILD_DIR)/compat/compat.ko \
++	$(PKG_BUILD_DIR)/drivers/net/wireless/mt7603_usb/mt7603usta.ko \
+ 	$(PKG_BUILD_DIR)/net/wireless/cfg80211.ko
+ endef
+ 
+@@ -464,6 +465,11 @@ define Build/Prepare
+ 	$(PKG_UNPACK)
+ 	$(Build/Patch)
+ #	TODO: add some out-of-tree wireless driver here
++	$(CP) $(TOPDIR)/mt7603_usb  $(PKG_BUILD_DIR)/drivers/net/wireless/
++	sed -i '$ a obj-y += mt7603_usb/' $(PKG_BUILD_DIR)/drivers/net/wireless/Makefile
++	$(CP) $(PKG_BUILD_DIR)/drivers/net/wireless/mt7603_usb/Makefile.backports $(PKG_BUILD_DIR)/drivers/net/wireless/mt7603_usb/Makefile
++	sed -i '1s/#define/\/\/#define/g' $(PKG_BUILD_DIR)/drivers/net/wireless/mt7603_usb/common/rtusb_dev_id.c  #disable DARK mode
++
+ #	$(TAR) -C $(PKG_BUILD_DIR) -xzf $(DL_DIR)/$(IPW2100_NAME)-$(IPW2100_VERSION).tgz
+ #	$(TAR) -C $(PKG_BUILD_DIR) -xzf $(DL_DIR)/$(IPW2200_NAME)-$(IPW2200_VERSION).tgz
+ #	$(TAR) -C $(PKG_BUILD_DIR) -xjf $(DL_DIR)/$(ZD1211FW_NAME)-$(ZD1211FW_VERSION).tar.bz2
+-- 
