@@ -1,0 +1,2166 @@
+mtcmos Start..��
+mtcmos Done!
+Pll init Done!
+#T#PLL=3
+#T#GPIO=0
+[PWRAP] si_en_sel = 0, si_ck_sel = 0, *PMIC_WRAP_SI_SAMPLE_CTRL = 0, rdata = D6A9
+[PWRAP] found si_en_sel = 0, si_ck_sel = 1, si_sample_ctrl = 20, rdata = 5AA5
+[PWRAP] InitSiStrobe (7, 7, 1A65) Data Boundary Is Found !!
+[PWRAP] SI Strobe Calibration For PMIC 0 Done, (40, 7)
+[PWRAP] RECORD_CMD0:0xA08 (The last command addr)
+[PWRAP] RECORD_WDATA0:0x0 (The last command wdata)
+[PWRAP] RECORD_CMD1:0x5C2 (The second-last command addr)
+[PWRAP] RECORD_WDATA1:0x1 (The second-last command wdata)
+[PWRAP] RECORD_CMD2:0x588 (The third-last command addr)
+[PWRAP] RECORD_WDATA2:0x4321 (The third-last command wdata)
+#T#PWRAP=8
+Enter mtk_kpd_gpio_set! 
+mtk detect key function pmic_detect_homekey MTK_PMIC_RST_KEY = 17
+mtk detect key function pmic_detect_homekey pressed
+Vol Up detected. Log Keep on.
+#T#UART DYNAMIC SWITCH=35
+Current RTC time:[2020/11/3 15:45:36]
+#T#I2C=1
+DATE_CODE_YY:0, DATE_CODE_WW:0
+[SegCode] Segment Code:0x34, PROJECT_CODE:0x0, FAB_CODE:0x0, RW_STA:0x0, CTL:0x0, DCM:0x7
+#T#DEVINFO=1
+[PMIC]Preloader Start
+[PMIC] CHIP Code = 0x5820
+[PMIC]POWER_HOLD :0x1
+[PMIC]TOP_RST_STATUS[0x152]=0x4F
+[PMIC]PONSTS[0xC]=0x1
+[PMIC]POFFSTS[0xE]=0x80
+[PMIC]PGSTATUS0[0x16]=0xFFFF
+[PMIC]PSOCSTATUS[0x1A]=0x0
+[PMIC]BUCK_OC_SDN_STATUS[0x1332]=0x0
+[PMIC]BUCK_OC_SDN_EN[0x1346]=0x1FF
+[PMIC]THERMALSTATUS[0x1C]=0x0
+[PMIC]STRUP_CON4[0xA1C]=0x0
+[PMIC]TOP_RST_MISC[0x14C]=0x200
+[PMIC]TOP_CLK_TRIM[0x388]=0x6CC0
+latch VPROC11 800000 uV(0x28)
+latch VPROC12 800000 uV(0x28)
+latch VSRAM_PROC11 900000 uV(0x60)
+latch VSRAM_PROC12 900000 uV(0x60)
+latch VCORE 800000 uV(0x28)
+latch VMODEM 800000 uV(0x28)
+latch VGPU 800000 uV(0x28)
+[PMIC]just_rst = 0
+No EFUSE SW Load
+ignore battery check by elink!
+[PMIC]disable usbdl wo battery
+[pmic_wdt_set] TOP_RST_MISC=0x221
+register vsram_others OK
+register vsram_proc11 OK
+register vsram_proc12 OK
+register vsram_gpu OK
+register vcore OK
+register vproc11 OK
+register vproc12 OK
+register vgpu OK
+register vmodem OK
+register vdram1 OK
+register vdram2 OK
+register vio18 OK
+[PMIC]Init done
+#T#PMIC=12
+vproc/vsram run as hw default
+#T#Long Pressed Reboot=1
+[PLFM] Init PMIC: OK(0)
+[PLFM] chip_ver[0]
+
+[BLDR] Build Time: 20201102-185610
+clk_buf_dump_dts_log: PMIC_CLK_BUF?_STATUS=2 1 0 2 0 0 1
+clk_buf_dump_dts_log: PMIC_CLK_BUF?_DRV_CURR=-1 -1 -1 -1 -1 -1 -1
+clk_buf_dump_clkbuf_log DCXO_CW00/02/11/13/14/15/16/20/top_spi_con1=0x4E1D 3AEE A000 98E9 82B5 A2AA 9455 11 1
+clk_buf_dump_clkbuf_log DCXO_CW00/02/11/13/14/15/16/20/top_spi_con1=0x4E1D 3AEE A000 98E9 82B5 A2AA 9455 11 0
+clk_buf_init_pmic_wrap: DCXO_CONN_ADR0/WDATA0/ADR1/WDATA1=0x44E/0/44E/1
+clk_buf_init_pmic_wrap: DCXO_NFC_ADR0/WDATA0/ADR1/WDATA1/EN=0x78C/100/78A/100/3
+[RTC]enable_dcxo first con = 0x4A6, osc32con = 0xDE6D, sec = 0x2549
+[RTC]get_frequency_meter: input=0x0, ouput=5
+[RTC]get_frequency_meter: input=0x0, ouput=0
+[RTC]get_frequency_meter: input=0x0, ouput=0
+[RTC]get_frequency_meter: input=0x0, ouput=5
+[RTC]get_frequency_meter: input=0x0, ouput=3928
+[RTC]rtc_init#1 powerkey1 = 0xA357, powerkey2 = 0x67D2, without LPD
+[RTC]bbpu = 0x1, con = 0x4A6, osc32con = 0xDE6D, sec = 0x2549, yea = 0xC534
+[RTC]rtc_init#2 powerkey1 = 0xA357, powerkey2 = 0x67D2
+[RTC]rtc_init Writeif_unlock
+[RTC]switch to dcxo
+[RTC]eosc_cali: RG_FQMTR_CKSEL=0x42
+[RTC]get_frequency_meter: input=0xF, ouput=816
+[RTC]eosc_cali: val=0x330
+[RTC]get_frequency_meter: input=0x7, ouput=694
+[RTC]eosc_cali: val=0x2B6
+[RTC]get_frequency_meter: input=0xB, ouput=755
+[RTC]eosc_cali: val=0x2F3
+[RTC]get_frequency_meter: input=0xD, ouput=785
+[RTC]eosc_cali: val=0x311
+[RTC]get_frequency_meter: input=0xE, ouput=799
+[RTC]eosc_cali: val=0x31F
+[RTC]get_frequency_meter: input=0xD, ouput=785
+[RTC]get_frequency_meter: input=0xE, ouput=801
+[RTC]EOSC cali val = 0xDE4D
+[RTC]RTC_SPAR0=0x0 
+[RTC]XO_XMODE_M = 1 , XO_EN32K_M = 1
+[RTC]32k-less mode
+[RTC]rtc_2sec_reboot_check 0x2549, without 2sec reboot, type 0x2
+[RTC]rtc_2sec_stat_clear
+[RTC]rtc_lpd_init RTC_CON=0x486
+#T#rtc=101
+[PMIC] pmic_init_setting end. v180105
+[MT6358] 1 8,44
+[MT6358] get volt 0, 64, 900000
+vsram_others = 900000 uV
+[MT6358] get volt 1, 64, 900000
+vsram_proc11 = 900000 uV
+[MT6358] get volt 2, 64, 900000
+vsram_proc12 = 900000 uV
+[MT6358] get volt 3, 64, 900000
+vsram_gpu = 900000 uV
+[MT6358] get volt 4, 48, 800000
+vcore = 800000 uV
+[MT6358] get volt 5, 48, 800000
+vproc11 = 800000 uV
+[MT6358] get volt 6, 48, 800000
+vproc12 = 800000 uV
+[MT6358] get volt 7, 48, 800000
+vgpu = 800000 uV
+[MT6358] get volt 8, 44, 775000
+vmodem = 775000 uV
+#T#pmic=7
+[RGU] EMI_DCS_SUCCESS 0
+[RGU] DVFSRC_SUCCESS 0
+[DDR Reserve] ddr reserve mode not be enabled yet
+#T#chk DDR Reserve status=1
+[RGU] rst from: ?
+[RGU] MODE:               0x4D
+[RGU] STA:                0x0
+[RGU] LENGTH:             0xFFE0
+[RGU] INTERVAL:           0xFFF
+[RGU] SWSYSRST:           0x0
+[RGU] LATCH_CTL:          0x0
+[RGU] NONRST_REG2:        0x40000000
+[RGU] DEBUG_CTL:          0x200F1
+[RGU] mtk_wdt_mode_config mode value=10, tmp:22000010
+[RGU] mtk_wdt_mode_config mode value=5D, tmp:2200005D
+[RGU] mtk_wdt_reset_deglitch_enable: MTK_WDT_RSTDEG_EN1(8000A357), MTK_WDT_RSTDEG_EN2(800067D2)
+[RGU] rgu_update_reg: 0, bits: 0xC000, addr: 0x10007040, val: 0x200F1
+[RGU] rgu_update_reg: 0, bits: 0x300, addr: 0x100070A0, val: 0xFF
+[RGU] mtk_wdt_pre_init: MTK_WDT_DEBUG_CTL(0x200F1)
+[RGU] mtk_wdt_pre_init: MTK_WDT_DEBUG_CTL2(0xFF)
+[RGU] mtk_wdt_pre_init: MTK_WDT_LATCH_CTL(0x21E71)
+[RGU] mtk_wdt_pre_init: MTK_WDT_REQ_MODE(3F0012), MTK_WDT_REQ_IRQ_EN(3F0012)
+[RGU] g_rgu_status: 0 (0x0)
+[RGU] bypass pwrkey: wdt does not trigger rst
+mtk_kpd_gpio_set Already! 
+after set KP enable: KP_SEL = 0x1C70 !
+[RTC]irqsta = 0x0, pdn1 = 0x0, pdn2 = 0x201, spar0 = 0x80, spar1 = 0x800
+[RTC]new_spare0 = 0x600F, new_spare1 = 0x5003, new_spare2 = 0x1, new_spare3 = 0xA10B
+[RTC]bbpu = 0x1, con = 0x486, cali = 0x2549, osc32con = 0xDE6D
+#T#check Boot status-RTC=13
+#T#check Boot status-WDT=0
+power key is pressed
+[is_pwrkey_short_press] pwrkey_release=0, LONG_PRESS_COUNT=672
+ignore battery check by elink!
+[PLFM] Power key boot!
+#T#check Boot status=2
+[PMIC]POWER_HOLD :0x1
+[RTC]rtc_lpsd_solution
+[RTC]1st RTC_AL_MASK= 0x10 
+[RTC]2nd RTC_AL_MASK= 0x7F 
+[RTC]rtc_bbpu_power_on done
+#T#rtc_bbpu_power_on=3
+ignore battery check by elink!
+[pl_battery_init] is_fg_init:0 , force_init:0 bat:1
+[fg_get_time] low:0x43B high:0x0 rtime:0xx 0x21D p1=541 p2=13!
+[fg_get_soff_time] low:0x424 high:0x0 rtime:0xx 0x212 p1=530 p2=0!
+[pmic_get_auxadc_value] channel = 0, reg_val = 0x5959, adc_result = 3769
+Detect GPIO111 Low & GPIO175 Low: EVB
+[fg_init] fg_reset_status 1 do_init_fgadc_reset 0 fg_curr_time 541 fg_soff_valid:1              shutdown_pmic_time 530 hw_id 0x5820 sw_id 0x5820, 3769 11 0x1 0x2329 0 1
+ignore battery check by elink!
+[pmic_get_auxadc_value] channel = 0, reg_val = 0x5958, adc_result = 3769
+[pmic_get_auxadc_value] channel = 2, reg_val = 0x0, adc_result = 0
+[pl_check_bat_protect_status]: check VBAT=3769 mV with 0 mV, VCHR 0 mV ,VCHR_HV=6500  start charging... 
+[pl_check_bat_protect_status]: check VBAT=3769 mV with 0 mV, stop charging... 
+#T#Enable PMIC Kpd clk=13
+[UFS] memory (ufs_ucdl): 0x27AB80
+[UFS] memory (ufs_lrb): 0x27A948
+[UFS] info: UCMD:1,D0A60000,0,0
+[UFS] info: UCMD:2,D0A60000,0,90
+[UFS] info: UCMD:2,15850000,0,0
+[UFS] info: UCMD:1,D0A60000,0,0
+[UFS] info: UCMD:2,D0A60000,0,90
+[UFS] info: UCMD:1,D0A10000,0,0
+[UFS] info: UCMD:2,D0A10000,0,3F
+[UFS] info: UCMD:16,0,0,0
+device descriptor length = 0x40
+power descriptor length = 0x62
+interconnect descriptor length = 0x6
+configuration descriptor length = 0x90
+unit descriptor length = 0x23
+geometry descriptor length = 0x48
+[UFS] UFS version 2.10
+[UFS] Device Desc:
+40 0 0 0 0 0 3 4 1 1 1 7F 0 1 5 0 
+2 10 5 16 0 1 2 3 1 2C 10 10 2 0 0 7 
+A 20 0 1 20 0 14 0 0 12 4 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+opcode 0x1 for idn 0 failed, err = 251
+ufshcd_read_desc_length: Failed to get descriptor header id 0
+bbUD0BaseOffset = 0x16, bUDConfigPLength = 0x16
+[UFS] String Desc: Serial Number INDEX 2, LENGTH 16
+12 5 0 53 0 4E 0 30 0 30 0 30 0 30 0 30 
+0 31 
+[UFS] Serial Number: 0053004e003000300030003000300031
+[UFS] info: QCMD,L:0,T:8,0x12,A:0x2400,C:0
+[UFS] get product id string len 0x10
+[UFS] get revision level string len 0x4
+[UFS] vendor id : 0x12C
+[UFS] ufs id : 128GB-UFS-MT    
+[UFS] ufs fwver: 9QSM
+[UFS] dev_quirk = 0x0
+[UFS] ufs_aio_check_lu_cfg: original Configuration Desc:
+90 1 0 1 1 1 7F 0 0 0 0 0 0 0 0 0 
+1 1 0 3 0 0 0 3 1 C 2 0 0 0 0 0 
+1 2 0 3 0 0 0 3 1 C 2 0 0 0 0 0 
+1 0 0 0 0 0 77 2A 0 C 2 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+[UFS] info: QCMD,L:0,T:8,0x0,A:0x0,C:0
+[UFS] warn: Power on, reset, or bus device reset occupied
+[UFS] Sense Data: ASC=29, ASCQ=0
+[UFS] info: QCMD,L:0,T:8,0x0,A:0x0,C:0
+[UFS] info: QCMD,L:1,T:8,0x0,A:0x0,C:0
+[UFS] warn: Power on, reset, or bus device reset occupied
+[UFS] Sense Data: ASC=29, ASCQ=0
+[UFS] info: QCMD,L:1,T:8,0x0,A:0x0,C:0
+[UFS] info: QCMD,L:2,T:8,0x0,A:0x0,C:0
+[UFS] warn: Power on, reset, or bus device reset occupied
+[UFS] Sense Data: ASC=29, ASCQ=0
+[UFS] info: QCMD,L:2,T:8,0x0,A:0x0,C:0
+[UFS] info: QCMD,L:C4,T:8,0x0,A:0x0,C:0
+[UFS] warn: Power on, reset, or bus device reset occupied
+[UFS] Sense Data: ASC=29, ASCQ=0
+[UFS] info: QCMD,L:C4,T:8,0x0,A:0x0,C:0
+[UFS] info: UCMD:1,15810000,0,0
+[UFS] info: ufshcd_get_max_pwr_mode, lane_rx: 1
+[UFS] info: UCMD:1,15610000,0,0
+[UFS] info: ufshcd_get_max_pwr_mode, lane_tx: 1
+[UFS] info: UCMD:1,15870000,0,0
+[UFS] info: ufshcd_get_max_pwr_mode, gear_rx: 3
+[UFS] info: UCMD:3,15870000,0,0
+[UFS] info: ufshcd_get_max_pwr_mode, gear_tx: 3
+[UFS] info: HS-G1-2
+[UFS] info: UCMD:2,15B00000,0,1FFF
+[UFS] info: UCMD:2,15B10000,0,FFFF
+[UFS] info: UCMD:2,15B20000,0,7FFF
+[UFS] info: UCMD:2,15B30000,0,1FFF
+[UFS] info: UCMD:2,15B40000,0,FFFF
+[UFS] info: UCMD:2,15B50000,0,7FFF
+[UFS] info: UCMD:1,20410000,0,0
+[UFS] info: UCMD:2,15B00000,0,1FFF
+[UFS] info: UCMD:1,20420000,0,0
+[UFS] info: UCMD:2,15B10000,0,FFFF
+[UFS] info: UCMD:1,20430000,0,0
+[UFS] info: UCMD:2,15B20000,0,7FFF
+[UFS] info: UCMD:3,15430000,0,0
+[UFS] info: UCMD:2,15640000,0,A5
+[UFS] info: UCMD:1,15430000,0,0
+[UFS] info: UCMD:4,15640000,0,FF
+[UFS] info: UCMD:2,15690000,0,1
+[UFS] info: UCMD:2,15840000,0,1
+[UFS] info: UCMD:2,15680000,0,1
+[UFS] info: UCMD:2,15830000,0,1
+[UFS] info: UCMD:2,15600000,0,1
+[UFS] info: UCMD:2,15800000,0,1
+[UFS] info: UCMD:2,156A0000,0,2
+[UFS] info: UCMD:2,15710000,0,11
+#T#Boot dev init=162
+[PLFM] Init Boot Device: OK(0)
+mt6370_enable_chgdet_flow: en = 0
+mt6370_enable_chgdet_flow: en = 1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x1,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x2,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x3,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x4,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x5,C:1
+[dramc] init partition address is 0x0000000000008000
+[dramc] init SRAM region for DRAM exception detection
+[dramc] LAST_DRAM_FATAL_ERR_FLAG = 0x0
+for cold boot, always return 0
+[RGU] rgu_update_reg: 0, bits: 0x400, addr: 0x10007040, val: 0x200F1
+[RGU] WDT DDR reserve mode FAIL! 200F1
+[RGU] DDR RESERVE Success 0
+[RGU] rgu_update_reg: 0, bits: 0x200, addr: 0x10007040, val: 0x200F1
+[RGU] rgu_update_reg: 0, bits: 0x100, addr: 0x10007040, val: 0x200F1
+[MT6358] 4 4,1
+[MT6358] 4 9,1
+[MT6358] 1 4,48
+[MT6358] 1 9,50
+[MT6358] cnvdata 600000, n_size 2
+[MT6358] 1 10,0
+[MT6358] votrim_size 16, cnvdata 0
+[MT6358] 6 10,0
+[EMI] mcp_dram_num:0,discrete_dram_num:1,enable_combo_dis:0
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x8,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x9,C:1
+[EMI] MDL number = 0
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x8,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x9,C:1
+[Vcore_OPP]INFO table: 800000, 725000, 725000, 725000
+[Vcore_OPP]INFO return vcore: 725000 (ddr=6, opp=2, efsule=0)
+[Vcore_OPP]INFO return vcore: 725000 (ddr=6, opp=3, efsule=0)
+[MT6358] 1 4,36
+[Vcore_OPP]INFO return vcore: 725000 (ddr=6, opp=1, efsule=0)
+[Vcore_OPP]INFO return vcore: 725000 (ddr=6, opp=2, efsule=0)
+[MT6358] 1 4,36
+[Vcore_OPP]INFO return vcore: 800000 (ddr=6, opp=0, efsule=0)
+[Vcore_OPP]INFO return vcore: 725000 (ddr=6, opp=1, efsule=0)
+[MT6358] 1 4,42
+[MT6358] 4 4,0
+[MT6358] 4 9,0
+[MT6358] 1 4,48
+[RGU] rgu_dram_reserved: MTK_WDT_MODE(2200005D)
+[MEM] 1st complex R/W mem test pass (start addr:0x56000000)
+[MEM] 2nd complex R/W mem test pass (start addr:0x80000000, 0x0 @Rank1)
+[LastDRAMC] 0x11D80C: 0x19870611
+[LastDRAMC] 0x11D810: 0x0
+[LastDRAMC] 0x11D814: 0x0
+[LastDRAMC] 0x11D818: 0x19870611
+[LastDRAMC] 0x11D81C: 0x0
+[LastDRAMC] 0x11D820: 0x0
+[LastDRAMC] 0x11D824: 0x80000000
+[LastDRAMC] 0x11D828: 0x0
+[LastDRAMC] 0x11D82C: 0x603464F4
+[LastDRAMC] 0x11D830: 0x2897318B
+[LastDRAMC] 0x11D834: 0xDF7E7EA3
+[LastDRAMC] 0x11D838: 0x5012E21E
+[LastDRAMC] 0x11D83C: 0x0
+[LastDRAMC] 0x11D840: 0x0
+[LastDRAMC] 0x11D844: 0x0
+[LastDRAMC] 0x11D848: 0x0
+[dramc] DRAM_FATAL_ERR_FLAG = 0x80000000
+#T#mem_init=404
+[Dram_Buffer] g_dram_buf start addr: 0x44800000 
+[Dram_Buffer] g_dram_buf->msdc_gpd_pool start addr: 0x4489DA00 
+[Dram_Buffer] g_dram_buf->msdc_bd_pool start addr: 0x4489DA40 
+#T#Init Dram buf=3
+RAM_CONSOLE using SRAM
+RAM_CONSOLE start: 0x11D000, size: 0x800, sig: 0xF67562C2
+RAM_CONSOLE init done
+RAM_CONSOLE wdt status (0x0)=0x0
+#T#Ram console=1
+mtk_kpd_gpio_set Already! 
+mtk detect key function pmic_detect_homekey MTK_PMIC_RST_KEY = 17
+mtk detect key function pmic_detect_homekey pressed
+[PLFM] Efuse status(1000)
+#T#EFUSE Self Blow=2
+CUSTOM_CONFIG_MAX_DRAM_SIZE: 0x0000001000000000
+total_dram_size: 0x0000000180000000, max_dram_size: 0x0000001000000000
+dump mblock info 
+mblock[i] start=0000000040000000 size=0000000080000000
+mblock[i] start=00000000C0000000 size=0000000100000000
+mblock_reserve: 00000000BFFFF000 - 00000000C0000000 from mblock 0
+mblock_reserve: 00000001BFFFF000 - 00000001C0000000 from mblock 1
+#T#Get DRAM Info=5
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x1,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x2,C:4
+[GPT_PL]Success to find valid GPT.
+#T#part_init=10
+PL_LOG_STORE:sram->sig value 0xA95F0682!
+PL_LOG_STORE:sram header is not match, format all!
+PL_LOG_STORE:set ram_header->sig = 0xABCD1234
+PL_LOG_STORE:expdb partition start addr 0x2188000, end addr 0x3588000, partition size 0x1400000, nr_sects 0x1400, blksz 0x1000!
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x3587,C:1
+PL_LOG_STORE:get uart flag= 0x0
+PL_LOG_STORE:log_to_emmc function flag 0x0!
+PL_LOG_STORE:sram_dram_buff->sig 0x0!
+mblock_reserve: 000000007FFC0000 - 0000000080000000 from mblock 0
+PL_LOG_STORE:sram_header 0x11DF00,sig 0xABCD1234, sram_dram_buff 0x11DF0C, buf_addr 0x7FFC0000
+#T#store_switch_to_dram=93
+#T#part_dump=0
+[ROM_INFO] 'v131074'
+
+[LIB] Loading SEC config
+[LIB] Name = 
+[LIB] Config = 0x22, 0x22
+0x31,0x41,0x35,0x32
+
+
+[SEC] read '0xF800000'
+[UFS] info: QCMD,L:2,T:8,0x28,A:0xF800,C:1
+0x4D,0x4D,0x4D,0x4D,0x4,0x0,0x0,0x0,
+[LIB] seclib_img_auth_load_sig [LIB] CFG read size '0x2000' '0x3C'
+0x4D4D4D4D
+[LIB] SEC CFG 'v4' exists
+[LIB] HW DEC
+[LIB] SEC CFG is valid. Lock state is 3 
+#T#Sec lib init=6
+RPMB not program key
+#T#rpmb=0
+[MT6358] get volt 4, 48, 800000
+vcore = 800000 uV
+#T#before bldr_handshake=1
+#T#seclib_brom_meta_mode=0
+[BLDR] Tool connection is unlocked
+[platform_vusb_on] VUSB33 is on
+Detect GPIO111 Low & GPIO175 Low: EVB
+Detect GPIO111 Low & GPIO175 Low: EVB
+mtk_ext_chgdet: usb_stats = 0x00000000
+mtk_ext_chgdet: chg type = 0
+[TOOL] PMIC not dectect usb cable!
+#T#USB handshake=2
+#T#bldr_handshake=0
+
+Device APC domain init setup:
+
+APC_CON: INFRA(0x0), MD(0x0), MM(0x0)
+Domain Setup Infra (0x3), (0x900), (0x2000001), (0x8060)
+INFRA DOMAIN REMAP 0:(0xEAFFF8C8), 1:(0xFFFFFFFF)
+MD DOMAIN REMAP 0:(0xFDEC)
+MM DOMAIN REMAP 0:(0xFFFFFFFC)
+#T#sec_boot_check=3
+mblock_reserve: 0000000054600000 - 0000000054640000 from mblock 0
+Device APC: sec_init Infra MAS_SEC_0=0x8008020
+mblock_reserve: 00000000BFE00000 - 00000000BFE40000 from mblock 2
+#T#trustzone pre init=2
+mblock_reserve: 000000007FF00000 - 000000007FFC0000 from mblock 1
+[PART] partition name = sspm_1
+[SEC_POLICY] reached the end, use default policy
+[LIB] NS-CHIP
+[SEC_POLICY] sboot_state = 0x0
+[SEC_POLICY] lock_state = 0x3
+[PART] img_auth_required = 0
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x1A600,C:1
+[PART] Image with header, name: tinysys-sspm, addr: FFFFFFFFh, mode, size:-1, magic:78150h
+[PART] part: sspm_1 img: tinysys-sspm cert vfy(0 ms)
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x1A600,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x1A601,C:119
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x1A678,C:1
+
+[PART] load "sspm_1" from 0x000000001A600200 (dev) to 0x7FF00018 (mem) [SUCCESS]
+[PART] load speed: 60041KB/s, 491856 bytes, 8ms
+[PART] part: sspm_1 img: tinysys-sspm vfy(0 ms)
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x1A600,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x1A678,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x1A678,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x1A679,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x1A679,C:1
+[BLDR] SSPM Start without ddr reserved mode
+[BLDR] lk active = 0, lk2 active = 0
+[BLDR] Loading LK Partition...
+[PART] partition name = lk
+[LIB] NS-CHIP
+[SEC_POLICY] sboot_state = 0x0
+[SEC_POLICY] lock_state = 0x3
+[PART] img_auth_required = 0
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x23700,C:1
+[PART] Image with header, name: lk, addr: FFFFFFFFh, mode, size:-1, magic:B6CB8h
+[PART] part: lk img: lk cert vfy(0 ms)
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x23700,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x23701,C:181
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x237B6,C:1
+
+[PART] load "lk" from 0x0000000023700200 (dev) to 0x56000000 (mem) [SUCCESS]
+[PART] load speed: 66470KB/s, 748728 bytes, 11ms
+[PART] part: lk img: lk vfy(0 ms)
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x23700,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x237B6,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x237B7,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x237B7,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x237B7,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x237B8,C:1
+LK addr: 0x56000000, size: 0xB7B30
+[PART] partition name = tee1
+[LIB] NS-CHIP
+[SEC_POLICY] sboot_state = 0x0
+[SEC_POLICY] lock_state = 0x3
+[PART] img_auth_required = 0
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26900,C:1
+[PART] Image with header, name: atf, addr: FFFFFFFFh, mode, size:0, magic:13C00h
+[PART] part: tee1 img: atf cert vfy(0 ms)
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26900,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26901,C:18
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26913,C:1
+
+[PART] load "tee1" from 0x0000000026900200 (dev) to 0x1005C0 (mem) [SUCCESS]
+[PART] load speed: 11285KB/s, 80896 bytes, 7ms
+[PART] part: tee1 img: atf vfy(0 ms)
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26900,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26913,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26914,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26914,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26914,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26915,C:1
+[BLDR] tee1 part. ATF load addr:0x1005C0, size:0x14A70
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26914,C:1
+[PART] partition name = tee1
+[LIB] NS-CHIP
+[SEC_POLICY] sboot_state = 0x0
+[SEC_POLICY] lock_state = 0x3
+[PART] img_auth_required = 0
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26914,C:1
+[PART] Image with header, name: atf_dram, addr: 54600000h, mode, size:-1, magic:11C00h
+[PART] part: tee1 img: atf_dram cert vfy(0 ms)
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26914,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26915,C:17
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26926,C:1
+
+[PART] load "tee1" from 0x0000000026914E70 (dev) to 0x54600000 (mem) [SUCCESS]
+[PART] load speed: 14199KB/s, 72704 bytes, 5ms
+[PART] part: tee1 img: atf_dram vfy(0 ms)
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26900,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26913,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26914,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26914,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26914,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26915,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26926,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26927,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26927,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26927,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26928,C:1
+[BLDR] tee1 part. ATF dram load addr:0x54600000, size:0x12A70
+[PART] partition name = tee1
+[LIB] NS-CHIP
+[SEC_POLICY] sboot_state = 0x0
+[SEC_POLICY] lock_state = 0x3
+[PART] img_auth_required = 0
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26927,C:1
+[PART] Image with header, name: tee, addr: 1300240h, mode, size:0, magic:5A400h
+[PART] part: tee1 img: tee cert vfy(0 ms)
+[TZ_TBASE] align_tee_addr: 0x8000000000040000, limit_addr: 0x00279824448764A8
+mblock_reserve: 000000007EC00000 - 000000007FF00000 from mblock 1
+[TZ_TBASE] reserved_tee_addr: 0x7EC00000, reserved_size: 0x1300000
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26927,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26928,C:89
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26981,C:1
+
+[PART] load "tee1" from 0x0000000026927AE0 (dev) to 0x7EBFFDC0 (mem) [SUCCESS]
+[PART] load speed: 51571KB/s, 369664 bytes, 7ms
+[PART] part: tee1 img: tee vfy(0 ms)
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26900,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26913,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26914,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26914,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26914,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26915,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26926,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26927,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26927,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26927,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26928,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26981,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26982,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26982,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26982,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x26983,C:1
+[BLDR] bldr load tee part ret=0x0, addr=0x1005C0
+#T#load images=173
+elink_load_items_part: bldr load items part
+mblock_reserve: 000000007EA00000 - 000000007EC00000 from mblock 1
+items_get_load_addr: items_secmem_start = 0x7EA00000 
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x23500,C:512
+[pmic_get_auxadc_value] channel = 0, reg_val = 0x591A, adc_result = 3758
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x2148,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x2148,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x2148,C:1
+[PICACHU] VPROC: FY-B
+[MT6358] get volt 5, 48, 800000
+[MT6358] get volt 1, 64, 900000
+[PICACHU] PMIC: 71-51
+[MT6358] get volt 1, 64, 900000
+[MT6358] get volt 5, 48, 800000
+[MT6358] 1 5,68
+[MT6358] 1 5,71
+[PICACHU] Cfg freq
+[MT6358] get volt 5, 71, 943750
+[MT6358] get volt 1, 87, 1043750
+[PICACHU] f 1807000 vp 943750 vs 104375
+[PICACHU] cfg cores
+[PICACHU] run pattern
+[MT6358] get volt 1, 87, 1043750
+[MT6358] get volt 5, 71, 943750
+[MT6358] get volt 1, 87, 1043750
+[MT6358] get volt 5, 71, 943750
+[MT6358] 1 5,69
+[MT6358] get volt 1, 85, 1031250
+[MT6358] get volt 5, 69, 931250
+[MT6358] 1 5,67
+[MT6358] get volt 1, 83, 1018750
+[MT6358] get volt 5, 67, 918750
+[MT6358] 1 5,65
+[MT6358] get volt 1, 81, 1006250
+[MT6358] get volt 5, 65, 906250
+[MT6358] 1 5,63
+[MT6358] get volt 1, 79, 993750
+[MT6358] get volt 5, 63, 893750
+[MT6358] 1 5,61
+[MT6358] get volt 1, 77, 981250
+[MT6358] get volt 5, 61, 881250
+[MT6358] 1 5,59
+[MT6358] get volt 1, 75, 968750
+[MT6358] get volt 5, 59, 868750
+[MT6358] 1 5,57
+[MT6358] get volt 1, 73, 956250
+[MT6358] get volt 5, 57, 856250
+[MT6358] 1 5,55
+[MT6358] get volt 1, 71, 943750
+[MT6358] get volt 5, 55, 843750
+[MT6358] 1 5,53
+[MT6358] get volt 1, 69, 931250
+[MT6358] get volt 5, 53, 831250
+[MT6358] 1 5,51
+[PICACHU] ws: 0xE0
+[PICACHU] vmin_pmic: 53
+[MT6358] get volt 5, 51, 818750
+[MT6358] get volt 1, 67, 918750
+[MT6358] get volt 5, 51, 818750
+[MT6358] 1 5,48
+[PICACHU] r[0xC532404]: 0xE1, expected bit set: 0x10
+[PICACHU] R[0x10006174]: 0x3F800, Expected bit set: 0x200000
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x2148,C:1
+[UFS] info: QCMD,L:2,T:8,0x2A,A:0x2148,C:1
+[PICACHU] opp: 0, pi_off = 0x4
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x2148,C:1
+[UFS] info: QCMD,L:2,T:8,0x2A,A:0x2148,C:1
+[UFS] info: QCMD,L:2,T:8,0x28,A:0x2148,C:1
+[PICACHU] VPROC: FY-L
+#T#picachu=237
+ignore battery check by elink!
+[pl_battery_init] is_fg_init: 1 , skip init
+#T#Battery detect=1
+mblock_reserve: 0000000054800000 - 0000000054A00000 from mblock 1
+mblock_reserve: 0000000054400000 - 0000000054410000 from mblock 0
+mblock_reserve: 0000000054410000 - 00000000544F0000 from mblock 1
+mblock_reserve: 00000000544F0000 - 0000000054500000 from mblock 1
+elink_items_set_boot_args: items_reserved_mem: 0x000000007EA00000, 0x0000000000200000
+elink_items_set_boot_args: ddr_name = , ddr_speed = 0
+
+[PLFM] boot to LK by ATAG reason=0 addr=4489DA80
+[mt_charger_type_detection] Got data !!, 0, 1
+RAM_CONSOLE offset:0xEC0
+RAM_CONSOLE sram_plat_dbg_info_addr:0x11D800, sram_plat_dbg_info_size:0x400, sram_log_store_addr:0x11DF00, sram_log_store_size:0x100
+RAM_CONSOLE mrdump_addr:0x11E000, mrdump_size:0x2000, dram_addr:0x54400000, dram_size:0x10000
+RAM_CONSOLE pstore_addr:0x54410000, pstore_size:0xE0000, pstore_console_size:0x40000, pstore_pmsg_size:0x10000
+RAM_CONSOLE mrdump_mini_header_addr:0x544F0000, mrdump_mini_header_size:0x10000, magic1:0x61646472, magic2:0x73697A65
+elink_items_set_boot_args_by_atag: items_reserved_mem.start: 0x000000007EA00000
+elink_items_set_boot_args_by_atag: items_reserved_mem.size: 0x0000000000200000
+elink_items_set_boot_args_by_atag: set tags.ddr_speed: 0
+elink_items_set_boot_args_by_atag: set tags.ddr_name: 
+BOOT_REASON: 0
+BOOT_MODE: 0
+META_COM TYPE: 0
+META_COM ID: 0
+META_COM PORT: 285220864
+META LOG DISABLE: 0
+FAST META GPIO: 178
+LOG_COM PORT: 285220864
+LOG_COM BAUD: 921600
+LOG_COM EN: 1
+LOG_COM SWITCH: 1
+MEM_NUM: 2
+MEM_SIZE: 0x240BF0
+MEM_SIZE: 0x240BF0
+mblock num: 0x7
+mblock start: 0x0000000040000000
+mblock size: 0x0000000014400000
+mblock rank: 0x0
+mblock start: 0x0000000054500000
+mblock size: 0x0000000000100000
+mblock rank: 0x0
+mblock start: 0x0000000054640000
+mblock size: 0x00000000001C0000
+mblock rank: 0x0
+mblock start: 0x0000000054A00000
+mblock size: 0x000000002A000000
+mblock rank: 0x0
+mblock start: 0x0000000080000000
+mblock size: 0x000000003FE00000
+mblock rank: 0x0
+mblock start: 0x00000000BFE40000
+mblock size: 0x00000000001BF000
+mblock rank: 0x0
+mblock start: 0x00000000C0000000
+mblock size: 0x00000000FFFFF000
+mblock rank: 0x1
+magic=0xx version=0xx reserve num: 0x99999999
+mblock start: 0x00000000BFFFF000
+mblock size: 0x0000000000001000
+mblock mapping: 0x0
+mblock name: dramc-rk0
+mblock start: 0x00000001BFFFF000
+mblock size: 0x0000000000001000
+mblock mapping: 0x0
+mblock name: dramc-rk1
+mblock start: 0x000000007FFC0000
+mblock size: 0x0000000000040000
+mblock mapping: 0x1
+mblock name: log_store
+mblock start: 0x0000000054600000
+mblock size: 0x0000000000040000
+mblock mapping: 0x0
+mblock name: atf-reserved
+mblock start: 0x00000000BFE00000
+mblock size: 0x0000000000040000
+mblock mapping: 0x0
+mblock name: atf-log-reserved
+mblock start: 0x000000007FF00000
+mblock size: 0x00000000000C0000
+mblock mapping: 0x0
+mblock name: SSPM-reserved
+mblock start: 0x000000007EC00000
+mblock size: 0x0000000001300000
+mblock mapping: 0x0
+mblock name: tee-reserved
+mblock start: 0x000000007EA00000
+mblock size: 0x0000000000200000
+mblock mapping: 0x0
+mblock name: items-reserved
+mblock start: 0x0000000054800000
+mblock size: 0x0000000000200000
+mblock mapping: 0x1
+mblock name: pl-bootarg
+mblock start: 0x0000000054400000
+mblock size: 0x0000000000010000
+mblock mapping: 0x0
+mblock name: ram_console
+mblock start: 0x0000000054410000
+mblock size: 0x00000000000E0000
+mblock mapping: 0x0
+mblock name: pstore
+mblock start: 0x00000000544F0000
+mblock size: 0x0000000000010000
+mblock mapping: 0x0
+mblock name: minirdump
+orig_dram num: 0x2
+orig_dram start: 0x0000000040000000
+orig_dram size: 0x0000000080000000
+orig_dram start: 0x00000000C0000000
+orig_dram size: 0x0000000100000000
+orig_dram start: 0x0000000000000000
+orig_dram size: 0x0000000000000000
+orig_dram start: 0x0000000000000000
+orig_dram size: 0x0000000000000000
+lca start: 0x0000000000000000
+lca size: 0x0000000000000000
+tee start: 0x00000000BFE00000
+tee size: 0x0000000000040000
+MD_INFO: 0x0
+MD_INFO: 0x0
+MD_INFO: 0x0
+MD_INFO: 0x0
+BOOT_TIME: 1319
+DA_INFO: 0x0
+DA_INFO: 0x0
+DA_INFO: 0x0
+DA_INFO: 0x0
+DA_INFO: 0x0
+SEC_INFO: 0x0
+SEC_INFO: 0x0
+PART_NUM: 5
+PART_INFO: 0x448766A4
+EFLAG: 0
+DDR_RESERVE: 0
+DDR_RESERVE: 1
+DDR_RESERVE: 38146
+DRAM_BUF: 645824
+EMI dram_type: 3
+EMI ch_num: 2
+EMI rk_num: 2
+EMI rank0 size: 0x80000000
+EMI rank1 size: 0x0
+SRAM start: 0x12A000
+SRAM size: 0x6000
+PLAT_DBG_INFO key: 0xD8A3
+PLAT_DBG_INFO base: 0x11D80C
+PLAT_DBG_INFO size: 0x40
+PLAT_DBG_INFO key: 0xE31C
+PLAT_DBG_INFO base: 0x11D84C
+PLAT_DBG_INFO size: 0x18
+PLAT_DBG_INFO key: 0x0
+PLAT_DBG_INFO base: 0x0
+PLAT_DBG_INFO size: 0x0
+is abnormal boot: 0
+ram_console info sram_addr: 0x11D000
+ram_console info sram_size: 0x800
+ram_console info def_type: 0x1
+ram_console memory_info_offset: 0xEC0
+#T#Boot Argu=55
+[TZ_TBASE] teearg.magic: 0x434D4254
+[TZ_TBASE] teearg.length: 0x0
+[TZ_TBASE] teearg.dRamBase: 0x40000000
+[TZ_TBASE] teearg.dRamSize: 0x80000000
+[TZ_TBASE] teearg.secDRamBase: 0x7EC00000
+[TZ_TBASE] teearg.secDRamSize: 0xA00000
+[TZ_TBASE] teearg.secIRamBase: 0x0
+[TZ_TBASE] teearg.secIRamSize: 0x0
+[TZ_TBASE] teearg.total_number_spi: 352
+[TZ_TBASE] teearg.ssiq_number: 324
+[TZ_TAGS] 0x7F600000-0x7FF00000
+[UFS] rpmb: logical_blk_size: 256 bytes
+[UFS] rpmb: logical_blk_cnt: 0x0000000000010000
+[UFS] rpmb: rw size: 32 frames
+[TZ_TAGS] secmem is tag format
+[TZ_TAGS] sec_mem_cfg.svp_mem_start: 0x000000007F600000
+[TZ_TAGS] sec_mem_cfg.svp_mem_end: 0x000000007FD07000
+[TZ_TAGS] sec_mem_cfg.secmem_obfuscation: 1
+[TZ_TAGS] sec_mem_cfg.shared_secmem: 1
+[TZ_TAGS] res_mem_cfg.start(0x535312): 0x7FEF8000
+[TZ_TAGS] res_mem_cfg.size(0x535312): 0x8000
+[TZ_TAGS] res_mem_cfg.start(0x535313): 0x7FE08000
+[TZ_TAGS] res_mem_cfg.size(0x535313): 0xF0000
+[TZ_TAGS] res_mem_cfg.start(0x535314): 0x7FD08000
+[TZ_TAGS] res_mem_cfg.size(0x535314): 0x100000
+[TZ_TAGS] res_mem_cfg.start(0x535315): 0x7FD07000
+[TZ_TAGS] res_mem_cfg.size(0x535315): 0x1000
+[TZ_TAGS] flash_dev_cfg.rpmb_size: 0x1000000
+[TZ_TAGS] flash_dev_cfg.emmc_rel_wr_sec_c: 0x10
+[TZ_TAGS] flash_dev_cfg.emmc_setkey_flag: 0
+[TZ_TAGS] sec_hw_cfg.remap_offset: 0x0000000000000000
+[UFS] rpmb: logical_blk_size: 256 bytes
+[UFS] rpmb: logical_blk_cnt: 0x0000000000010000
+Device APC: sec_postinit Infra MAS_SEC_0=0x8000000
+#T#trustzone post init=20
+[BLDR] Others, jump to ATF
+
+[BLDR] jump to 0x56000000
+[BLDR] <0x56000000>=0xEA000007
+[BLDR] <0x56000004>=0xEA00813F
+[TZ_SEC_CFG] [B]SRAMROM SEC_ADDR:0x0, SEC_ADDR1:0x0, SEC_ADDR2:0x0
+[TZ_SEC_CFG] [B]SRAMROM SEC_CTRL:0x0, SEC_CTRL2:0x0, SEC_CTRL5:0x0, SEC_CTRL6:0x0
+[TZ_SEC_CFG] [A]SRAMROM SEC_ADDR:0x0, SEC_ADDR1:0x0, SEC_ADDR2:0x0
+[TZ_SEC_CFG] [A]SRAMROM SEC_CTRL:0x0, SEC_CTRL2:0x0, SEC_CTRL5:0x0, SEC_CTRL6:0x0
+[ATF](0)[1.756975]INFO:    BOOT_REASON: 0
+[ATF](0)[1.758039]INFO:    IS_ABNORMAL_BOOT: 0
+[ATF](0)[1.758550]INFO:    RAM_CONSOLE_INFO: addr:0x11d000, size:0x800, type:0x1, offset:0xec0
+[ATF](0)[1.759582]INFO:    CPUxGPT reg(0)
+[ATF](0)[1.760041]INFO:    [systimer] CNTCR_REG(0x505)
+[ATF](0)[1.760651]INFO:    Secondary bootloader is AArch32
+[ATF](0)[1.761292]INFO:    bl31_plat_arch_setup()
+[ATF](0)[1.761844]INFO:    mmap atf buffer : 0xbfe00000, 0x40000
+[ATF](0)[1.762774]INFO:    mmap ram_console: 0x11d000, 0x800, (pmore:0x1000)
+[ATF](0)[1.766738]INFO:    mmap:
+[ATF](0)[1.767092]INFO:     VA:0x100000  PA:0x100000  size:0x1b000  attr:0xa
+[ATF](0)[1.767933]INFO:     VA:0x101000  PA:0x101000  size:0x10000  attr:0x2
+[ATF](0)[1.768772]INFO:     VA:0x11d000  PA:0x11d000  size:0x1000  attr:0x18
+[ATF](0)[1.769613]INFO:     VA:0xc000000  PA:0xc000000  size:0x400000  attr:0x8
+[ATF](0)[1.770485]INFO:     VA:0xc500000  PA:0xc500000  size:0x10000  attr:0x8
+[ATF](0)[1.771346]INFO:     VA:0xc510000  PA:0xc510000  size:0x1000  attr:0x8
+[ATF](0)[1.772197]INFO:     VA:0xc530000  PA:0xc530000  size:0x90000  attr:0x8
+[ATF](0)[1.773059]INFO:     VA:0xd0c6000  PA:0xd0c6000  size:0x1000  attr:0x8
+[ATF](0)[1.773909]INFO:     VA:0xd0c8000  PA:0xd0c8000  size:0x1000  attr:0x8
+[ATF](0)[1.774760]INFO:     VA:0xd0d9000  PA:0xd0d9000  size:0x1000  attr:0x8
+[ATF](0)[1.775611]INFO:     VA:0x10000000  PA:0x10000000  size:0x490000  attr:0x8
+[ATF](0)[1.776505]INFO:     VA:0x11000000  PA:0x11000000  size:0x4000000  attr:0x8
+[ATF](0)[1.777409]INFO:     VA:0x19000000  PA:0x19000000  size:0x1000  attr:0x8
+[ATF](0)[1.778282]INFO:     VA:0x201d7000  PA:0x201d7000  size:0x1000  attr:0x8
+[ATF](0)[1.779154]INFO:     VA:0x54600000  PA:0x54600000  size:0x11000  attr:0x2
+[ATF](0)[1.780037]INFO:     VA:0x54611000  PA:0x54611000  size:0x2c000  attr:0xa
+[ATF](0)[1.780920]INFO:     VA:0x5463d000  PA:0x5463d000  size:0x1000  attr:0x8
+[ATF](0)[1.781792]INFO:     VA:0xbfe00000  PA:0xbfe00000  size:0x40000  attr:0x18
+[ATF](0)[1.782686]INFO:    
+[ATF](0)[1.785103]INFO:    abnormal_boot: 0x0, cflag: 0x4d544641
+[ATF](0)[1.790814]INFO:    mt_log_setup
+[ATF](0)[1.791236]INFO:     -atf_buf_lock: 0x0
+[ATF](0)[1.791753]INFO:     -mt_log_buf_start: 0xbfe00000
+[ATF](0)[1.792388]INFO:     -mt_log_buf_size: 0x40000
+[ATF](0)[1.792981]INFO:     -log_addr: 0xbfe00200
+[ATF](0)[1.793530]INFO:     -log_size: 0x13e00
+[ATF](0)[1.794047]INFO:     -write_offset: 0x0
+[ATF](0)[1.794564]INFO:     -read_offset: 0x0
+[ATF](0)[1.795070]INFO:     -log_buf_end : 0xbfe13fff
+[ATF](0)[1.795662]INFO:     -ATF_EXCEPT_BUF_SIZE_PER_CPU : 0x1000
+[ATF](0)[1.796384]INFO:     -ATF_EXCEPT_BUF_SIZE : 0x8000
+[ATF](0)[1.797019]INFO:     -PLATFORM_CORE_COUNT : 0x8
+[ATF](0)[1.797623]INFO:     -except_write_pos_per_cpu[0]: 0xbfe34000
+[ATF](0)[1.798376]INFO:     -except_write_pos_per_cpu[1]: 0xbfe35000
+[ATF](0)[1.799130]INFO:     -except_write_pos_per_cpu[2]: 0xbfe36000
+[ATF](0)[1.799884]INFO:     -except_write_pos_per_cpu[3]: 0xbfe37000
+[ATF](0)[1.800638]INFO:     -except_write_pos_per_cpu[4]: 0xbfe38000
+[ATF](0)[1.801391]INFO:     -except_write_pos_per_cpu[5]: 0xbfe39000
+[ATF](0)[1.802145]INFO:     -except_write_pos_per_cpu[6]: 0xbfe3a000
+[ATF](0)[1.802899]INFO:     -except_write_pos_per_cpu[7]: 0xbfe3b000
+[ATF](0)[1.803653]INFO:     -crash_flag : 0x41544641
+[ATF](0)[1.804235]INFO:     -crash_log_addr : 0xbfe14000
+[ATF](0)[1.804859]INFO:     -crash_log_size : 0x20000
+[ATF](0)[1.805482]INFO:    ATF log service is registered (0xbfe00000, aee:0xbfe3c000)
+[ATF](0)[1.806405]NOTICE:  BL31: v1.3(debug):b07406e
+[ATF](0)[1.806986]NOTICE:  BL31: Built : 18:26:05, Aug 27 2020
+[ATF](0)[1.807676]NOTICE:  BL31: v1.3(debug):b07406e
+[ATF](0)[1.808257]NOTICE:  BL31: Built : 18:26:05, Aug 27 2020
+[ATF](0)[1.808946]INFO:    platform_setup_cpu()
+[ATF](0)[1.809475]INFO:    addr of cci_adb400_dcm_config: 0x0
+[ATF](0)[1.810153]INFO:    addr of sync_dcm_config: 0x0
+[ATF](0)[1.810766]INFO:    mp0_spmc: 0x3a00203b
+[ATF](0)[1.811294]INFO:    mp1_spmc: 0x0
+[ATF](0)[1.811786]NOTICE:  call pccif1_hw_init
+[ATF](0)[1.812289]INFO:    BL31: Initializing runtime services
+[ATF](0)[1.813003]NOTICE:  tbase_init_secure_context
+[ATF](0)[1.813583]INFO:    BL31: Initializing BL32
+[ATF](0)[1.814141]NOTICE:  tbase_init
+[ATF](0)[1.814572]NOTICE:   linear id 0 has Mpidr of 0
+[ATF](0)[1.815186]NOTICE:   tbase_init_entry registerFileStart[0] 116000 -- registerFileEnd[0] 117de0
+[ATF](0)[1.816305]NOTICE:   tbase_init_entry registerFileStart[1] 54612000 -- registerFileEnd[1] 54614340
+[ATF](0)[1.817469]NOTICE:  *** tbase (SPD unified) boot cfg ***
+[ATF](0)[1.818179]NOTICE:  * magic                 : 0x434d4254
+[ATF](0)[1.818890]NOTICE:  * length                : 0x80
+[ATF](0)[1.819536]NOTICE:  * version               : 0x1
+[ATF](0)[1.820171]NOTICE:  * dRamBase              : 0x40000000
+[ATF](0)[1.820882]NOTICE:  * dRamSize              : 0x180000000
+[ATF](0)[1.821603]NOTICE:  * secDRamBase           : 0x7ec00000
+[ATF](0)[1.822314]NOTICE:  * secDRamSize           : 0xa00000
+[ATF](0)[1.823003]NOTICE:  * secIRamBase           : 0x7ec00000
+[ATF](0)[1.823714]NOTICE:  * secIRamSize           : 0x0
+[ATF](0)[1.824350]NOTICE:  * conf_mair_el3         : 0x4404ff
+[ATF](0)[1.825039]NOTICE:  * MSMPteCount           : 0x5
+[ATF](0)[1.825674]NOTICE:  * MSMBase               : 0x111440
+[ATF](0)[1.826363]NOTICE:  * gic_distributor_base  : 0xc000000
+[ATF](0)[1.827064]NOTICE:  * gic_cpuinterface_base : 0xc400000
+[ATF](0)[1.827764]NOTICE:  * gic_version           : 0x3
+[ATF](0)[1.828399]NOTICE:  * total_number_spi      : 0x160
+[ATF](0)[1.829056]NOTICE:  * ssiq_number           : 0x144
+[ATF](0)[1.829713]NOTICE:  * flags                 : 0x0
+[ATF](0)[1.830349]NOTICE:  Image AARCH64 detected
+[ATF](0)[1.830908]NOTICE:  tbase SCR 0x638
+[ATF](0)[1.831393]NOTICE:  tbase init SPSR 0x3c5
+[ATF](0)[1.831942]NOTICE:  tbase SMC SPSR 3c5
+[ATF](0)[1.832502]NOTICE:  tbase_fastcall_handler TBASE_SMC_FASTCALL_CONFIG_OK
+[ATF](0)[1.833360]NOTICE:  tbase config ok fffffffff8200000 1
+[ATF](0)[1.837056]NOTICE:  Configuring Kinibi forwarded FIQs...
+[ATF](0)[1.837755]NOTICE:  tbase_fiqforward_configure: Forwarding interrupt 174 is enabled
+[ATF](0)[1.838748]INFO:    BL31: Preparing for EL3 exit to normal world
+[ATF](0)[1.839531]INFO:    Entry point address = 0x56000000
+[ATF](0)[1.840188]INFO:    SPSR = 0x1d3
+[ATF](0)[1.840634]NOTICE:  NS-SCR_EL3=0x205
+[ATF](0)[1.841114]NOTICE:  S-SCR_EL3=0x608
+[ATF](0)[1.841589]NOTICE:  WDT(174) is not Grp0, S-EL1 should handle it
+[14] LK_LOG_STORE:lk log_store_init start.
+[14] LK_LOG_STORE:dram pl/lk log buff mapping start addr = 0x7ffc0000, size = 0x40000
+[15] LK_LOG_STORE:sram buff header 0x11df00,current log header 0x11df34, sig 0xcdab3412, buff_size 0x40000, pl log size 0x7749@0x20, lk log size 0x0@0x20!
+[17] LK_LOG_STORE: buff ready.
+
+Current RTC time:[2020/11/3 15:41:48]
+[18] [PROFILE] ::: lvl(2) Devinfo Init takes 0 ms
+[19] bootarg_addr: 0x4489da80, bootarg_size: 0x16a8
+[19] [WDT]  mtk_wdt_mode LK config  mode value=5d
+[20] [WDT]  mtk_wdt_mode_config LK  mode value=10, tmp:22000010
+[21] [WDT] wdt init
+[21] [WDT]  mtk_wdt_mode LK config  mode value=10
+[22] [WDT]  mtk_wdt_mode_config LK  mode value=5d, tmp:2200005d
+[22] [PROFILE] ::: lvl(2) WDT Init takes 3 ms
+[23] [pmic_init] LK Start..................
+[24] [pmic_init] PMIC CHIP Code = 0x5820
+[24] [pmic_init] Done
+[26] 49 1614 0 0 1 0 0 0 1 1 106 64 64 4 4
+[27] [PROFILE] ::: lvl(2) pmic_init takes 4 ms
+[27] [PROFILE] ::: lvl(1) platform_early_init takes 14 ms
+[28] welcome to lk
+
+[28] LK_VER_TAG = tb8788p1_64_bsp-4abdda1--20201102185823
+[29] calling constructors
+[30] initializing heap
+[30] heap base 0x561693d4 size 2714668 bytes
+[30] initializing threads
+[31] initializing dpc
+[31] initializing timers
+[31] creating bootstrap completion thread
+[32] iothread starts.
+[32] Wait for bootstrap2...
+[33] top of bootstrap2()
+[33] thread: bootstrap2, bottom(stack) = 0x5616d4cc, limit(stack) = 0x5616b4cc
+[34] mblock[0].start: 0x40000000, sz: 0x14400000, limit: 0x56400000, max_addr: 0x0, target: -1, reserved_addr: 0x54000000,reserved_size: 0x400000
+[36] mblock_reserve dbg[0]: 1, 1, 1, 1
+[36] skip this mblock start=54500000 sz=100000 limit=56400000 end=54600000
+[37] skip this mblock start=54640000 sz=1c0000 limit=56400000 end=54800000
+[38] mblock[3].start: 0x54a00000, sz: 0x2a000000, limit: 0x56400000, max_addr: 0x54400000, target: 0, reserved_addr: 0x56000000,reserved_size: 0x400000
+[40] mblock_reserve dbg[3]: 1, 1, 1, 1
+[40] skip this mblock start=80000000 sz=3fe00000 limit=56400000 end=56400000
+[41] skip this mblock start=bfe40000 sz=1bf000 limit=56400000 end=56400000
+[42] skip this mblock start=c0000000 sz=fffff000 limit=56400000 end=56400000
+[43] mblock[3]: 54a00000, 1600000 from mblock
+mblock[4]: 56400000, 28600000 from mblock
+[44] mblock_reserve: 56000000 - 56400000 from mblock 3
+[45] mblock_reserve [0].start: 0x40000000, sz: 0x14400000
+[46] mblock_reserve [1].start: 0x54500000, sz: 0x100000
+[46] mblock_reserve [2].start: 0x54640000, sz: 0x1c0000
+[47] mblock_reserve [3].start: 0x54a00000, sz: 0x1600000
+[48] mblock_reserve [4].start: 0x56400000, sz: 0x28600000
+[49] mblock_reserve [5].start: 0x80000000, sz: 0x3fe00000
+[49] mblock_reserve [6].start: 0xbfe40000, sz: 0x1bf000
+[50] mblock_reserve [7].start: 0xc0000000, sz: 0xfffff000
+[51] mblock_reserve-R[0].start: 0xbffff000, sz: 0x1000 map:0 name:dramc-rk0
+[52] mblock_reserve-R[1].start: 0x1bffff000, sz: 0x1000 map:0 name:dramc-rk1
+[53] mblock_reserve-R[2].start: 0x7ffc0000, sz: 0x40000 map:1 name:log_store
+[54] mblock_reserve-R[3].start: 0x54600000, sz: 0x40000 map:0 name:atf-reserved
+[55] mblock_reserve-R[4].start: 0xbfe00000, sz: 0x40000 map:0 name:atf-log-reserved
+[56] mblock_reserve-R[5].start: 0x7ff00000, sz: 0xc0000 map:0 name:SSPM-reserved
+[57] mblock_reserve-R[6].start: 0x7ec00000, sz: 0x1300000 map:0 name:tee-reserved
+[58] mblock_reserve-R[7].start: 0x7ea00000, sz: 0x200000 map:0 name:items-reserved
+[59] mblock_reserve-R[8].start: 0x54800000, sz: 0x200000 map:1 name:pl-bootarg
+[60] mblock_reserve-R[9].start: 0x54400000, sz: 0x10000 map:0 name:ram_console
+[61] mblock_reserve-R[10].start: 0x54410000, sz: 0xe0000 map:0 name:pstore
+[62] mblock_reserve-R[11].start: 0x544f0000, sz: 0x10000 map:0 name:minirdump
+[63] mblock_reserve-R[12].start: 0x56000000, sz: 0x400000 map:0 name:lk_addr_mb
+[64] mblock[0].start: 0x40000000, sz: 0x14400000, limit: 0x5e900000, max_addr: 0x0, target: -1, reserved_addr: 0x4c400000,reserved_size: 0x8000000
+[65] mblock_reserve dbg[0]: 1, 1, 1, 1
+[66] skip this mblock start=54500000 sz=100000 limit=5e900000 end=54600000
+[67] skip this mblock start=54640000 sz=1c0000 limit=5e900000 end=54800000
+[68] skip this mblock start=54a00000 sz=1600000 limit=5e900000 end=56000000
+[69] mblock[4].start: 0x56400000, sz: 0x28600000, limit: 0x5e900000, max_addr: 0x54400000, target: 0, reserved_addr: 0x56900000,reserved_size: 0x8000000
+[71] mblock_reserve dbg[4]: 1, 1, 1, 1
+[71] skip this mblock start=80000000 sz=3fe00000 limit=5e900000 end=5e900000
+[72] skip this mblock start=bfe40000 sz=1bf000 limit=5e900000 end=5e900000
+[73] skip this mblock start=c0000000 sz=fffff000 limit=5e900000 end=5e900000
+[74] mblock[4]: 56400000, 500000 from mblock
+mblock[5]: 5e900000, 20100000 from mblock
+[75] mblock_reserve: 56900000 - 5e900000 from mblock 4
+[76] mblock_reserve [0].start: 0x40000000, sz: 0x14400000
+[77] mblock_reserve [1].start: 0x54500000, sz: 0x100000
+[77] mblock_reserve [2].start: 0x54640000, sz: 0x1c0000
+[78] mblock_reserve [3].start: 0x54a00000, sz: 0x1600000
+[79] mblock_reserve [4].start: 0x56400000, sz: 0x500000
+[79] mblock_reserve [5].start: 0x5e900000, sz: 0x20100000
+[80] mblock_reserve [6].start: 0x80000000, sz: 0x3fe00000
+[81] mblock_reserve [7].start: 0xbfe40000, sz: 0x1bf000
+[82] mblock_reserve [8].start: 0xc0000000, sz: 0xfffff000
+[82] mblock_reserve-R[0].start: 0xbffff000, sz: 0x1000 map:0 name:dramc-rk0
+[83] mblock_reserve-R[1].start: 0x1bffff000, sz: 0x1000 map:0 name:dramc-rk1
+[84] mblock_reserve-R[2].start: 0x7ffc0000, sz: 0x40000 map:1 name:log_store
+[85] mblock_reserve-R[3].start: 0x54600000, sz: 0x40000 map:0 name:atf-reserved
+[86] mblock_reserve-R[4].start: 0xbfe00000, sz: 0x40000 map:0 name:atf-log-reserved
+[87] mblock_reserve-R[5].start: 0x7ff00000, sz: 0xc0000 map:0 name:SSPM-reserved
+[88] mblock_reserve-R[6].start: 0x7ec00000, sz: 0x1300000 map:0 name:tee-reserved
+[89] mblock_reserve-R[7].start: 0x7ea00000, sz: 0x200000 map:0 name:items-reserved
+[90] mblock_reserve-R[8].start: 0x54800000, sz: 0x200000 map:1 name:pl-bootarg
+[91] mblock_reserve-R[9].start: 0x54400000, sz: 0x10000 map:0 name:ram_console
+[92] mblock_reserve-R[10].start: 0x54410000, sz: 0xe0000 map:0 name:pstore
+[93] mblock_reserve-R[11].start: 0x544f0000, sz: 0x10000 map:0 name:minirdump
+[94] mblock_reserve-R[12].start: 0x56000000, sz: 0x400000 map:0 name:lk_addr_mb
+[95] mblock_reserve-R[13].start: 0x56900000, sz: 0x8000000 map:0 name:scratch_addr_mb
+[96] initializing platform
+[96] platform_init()
+[270] [PROFILE] ::: lvl(3) UFS device init takes 132 ms
+[274] device descriptor length = 0x40
+[277] power descriptor length = 0x62
+[281] interconnect descriptor length = 0x6
+[284] configuration descriptor length = 0x90
+[288] unit descriptor length = 0x23
+[291] geometry descriptor length = 0x48
+[295] [UFS] UFS version 2.10
+[295] [UFS] Device Desc:
+[295] 40 [296] 0 [296] 0 [296] 0 [296] 0 [296] 0 [296] 3 [296] 4 [296] 1 [296] 1 [296] 1 [297] 7f [297] 0 [297] 1 [297] 5 [297] 0 [297] 
+[297] 2 [297] 10 [297] 5 [297] 16 [298] 0 [298] 1 [298] 2 [298] 3 [298] 1 [298] 2c [298] 10 [298] 10 [298] 2 [299] 0 [299] 0 [299] 7 [299] 
+[299] a [299] 20 [299] 0 [299] 1 [299] 20 [299] 0 [300] 14 [300] 0 [300] 0 [300] 12 [300] 4 [300] 0 [300] 0 [300] 0 [300] 0 [300] 0 [301] 
+[301] 0 [301] 0 [301] 0 [301] 0 [301] 0 [301] 0 [301] 0 [301] 0 [301] 0 [302] 0 [302] 0 [302] 0 [302] 0 [302] 0 [302] 0 [302] 0 [302] 
+[305] opcode 0x1 for idn 0 failed, err = 251
+[306] ufshcd_read_desc_length: Failed to get descriptor header id 0
+[307] bbUD0BaseOffset = 0x16, bUDConfigPLength = 0x16
+[310] [UFS] String Desc: Serial Number INDEX 2, LENGTH 16
+[311] 12 [311] 5 [311] 0 [311] 53 [312] 0 [312] 4e [312] 0 [312] 30 [312] 0 [312] 30 [312] 0 [312] 30 [312] 0 [313] 30 [313] 0 [313] 30 [313] 
+[313] 0 [313] 31 [313] 
+[313] [UFS] Serial Number: 0053004e003000300030003000300031
+[317] [UFS] vendor id : 0x12c
+[317] [UFS] ufs id : 128GB-UFS-MT    
+[318] [UFS] ufs fwver: 9QSM
+[318] [UFS] dev_quirk = 0x0
+[322] [UFS] ufs_aio_check_lu_cfg: original Configuration Desc:
+[322] 90 [323] 1 [323] 0 [323] 1 [323] 1 [323] 1 [323] 7f [323] 0 [323] 0 [323] 0 [323] 0 [324] 0 [324] 0 [324] 0 [324] 0 [324] 0 [324] 
+[324] 1 [324] 1 [324] 0 [324] 3 [325] 0 [325] 0 [325] 0 [325] 3 [325] 1 [325] c [325] 2 [325] 0 [325] 0 [325] 0 [326] 0 [326] 0 [326] 
+[326] 1 [326] 2 [326] 0 [326] 3 [326] 0 [326] 0 [326] 0 [326] 3 [327] 1 [327] c [327] 2 [327] 0 [327] 0 [327] 0 [327] 0 [327] 0 [327] 
+[327] 1 [328] 0 [328] 0 [328] 0 [328] 0 [328] 0 [328] 77 [328] 2a [328] 0 [328] c [328] 2 [329] 0 [329] 0 [329] 0 [329] 0 [329] 0 [329] 
+[329] 0 [329] 0 [329] 0 [329] 0 [330] 0 [330] 0 [330] 0 [330] 0 [330] 0 [330] 0 [330] 0 [330] 0 [330] 0 [330] 0 [331] 0 [331] 0 [331] 
+[331] 0 [331] 0 [331] 0 [331] 0 [331] 0 [331] 0 [331] 0 [332] 0 [332] 0 [332] 0 [332] 0 [332] 0 [332] 0 [332] 0 [332] 0 [332] 0 [332] 
+[333] 0 [333] 0 [333] 0 [333] 0 [333] 0 [333] 0 [333] 0 [333] 0 [333] 0 [333] 0 [334] 0 [334] 0 [334] 0 [334] 0 [334] 0 [334] 0 [334] 
+[334] 0 [334] 0 [334] 0 [335] 0 [335] 0 [335] 0 [335] 0 [335] 0 [335] 0 [335] 0 [335] 0 [335] 0 [335] 0 [336] 0 [336] 0 [336] 0 [336] 
+[336] 0 [336] 0 [336] 0 [336] 0 [336] 0 [336] 0 [337] 0 [337] 0 [337] 0 [337] 0 [337] 0 [337] 0 [337] 0 [337] 0 [337] 0 [337] 0 [338] 
+[341] [UFS] warn: Power on, reset, or bus device reset occupied
+[341] [UFS] Sense Data: ASC=29, ASCQ=0
+[348] [UFS] warn: Power on, reset, or bus device reset occupied
+[349] [UFS] Sense Data: ASC=29, ASCQ=0
+[355] [UFS] warn: Power on, reset, or bus device reset occupied
+[356] [UFS] Sense Data: ASC=29, ASCQ=0
+[363] [UFS] warn: Power on, reset, or bus device reset occupied
+[363] [UFS] Sense Data: ASC=29, ASCQ=0
+[369] [UFS] info: HS-G1-2
+[378] [mt_part_register_device]
+[379] [PART_COMMON_LK][partition init]
+[379] [GPT_LK]Parsing Primary GPT now...
+[380] [GPT_LK] user part id = 3
+[381] [GPT_LK][0]name=boot_para, start_sect=0x8, nr_sects=0x100, uuid=f57ad330-39c2-4488-9bb0-00cb43c9ccd4
+[382] [GPT_LK][1]name=recovery, start_sect=0x108, nr_sects=0x2000, uuid=fe686d97-3544-4a41-be21-167e25b61b6f
+[383] [GPT_LK][2]name=para, start_sect=0x2108, nr_sects=0x80, uuid=1cb143a8-b1a8-4b57-b251-945c5119e8fe
+[385] [GPT_LK][3]name=expdb, start_sect=0x2188, nr_sects=0x1400, uuid=3b9e343b-cdc8-4d7f-9fa6-b6812e50ab62
+[386] [GPT_LK][4]name=frp, start_sect=0x3588, nr_sects=0x100, uuid=5f6a2c79-6617-4b85-ac02-c2975a14d2d7
+[387] [GPT_LK][5]name=vbmeta, start_sect=0x3688, nr_sects=0x800, uuid=4ae2050b-5db5-4ff7-aad3-5730534be63d
+[388] [GPT_LK][6]name=vbmeta_system, start_sect=0x3e88, nr_sects=0x800, uuid=1f9b0939-e16b-4bc9-a5bc-dc2ee969d801
+[390] [GPT_LK][7]name=vbmeta_vendor, start_sect=0x4688, nr_sects=0x800, uuid=d722c721-0dee-4cb8-8a83-2c63cd1393c7
+[391] [GPT_LK][8]name=nvcfg, start_sect=0x4e88, nr_sects=0x2000, uuid=e02179a8-ceb5-48a9-8831-4f1c9c5a8695
+[393] [GPT_LK][9]name=nvdata, start_sect=0x6e88, nr_sects=0x4000, uuid=84b09a81-fad2-41ac-890e-407c24975e74
+[394] [GPT_LK][10]name=md_udc, start_sect=0xae88, nr_sects=0x169a, uuid=e8f0a5ef-8d1b-42ea-9c2a-835cd77de363
+[395] [GPT_LK][11]name=metadata, start_sect=0xc522, nr_sects=0x2000, uuid=d5f0e175-a6e1-4db7-94c0-f82ad032950b
+[397] [GPT_LK][12]name=protect1, start_sect=0xe522, nr_sects=0x800, uuid=1d9056e1-e139-4fca-8c0b-b75fd74d81c6
+[398] [GPT_LK][13]name=protect2, start_sect=0xed22, nr_sects=0xade, uuid=7792210b-b6a8-45d5-ad91-3361ed14c608
+[399] [GPT_LK][14]name=seccfg, start_sect=0xf800, nr_sects=0x800, uuid=138a6db9-1032-451d-91e9-0fa38ff94fbb
+[401] [GPT_LK][15]name=persist, start_sect=0x10000, nr_sects=0x3000, uuid=756d934c-50e3-4c91-af46-02d824169ca7
+[402] [GPT_LK][16]name=sec1, start_sect=0x13000, nr_sects=0x200, uuid=a3f3c267-5521-42dd-a724-3bdec20c7c6f
+[403] [GPT_LK][17]name=proinfo, start_sect=0x13200, nr_sects=0x300, uuid=8c68cd2a-ccc9-4c5d-8b57-34ae9b2dd481
+[405] [GPT_LK][18]name=md1img, start_sect=0x13500, nr_sects=0x6400, uuid=6a5cebf8-54a7-4b89-8d1d-c5eb140b095b
+[406] [GPT_LK][19]name=spmfw, start_sect=0x19900, nr_sects=0x100, uuid=a0d65bf8-e8de-4107-9434-1d318c843d37
+[407] [GPT_LK][20]name=scp1, start_sect=0x19a00, nr_sects=0x600, uuid=46f0c0bb-f227-4eb6-b82f-66408e13e36d
+[409] [GPT_LK][21]name=scp2, start_sect=0x1a000, nr_sects=0x600, uuid=fbc2c131-6392-4217-b51e-548a6edb03d0
+[410] [GPT_LK][22]name=sspm_1, start_sect=0x1a600, nr_sects=0x100, uuid=e195a981-e285-4734-8025-ec323e9589d9
+[411] [GPT_LK][23]name=sspm_2, start_sect=0x1a700, nr_sects=0x100, uuid=e29052f8-5d3a-4e97-adb5-5f312ce6610a
+[413] [GPT_LK][24]name=cam_vpu1, start_sect=0x1a800, nr_sects=0xf00, uuid=9c3cabd7-a35d-4b45-8c57-b80775426b35
+[414] [GPT_LK][25]name=cam_vpu2, start_sect=0x1b700, nr_sects=0xf00, uuid=e7099731-95a6-45a6-a1e5-1b6aba032cf1
+[415] [GPT_LK][26]name=cam_vpu3, start_sect=0x1c600, nr_sects=0xf00, uuid=8273e1ab-846f-4468-b999-ee2ea8e50a16
+[417] [GPT_LK][27]name=gz1, start_sect=0x1d500, nr_sects=0x1000, uuid=d26472f1-9ebc-421d-ba14-311296457c90
+[418] [GPT_LK][28]name=gz2, start_sect=0x1e500, nr_sects=0x1000, uuid=b72ccbe9-2055-46f4-a167-4a069c201738
+[419] [GPT_LK][29]name=nvram, start_sect=0x1f500, nr_sects=0x4000, uuid=9c1520f3-c2c5-4b89-8242-fe4c61208a9e
+[421] [GPT_LK][30]name=items, start_sect=0x23500, nr_sects=0x200, uuid=902d5f3f-434a-4de7-8988-321e88c9b8aa
+[422] [GPT_LK][31]name=lk, start_sect=0x23700, nr_sects=0x100, uuid=bece74c8-d8e2-4863-9bfe-5b0b66bb920f
+[423] [GPT_LK][32]name=lk2, start_sect=0x23800, nr_sects=0x100, uuid=ff1342cf-b7be-44d5-a25e-a435addd2702
+[425] [GPT_LK][33]name=boot, start_sect=0x23900, nr_sects=0x2000, uuid=a4da8f1b-fe07-433b-95cb-84a5f23e477b
+[426] [GPT_LK][34]name=logo, start_sect=0x25900, nr_sects=0x800, uuid=c2635e15-61aa-454e-9c40-ebe1bdf19b9b
+[427] [GPT_LK][35]name=dtbo, start_sect=0x26100, nr_sects=0x800, uuid=4d2d1290-36a3-4f5d-afb4-319f8ab6dcd8
+[429] [GPT_LK][36]name=tee1, start_sect=0x26900, nr_sects=0x500, uuid=fdce12f0-a7eb-40f7-8350-960972e6cb57
+[430] [GPT_LK][37]name=tee2, start_sect=0x26e00, nr_sects=0xa00, uuid=0fbbafa2-4aa9-4490-8983-5329328505fd
+[431] [GPT_LK][38]name=super, start_sect=0x27800, nr_sects=0xe0000, uuid=a76e4b2f-31cb-40ba-826a-c0cb0b73c856
+[433] [GPT_LK][39]name=cache, start_sect=0x107800, nr_sects=0x1b000, uuid=f54ac030-7004-4d02-9481-bbf982036807
+[434] [GPT_LK][40]name=userdata, start_sect=0x122800, nr_sects=0x1ca6ff8, uuid=c4c310e2-4a7e-77d3-4818-61e2d8bb5e86
+[435] [GPT_LK][41]name=flashinfo, start_sect=0x1dc97f8, nr_sects=0x1000, uuid=3734710f-0f13-1ab9-734c-12a08ec50837
+[437] [GPT_LK]Success to find valid GPT.
+[484] [UFS] get lu size: lun=2, blk_cnt=31238144, blk_size_in_byte=4096
+[485] [PART_COMMON_LK]boot_device str is androidboot.boot_devices=bootdevice,11230000.mmc.
+[486] [UFS] info: boot device found
+[487] [UFS] get lu size: lun=0, blk_cnt=1024, blk_size_in_byte=4096
+[488] [UFS] get lu size: lun=1, blk_cnt=1024, blk_size_in_byte=4096
+[488] [UFS] get lu size: lun=2, blk_cnt=31238144, blk_size_in_byte=4096
+[489] [UFS] info: ufs init OK
+[494] [PROFILE] ::: lvl(2) NAND/EMMC/UFS init takes 397 ms
+rom_info_ver = 2
+m_rom_info_ver = 20002
+[496] [PROFILE] ::: lvl(2) Security init takes 1 ms
+[497] [SEC_POLICY] sboot_state = 0x0
+[497] [SEC_POLICY] lock_state = 0x3
+[498] 
+=========================================
+[499] [LK_BOOT] lk magic number : 0x58881688
+[499] [LK_BOOT] lk name         : lk
+[500] [LK_BOOT] lk size         : 748728
+[500] =========================================
+[501] 
+=========================================
+[502] [LK_BOOT] lk magic number : 0x58881688
+[502] [LK_BOOT] lk name         : cert1
+[503] [LK_BOOT] lk size         : 1709
+[503] =========================================
+[504] 
+=========================================
+[505] [LK_BOOT] lk magic number : 0x58881688
+[505] [LK_BOOT] lk name         : cert2
+[506] [LK_BOOT] lk size         : 957
+[506] =========================================
+[507] 
+=========================================
+[508] [LK_BOOT] lk magic number : 0x58881688
+[508] [LK_BOOT] lk name         : lk_main_dtb
+[509] [LK_BOOT] lk size         : 110226
+[509] =========================================
+[511] load_lk_dtb(): load lk_main_dtb dtb_img_size=110226
+[512] [PROFILE] ::: lvl(3) load_lk_dtb takes 15 ms
+[512] [SEC_POLICY] reached the end, use default policy
+[513] [SEC_POLICY] sboot_state = 0x0
+[514] [SEC_POLICY] lock_state = 0x3
+[515] pin111 = 0, pin175 = 0
+[515] PCB_ID: EVB (MTK0754), dtb idx = 0
+[516] [PROFILE] ::: lvl(3) load_dtbo_buffer takes 4 ms
+[517] dtbo_size : 47417
+[530] [PROFILE] ::: lvl(3) dtb_overlay takes 13 ms
+[531] [PROFILE] ::: lvl(2) lk_dtb_init takes 34 ms
+[531] [GPIO] Found /gpio@10005000at offset 8612
+[532] [GPIO] Found perperty at 0x560c9b64, len 5376
+[533] [LEDS]LK: mt6370_init_bled
+[536] [LEDS] mt,ext_en_pin val = 0
+[536] [LEDS] mt,chan_en val = 15
+[537] [LEDS] mt,map_linear = 1
+[537] [LEDS] mt,bl_ovp_level = 3
+[538] [LEDS] mt,bl_ocp_level = 2
+[538] [LEDS] mt,use_pwm = 1
+[539] [LEDS] mt,pwm_fsample = 2
+[539] [LEDS] mt,pwm_deglitch = 1
+[539] [LEDS] mt,bled_ramptime = 3
+[540] [LEDS] mt,bled_flash_ramp = 1
+[540] [LEDS] mt,max_bled_brightness = 512
+[541] [LEDS] set addr 0xA1 = 0xed
+[541] [LEDS] set addr 0xA2 = 0xb4
+[542] [LEDS] set addr 0xA3 = 0x30
+[542] [LEDS] set addr 0xA4 = 0x06
+[543] [LEDS] set addr 0xA5 = 0x3f
+[543] [LEDS] set addr 0xA6 = 0x00
+[544] [LEDS] set addr 0xA7 = 0x08
+[544] [LEDS] set addr 0xA0 = 0x7e
+[545] [LEDS]LK: leds_init: mt65xx_backlight_off 
+[545] [LEDS]LK: mt65xx_backlight_off 
+[548] [LEDS]LK:led[0] offset is 105384,mode is 0,data is 1 .
+[551] [LEDS]LK:led[1] offset is 105508,mode is 0,data is 1 .
+[554] [LEDS]LK:led[2] offset is 105632,mode is 0,data is 1 .
+[557] [LEDS]LK:led[3] offset is 105756,mode is 0,data is 1 .
+[560] [LEDS]LK:led[4] offset is 105892,mode is 0,data is 1 .
+[563] [LEDS]LK:led[5] offset is 106028,mode is 0,data is 1 .
+[566] [LEDS]LK:The backlight hw mode is BLS.
+[567] [LEDS]LK:led[6] offset is 106164,mode is 5,data is 1442935873 .
+[568] [LEDS]LK: lcd-backlight level is 0 
+[568] [LK_DDP/INFO]ddp_enable_module_clock: pwm0 
+[569] [LK_DDP/INFO]error:enable module clock unknow module 35 
+[570] [DISP][PWM] disp_pwm_ulposc_power_on : before OSC_REG_SET 0x1, ULPOSC_CTL  0x0
+[571] [DISP][PWM] disp_pwm_ulposc_power_on : after OSC_REG_SET 0x1, ULPOSC_CTL  0x1
+[572] [DISP][PWM] disp_pwm_ulposc_power_on : before OSC_REG_SET 0x5, ULPOSC_CTL  0x1
+[573] [DISP][PWM] disp_pwm_ulposc_power_on : after OSC_REG_SET 0x5, ULPOSC_CTL  0x5
+[574] [DISP][PWM] set reg[0x100000b8] = 0x00000007
+[575] [DISP][PWM] set reg[0x100000b4] = 0x00000000
+[575] [DISP][PWM] disp_pwm_init : CLK_CFG_7 0x1030300 => 0x1030300
+[576] [DISP][PWM] disp_pwm_init : PWM config data (0,0)
+[577] [DISP][PWM] set reg[0x1100e018] = 0x00000000
+[577] [DISP][PWM] set reg[0x1100e01c] = 0x000003ff
+[578] [DISP][PWM] disp_pwm_set_backlight(id = 0x1, level_1024 = 0)
+[579] elink_pwm_config level is 0!!!
+[579] elink_pwm_config backlight coefficient is 0!!!
+[580] [DISP][PWM] set reg[0x1100e00c] = 0x00000000
+[581] [DISP][PWM] set reg[0x1100e01c] = 0x000003ff
+[581] [DISP][PWM] set reg[0x1100e000] = 0x00000000
+[582] [DISP][PWM] set reg[0x1100e00c] = 0x00000001
+[583] [DISP][PWM] set reg[0x1100e00c] = 0x00000000
+[583] [DISP][PWM] reg[0x1100e000] = 0x00000000
+[584] [DISP][PWM] reg[0x1100e004] = 0x00000001
+[584] [DISP][PWM] reg[0x1100e008] = 0x00000000
+[585] [DISP][PWM] reg[0x1100e00c] = 0x00000000
+[586] [DISP][PWM] reg[0x1100e010] = 0x00000000
+[586] [DISP][PWM] reg[0x1100e014] = 0x00000000
+[587] [DISP][PWM] reg[0x1100e018] = 0x00000000
+[587] [DISP][PWM] reg[0x1100e01c] = 0x00000000
+[588] [DISP][PWM] reg[0x1100e020] = 0x00000000
+[589] [DISP][PWM] reg[0x1100e024] = 0x00000000
+[589] [DISP][PWM] reg[0x1100e028] = 0x00000000
+[590] [PROFILE] ::: lvl(2) led init takes 57 ms
+[591] [LK_ENV]ENV of area 0 initialize sucess
+[591] [LK_ENV]ENV SIG of area 1 is wrong
+[592] [LK_ENV]env area: 0
+[592] [LK_ENV]env:
+[593] [LK_ENV]off-mode-charge=1
+[593] [LK_ENV]unlock_erase=pass
+[593] [LK_ENV]env area: 1
+[594] [LK_ENV]no valid env
+[594] [PROFILE] ::: lvl(2) ENV init takes 4 ms
+[599] elink_disp_init: failed to get rst_reverse control pin!
+[599] elink_disp_init: failed to get edp_pwr control pin!
+[600] elink_disp_init: failed to get edp_stb control pin!
+[601] elink_items_init: start addr = 0x7ea00000
+[602] elink_items_init: size = 0x00200000
+items_len=1903 ,tail_char = i
+[602] elink_items_init: items_len = 1903
+  0: items.start               
+  1: LCM                       hx8279_sl101pm32d1720_wuxga_b06
+  2: odm.elink.lcdrotation     0
+  3: LCM.backlight.coefficient  80
+  4: ro.sf.lcd_density         240
+  5: touchpanel.config.project  X109_10
+  6: touchpanel.config.x_reverse  0
+  7: touchpanel.config.y_reverse  0
+  8: camera.main.imgsensor     
+  9: camera.sub.imgsensor      
+ 10: camera.mainsub.mclk       diff
+ 11: odm.elink.main.cam_orient  90
+ 12: odm.elink.sub.cam_orient  270
+ 13: camera.mainpdn.level      high
+ 14: camera.subpdn.level       high
+ 15: battery.config.info       706_CTE_2800
+ 16: battery.capacity.info     7400
+ 17: sensors.orientation.debug  0
+ 18: accelerometer.orientation  3
+ 19: magnetometer.orientation  2
+ 20: gyroscope.orientation     0
+[613] [DISP]func|disp_lcm_probe
+[613] [DISPCHECK]******** dump lcm driver information ********
+[614] [DISPCHECK][LCM], name: hx8279_sl101pm32d1720_wuxga_b06
+[615] [DISPCHECK][LCM] resolution: 1200 x 1920
+[615] [DISPCHECK][LCM] physical size: 142 x 227
+[616] [DISPCHECK][LCM] physical size: 142 x 227
+[617] [DISPCHECK][LCM] lcm_if:0, cmd_if:0
+[617] [DISPCHECK][LCM] interface: unknown
+[618] [DISPCHECK][LCM] Type: DSI
+[618] [DISPCHECK][LCM] DSI Mode: SYNC_PULSE_VDO_MODE
+[619] [DISPCHECK][LCM] LANE_NUM: 4,data_format:(0,2,0,0)
+[619] [DISPCHECK][LCM] vact: 2, vbp: 10, vfp: 14, vact_line: 1920, hact: 24, hbp: 80, hfp: 60, hblank: 0, hactive: 1200
+[621] [DISPCHECK][LCM] pll_select: 0, pll_div1: 0, pll_div2: 0, fbk_div: 0,fbk_sel: 0, rg_bir: 0
+[622] [DISPCHECK][LCM] rg_bic: 0, rg_bp: 0,     PLL_CLOCK: 510, dsi_clock: 0, ssc_range: 0,     ssc_disable: 1, compatibility_for_nvk: 0, cont_clock: 0
+[624] [DISPCHECK][LCM] lcm_ext_te_enable: 0, noncont_clock: 0, noncont_clock_period: 0
+[625] [DISP]lcm handle is null, after probe:0x560bd654
+[626] [DISP]^^ DISP_GetFBRamSize: 28016640 bytes
+[626] [DISP]^^ DAL_GetLayerSize: 4612096 bytes
+[627] [DISP]^^ DISP_GetVRamSize: 32636928 bytes
+[627] mblock[0].start: 0x40000000, sz: 0x14400000, limit: 0x80000000, max_addr: 0x0, target: -1, reserved_addr: 0x524e0000,reserved_size: 0x1f20000
+[629] mblock_reserve dbg[0]: 1, 1, 1, 1
+[630] skip this mblock start=54500000 sz=100000 limit=80000000 end=54600000
+[631] skip this mblock start=54640000 sz=1c0000 limit=80000000 end=54800000
+[632] skip this mblock start=54a00000 sz=1600000 limit=80000000 end=56000000
+[633] skip this mblock start=56400000 sz=500000 limit=80000000 end=56900000
+[634] mblock[5].start: 0x5e900000, sz: 0x20100000, limit: 0x80000000, max_addr: 0x54400000, target: 0, reserved_addr: 0x7cae0000,reserved_size: 0x1f20000
+[635] mblock_reserve dbg[5]: 1, 1, 1, 1
+[636] skip this mblock start=80000000 sz=3fe00000 limit=80000000 end=80000000
+[637] skip this mblock start=bfe40000 sz=1bf000 limit=80000000 end=80000000
+[638] skip this mblock start=c0000000 sz=fffff000 limit=80000000 end=80000000
+[639] mblock_reserve: 7cae0000 - 7ea00000 from mblock 5
+[640] mblock_reserve [0].start: 0x40000000, sz: 0x14400000
+[640] mblock_reserve [1].start: 0x54500000, sz: 0x100000
+[641] mblock_reserve [2].start: 0x54640000, sz: 0x1c0000
+[642] mblock_reserve [3].start: 0x54a00000, sz: 0x1600000
+[642] mblock_reserve [4].start: 0x56400000, sz: 0x500000
+[643] mblock_reserve [5].start: 0x5e900000, sz: 0x1e1e0000
+[644] mblock_reserve [6].start: 0x80000000, sz: 0x3fe00000
+[645] mblock_reserve [7].start: 0xbfe40000, sz: 0x1bf000
+[645] mblock_reserve [8].start: 0xc0000000, sz: 0xfffff000
+[646] mblock_reserve-R[0].start: 0xbffff000, sz: 0x1000 map:0 name:dramc-rk0
+[647] mblock_reserve-R[1].start: 0x1bffff000, sz: 0x1000 map:0 name:dramc-rk1
+[648] mblock_reserve-R[2].start: 0x7ffc0000, sz: 0x40000 map:1 name:log_store
+[649] mblock_reserve-R[3].start: 0x54600000, sz: 0x40000 map:0 name:atf-reserved
+[650] mblock_reserve-R[4].start: 0xbfe00000, sz: 0x40000 map:0 name:atf-log-reserved
+[651] mblock_reserve-R[5].start: 0x7ff00000, sz: 0xc0000 map:0 name:SSPM-reserved
+[652] mblock_reserve-R[6].start: 0x7ec00000, sz: 0x1300000 map:0 name:tee-reserved
+[653] mblock_reserve-R[7].start: 0x7ea00000, sz: 0x200000 map:0 name:items-reserved
+[654] mblock_reserve-R[8].start: 0x54800000, sz: 0x200000 map:1 name:pl-bootarg
+[655] mblock_reserve-R[9].start: 0x54400000, sz: 0x10000 map:0 name:ram_console
+[656] mblock_reserve-R[10].start: 0x54410000, sz: 0xe0000 map:0 name:pstore
+[657] mblock_reserve-R[11].start: 0x544f0000, sz: 0x10000 map:0 name:minirdump
+[658] mblock_reserve-R[12].start: 0x56000000, sz: 0x400000 map:0 name:lk_addr_mb
+[659] mblock_reserve-R[13].start: 0x56900000, sz: 0x8000000 map:0 name:scratch_addr_mb
+[660] mblock_reserve-R[14].start: 0x7cae0000, sz: 0x1f20000 map:0 name:framebuffer
+[661] FB base = 0x7cae0000, FB size = 0x1f20000 (32636928)
+[662] fb_va: 0x7cae0000, fb_pa: 0x7cae0000, fb_pa_k: 0x7cae0000
+[663] mblock[0].start: 0x40000000, sz: 0x14400000, limit: 0x80000000, max_addr: 0x0, target: -1, reserved_addr: 0x54000000,reserved_size: 0x400000
+[665] mblock_reserve dbg[0]: 1, 1, 1, 1
+[665] skip this mblock start=54500000 sz=100000 limit=80000000 end=54600000
+[666] skip this mblock start=54640000 sz=1c0000 limit=80000000 end=54800000
+[667] mblock[3].start: 0x54a00000, sz: 0x1600000, limit: 0x80000000, max_addr: 0x54400000, target: 0, reserved_addr: 0x55c00000,reserved_size: 0x400000
+[669] mblock_reserve dbg[3]: 1, 1, 1, 1
+[669] mblock[4].start: 0x56400000, sz: 0x500000, limit: 0x80000000, max_addr: 0x56000000, target: 3, reserved_addr: 0x56500000,reserved_size: 0x400000
+[671] mblock_reserve dbg[4]: 1, 1, 1, 1
+[672] mblock[5].start: 0x5e900000, sz: 0x1e1e0000, limit: 0x80000000, max_addr: 0x56900000, target: 4, reserved_addr: 0x7c6e0000,reserved_size: 0x400000
+[674] mblock_reserve dbg[5]: 1, 1, 1, 1
+[674] skip this mblock start=80000000 sz=3fe00000 limit=80000000 end=80000000
+[675] skip this mblock start=bfe40000 sz=1bf000 limit=80000000 end=80000000
+[676] skip this mblock start=c0000000 sz=fffff000 limit=80000000 end=80000000
+[677] mblock_reserve: 7c6e0000 - 7cae0000 from mblock 5
+[678] mblock_reserve [0].start: 0x40000000, sz: 0x14400000
+[678] mblock_reserve [1].start: 0x54500000, sz: 0x100000
+[679] mblock_reserve [2].start: 0x54640000, sz: 0x1c0000
+[680] mblock_reserve [3].start: 0x54a00000, sz: 0x1600000
+[681] mblock_reserve [4].start: 0x56400000, sz: 0x500000
+[681] mblock_reserve [5].start: 0x5e900000, sz: 0x1dde0000
+[682] mblock_reserve [6].start: 0x80000000, sz: 0x3fe00000
+[683] mblock_reserve [7].start: 0xbfe40000, sz: 0x1bf000
+[684] mblock_reserve [8].start: 0xc0000000, sz: 0xfffff000
+[684] mblock_reserve-R[0].start: 0xbffff000, sz: 0x1000 map:0 name:dramc-rk0
+[685] mblock_reserve-R[1].start: 0x1bffff000, sz: 0x1000 map:0 name:dramc-rk1
+[686] mblock_reserve-R[2].start: 0x7ffc0000, sz: 0x40000 map:1 name:log_store
+[687] mblock_reserve-R[3].start: 0x54600000, sz: 0x40000 map:0 name:atf-reserved
+[688] mblock_reserve-R[4].start: 0xbfe00000, sz: 0x40000 map:0 name:atf-log-reserved
+[689] mblock_reserve-R[5].start: 0x7ff00000, sz: 0xc0000 map:0 name:SSPM-reserved
+[690] mblock_reserve-R[6].start: 0x7ec00000, sz: 0x1300000 map:0 name:tee-reserved
+[691] mblock_reserve-R[7].start: 0x7ea00000, sz: 0x200000 map:0 name:items-reserved
+[692] mblock_reserve-R[8].start: 0x54800000, sz: 0x200000 map:1 name:pl-bootarg
+[693] mblock_reserve-R[9].start: 0x54400000, sz: 0x10000 map:0 name:ram_console
+[694] mblock_reserve-R[10].start: 0x54410000, sz: 0xe0000 map:0 name:pstore
+[695] mblock_reserve-R[11].start: 0x544f0000, sz: 0x10000 map:0 name:minirdump
+[696] mblock_reserve-R[12].start: 0x56000000, sz: 0x400000 map:0 name:lk_addr_mb
+[697] mblock_reserve-R[13].start: 0x56900000, sz: 0x8000000 map:0 name:scratch_addr_mb
+[698] mblock_reserve-R[14].start: 0x7cae0000, sz: 0x1f20000 map:0 name:framebuffer
+[699] mblock_reserve-R[15].start: 0x7c6e0000, sz: 0x400000 map:0 name:logo_db_addr_pa
+[700] elink_set_lcm_info: lcm = hx8279_sl101pm32d1720_wuxga_b06, bl_coef = 80, rst_reverse = 0, hwrotation = 0
+[702] mt_disp_init: lcm_name from items is hx8279_sl101pm32d1720_wuxga_b06
+[703] [DISP]func|primary_display_init
+[703] [LK_DDP/ddp_manager]ddp manager init
+[704] [DISPCHECK]disp_lcm_probe SUCCESS
+[704] [DISP]func|disp_lcm_get_params
+[705] [DISP]func|_build_path_direct_link
+[705] [LK_DDP/ddp_manager]scenario primary_disp acquire mutex 0 , left mutex 0xe!
+[706] [LK_DDP/ddp_manager]assign default irqs table index 0
+[707] [LK_DDP/ddp_manager]create handle 0x0x560b9aa0 on scenario primary_disp
+[708] [DISPCHECK]dpmgr create path SUCCESS(0x560b9aa0)
+[709] [LK_DDP/ddp_manager]set dst module on scenario primary_disp, module dsi0 
+[710] [LK_DDP/ddp_path]ddp_set_dst_module, scenario=primary_disp, dst_module=dsi0 
+[711] [LK_DDP/ddp_path]dsi0  is already on path
+[711] [DISPCHECK]dpmgr set dst module FINISHED(dsi0 )
+[712] [LK_DDP/ddp_manager]path set lcm drv handle 0x0x560b9aa0
+[713] [LK_DDP/ddp_manager]dsi0  set lcm utils
+[713] [DISPCHECK]primary display is DIRECT LINK MODE
+[714] [DISPCHECK]primary display BUILD cmdq trigger loop finished
+[715] [DISPCHECK]primary display START cmdq trigger loop finished
+[716] [DISP]func|disp_lcm_is_video_mode
+[716] [LK_DDP/ddp_manager]set scenario primary_disp mode Video Mode
+[717] [LK_DDP/ddp_manager]path init on scenario primary_disp
+[718] [LK_DDP/ddp_path]ddp path top clock on
+[718] [LK_DDP/INFO]ddp_enable_module_clock: smi_common
+[719] [LK_DDP/INFO]ddp_enable_module_clock: smi_larb0
+[720] [LK_DDP/INFO]ddp_enable_module_clock: smi_larb1
+[720] [LK_DDP/ddp_path]ddp CG0:ffffffe0 CG1:3ff7f
+[721] [LK_DDP/ddp_path]module ovl0  added to mutex 0
+[722] [LK_DDP/ddp_path]module ovl0_2l  added to mutex 0
+[722] [LK_DDP/ddp_path]module rdma0  added to mutex 0
+[723] [LK_DDP/ddp_path]module color0  added to mutex 0
+[724] [LK_DDP/ddp_path]module ccorr0  added to mutex 0
+[724] [LK_DDP/ddp_path]module aal0  added to mutex 0
+[725] [LK_DDP/ddp_path]module gamma0  added to mutex 0
+[726] [LK_DDP/ddp_path]module dither0  added to mutex 0
+[726] [LK_DDP/ddp_path]module pwm0  added to mutex 0
+[727] [LK_DDP/ddp_path]module dsi0  added to mutex 0
+[728] [LK_DDP/ddp_path]mutex 0 value=0xfe601, sof=dsi0, eof=dsi0
+[729] [LK_DDP/ddp_path]path connect on scenario primary_disp
+[729] [LK_DDP/ddp_path]connect_path: ovl0  to dsi0 
+[730] [LK_DDP/ddp_path]connect mout ovl0  to ovl0_2l   bits 0x10
+[731] [LK_DDP/ddp_path]connect mout ovl0_2l  to rdma0   bits 0x1
+[732] [LK_DDP/ddp_path]connect mout dither0  to dsi0   bits 0x1
+[732] [LK_DDP/ddp_path]connect out_s rdma0  to color0 , value=1
+[733] [LK_DDP/ddp_path]connect in_s ovl0_2l  to rdma0 , value=1
+[734] [LK_DDP/ddp_path]connect in_s color0  to ccorr0 , value=0
+[735] [LK_DDP/ddp_path]connect in_s dither0  to dsi0 , value=0
+[736] [LK_DDP/INFO]ddp_enable_module_clock: ovl0 
+[736] [LK_DDP/INFO]ddp_enable_module_clock: ovl0_2l 
+[737] [LK_DDP/INFO]ddp_enable_module_clock: rdma0 
+[738] [LK_DDP/INFO]ddp_enable_module_clock: color0 
+[738] [LK_DDP/INFO]ddp_enable_module_clock: ccorr0 
+[739] [LK_DDP/INFO]ddp_enable_module_clock: aal0 
+[739] [LK_DDP/INFO]ddp_enable_module_clock: gamma0 
+[740] [LK_DDP/INFO]ddp_enable_module_clock: dither0 
+[741] [DISP]func|ddp_dsi_init
+[741] [LK_DDP/INFO]ddp_enable_module_clock: dsi0 
+[742] [DISPCHECK]dsi0 init finished
+[742] [LK_DDP/ddp_manager]path config ovl 0, rdma 0, wdma 0, dst 1 on handle 0x0x560b9aa0 scenario primary_disp 
+[744] [LK_DDP/MISC]config color dirty = 1
+[744] [LK_DDP/MISC]bypass color
+[745] [LK_DDP/MISC]config ccorr dirty = 1
+[745] [LK_DDP/MISC]bypass ccorr
+[746] [LK_DDP/MISC]config aal dirty = 1
+[746] [LK_DDP/MISC]bypass aal
+[746] [LK_DDP/MISC]config gamma dirty = 1
+[747] [LK_DDP/MISC]bypass gamma
+[747] config dither dirty = 1
+[748] disp_dither_bypass(bypass = 1)[748] [DISP]func|ddp_dsi_config
+[749] [DISPCHECK][DDPDSI] DSI Mode: SYNC_PULSE_VDO_MODE
+[749] [DISPCHECK][DDPDSI] LANE_NUM: 4,data_format:(0,2,0,0)
+[750] [DISPCHECK][DDPDSI] vact: 2, vbp: 10, vfp: 14, vact_line: 1920, hact: 24, hbp: 80, hfp: 60, hblank: 0
+[751] [DISPCHECK][DDPDSI] pll_select: 0, pll_div1: 0, pll_div2: 0, fbk_div: 0,fbk_sel: 0, rg_bir: 0
+[753] [DISPCHECK][DDPDSI] rg_bic: 0, rg_bp: 0, PLL_CLOCK: 510, dsi_clock: 0, ssc_range: 0,      ssc_disable: 1, compatibility_for_nvk: 0, cont_clock: 0
+[754] [DISPCHECK][DDPDSI] lcm_ext_te_enable: 0, noncont_clock: 0, noncont_clock_period: 0
+[756] [DISP]func|DSI_PHY_clk_setting
+[760] [DISP]func|DSI_PS_Control
+[761] [DISPCHECK][DISP] - LK - DSI_PHY_TIMCONFIG, pll=510, Cycle Time = 8(ns), Unit Interval = 1(ns). , lane# = 4
+[762] DISP/[DISP] - LK - DSI_PHY_TIMCONFIG, HS_TRAIL = 10, HS_ZERO = 18, HS_PRPR = 8, LPX = 10, TA_GET = 50, TA_SURE = 15, TA_GO = 40, CLK_TRAIL = 13, CLK_ZERO = 50, CLK_HS_PRPR = 8 
+[764] DISP/CLK_HS_POST=18,CLK_HS_EXIT=20,CLK_TRAIL=13
+[765] DSI_PHY_TIMCONFIG, 0x0a12080a,0x14320f28,0x0d320100,0x00141208
+[766] [DISP]func|DSI_Config_VDO_Timing
+[766] [DISP]func|disp_lcm_init
+[767] [DISPCHECK]lcm init 
+lcm_init, lk
+[767] [GPIO]   472: Pin 45 decrypt warning! 
+[768] [GPIO]   472: Pin 45 decrypt warning! 
+[768] [GPIO]   472: Pin 45 decrypt warning! 
+[769] [GPIO]   472: Pin 44 decrypt warning! 
+[769] [GPIO]   472: Pin 44 decrypt warning! 
+[770] [GPIO]   472: Pin 44 decrypt warning! 
+[771] [GPIO]   472: Pin 56 decrypt warning! 
+[771] [GPIO]   472: Pin 56 decrypt warning! 
+[772] [GPIO]   472: Pin 56 decrypt warning! 
+[772] [GPIO]   472: Pin 55 decrypt warning! 
+[773] [GPIO]   472: Pin 55 decrypt warning! 
+[773] [GPIO]   472: Pin 55 decrypt warning! 
+[804] [GPIO]   472: Pin 55 decrypt warning! 
+[805] [GPIO]   472: Pin 55 decrypt warning! 
+[805] [GPIO]   472: Pin 55 decrypt warning! 
+[816] [GPIO]   472: Pin 56 decrypt warning! 
+[816] [GPIO]   472: Pin 56 decrypt warning! 
+[817] [GPIO]   472: Pin 56 decrypt warning! 
+[847] [GPIO]   472: Pin 44 decrypt warning! 
+[848] [GPIO]   472: Pin 44 decrypt warning! 
+[849] [GPIO]   472: Pin 44 decrypt warning! 
+[859] [GPIO]   472: Pin 45 decrypt warning! 
+[860] [GPIO]   472: Pin 45 decrypt warning! 
+[860] [GPIO]   472: Pin 45 decrypt warning! 
+[871] [GPIO]   472: Pin 45 decrypt warning! 
+[871] [GPIO]   472: Pin 45 decrypt warning! 
+[872] [GPIO]   472: Pin 45 decrypt warning! 
+[883] [GPIO]   472: Pin 45 decrypt warning! 
+[883] [GPIO]   472: Pin 45 decrypt warning! 
+[884] [GPIO]   472: Pin 45 decrypt warning! 
+[1175] [DISP]func|DSI_dcs_read_lcm_reg_v2
+[1176] [DISPCHECK]Last DSI Read Why not clear irq???
+[1176] [DISPCHECK]DSI_CMDQ_SIZE  : 1
+[1177] [DISPCHECK]DSI_CMDQ_DATA0 : 0x00290500
+[1177] [DISPCHECK]DSI_RX_DATA0   : 0x00000000
+[1178] [DISPCHECK]DSI_RX_DATA1   : 0x00000000
+[1179] [DISPCHECK]DSI_RX_DATA2   : 0x00000000
+[1179] [DISPCHECK]DSI_RX_DATA3   : 0x00000000
+[1180] DISP/ Start polling DSI read ready!!!
+[1180] DISP/ End polling DSI read ready!!!
+[1181] [DISPCHECK]DSI read begin i = 1 --------------------
+[1182] [DISPCHECK]DSI_RX_STA     : 0x00000440
+[1182] [DISPCHECK]DSI_CMDQ_SIZE  : 2
+[1183] [DISPCHECK]DSI_CMDQ_DATA0 : 0x00013700
+[1183] [DISPCHECK]DSI_CMDQ_DATA1 : 0x000a0604
+[1184] [DISPCHECK]DSI_RX_DATA0   : 0x17001421
+[1184] [DISPCHECK]DSI_RX_DATA1   : 0x00000000
+[1185] [DISPCHECK]DSI_RX_DATA2   : 0x00000000
+[1186] [DISPCHECK]DSI_RX_DATA3   : 0x00000000
+[1186] [DISPCHECK]DSI read end ----------------------------
+[1187] [DISPCHECK]DSI read packet_type is 0x21
+[1187] [DISP]read from lcm 0x0A: 20
+[1188] [DISP]lcm is connected
+[1188] [DISP]func|disp_lcm_is_video_mode
+[1189] [LK_DDP/ddp_manager]map event 7 to irq 0x70004 on scenario primary_disp
+[1190] [LK_DDP/ddp_manager]enable event on scenario primary_disp, event 7, irtbit 0x70004
+[1191] [LK_DDP/ddp_manager]enable event on scenario primary_disp, event 1, irtbit 0x70004
+[1200] [DISP]func|primary_display_config_input
+[1200] [LK_DDP/ddp_manager]path check busy on scenario primary_disp
+[1201] [DISP]func|ddp_dsi_is_busy
+[1201] [LK_DDP/ddp_manager]path config ovl 1, rdma 0, wdma 0, dst 0 on handle 0x0x560b9aa0 scenario primary_disp 
+[1203] [LK_DDP/OVL]module 0, layer=3, en=1, src=0, fmt=16785410, addr=0x7d3c8000, x=0, y=0, pitch=4800, dst(0, 0, 1200, 1920),keyEn=0, key=0, aen=1, alpha=255
+[1205] [LK_DDP/OVL]ovl0, layer=3, source=memory, off(x=0, y=0), dst(0, 0, 1200, 1920),pitch=4800,fmt=eBGRA8888, addr=7d3c8000, keyEn=0, key=0, aen=1, alpha=255 
+[1207] [LK_DDP/MISC]config color dirty = 0
+[1207] [LK_DDP/MISC]config ccorr dirty = 0
+[1208] [LK_DDP/MISC]config aal dirty = 0
+[1208] [LK_DDP/MISC]config gamma dirty = 0
+[1209] config dither dirty = 0
+[1209] disp_dither_bypass(bypass = 1)[1210] [DISP]func|ddp_dsi_config
+[1210] [DISP]func|primary_display_config_input
+[1211] [LK_DDP/ddp_manager]path check busy on scenario primary_disp
+[1212] [DISP]func|ddp_dsi_is_busy
+[1212] [LK_DDP/ddp_manager]path config ovl 1, rdma 0, wdma 0, dst 0 on handle 0x0x560b9aa0 scenario primary_disp 
+[1213] [LK_DDP/OVL]module 0, layer=0, en=1, src=0, fmt=16785410, addr=0x7cae0000, x=0, y=0, pitch=4864, dst(0, 0, 1200, 1920),keyEn=0, key=0, aen=1, alpha=255
+[1215] [LK_DDP/OVL]ovl0, layer=0, source=memory, off(x=0, y=0), dst(0, 0, 1200, 1920),pitch=4864,fmt=eBGRA8888, addr=7cae0000, keyEn=0, key=0, aen=1, alpha=255 
+[1217] [LK_DDP/OVL]module 0, layer=3, en=1, src=0, fmt=16785410, addr=0x7d3c8000, x=0, y=0, pitch=4800, dst(0, 0, 1200, 1920),keyEn=0, key=0, aen=1, alpha=255
+[1219] [LK_DDP/OVL]ovl0, layer=3, source=memory, off(x=0, y=0), dst(0, 0, 1200, 1920),pitch=4800,fmt=eBGRA8888, addr=7d3c8000, keyEn=0, key=0, aen=1, alpha=255 
+[1221] [LK_DDP/MISC]config color dirty = 0
+[1222] [LK_DDP/MISC]config ccorr dirty = 0
+[1222] [LK_DDP/MISC]config aal dirty = 0
+[1223] [LK_DDP/MISC]config gamma dirty = 0
+[1223] config dither dirty = 0
+[1224] disp_dither_bypass(bypass = 1)[1224] [DISP]func|ddp_dsi_config
+[1225] [DISP]mt_disp_init() done
+[1225] [PROFILE] ::: lvl(2) disp init takes 630 ms
+[1226] s_mt65xx_gd.gdfIndex=3[1226] [PROFILE] ::: lvl(2) vedio init takes 0 ms
+SMART RESET: FALSE
+rst from: unknown
+kedump mini start
+kedump: current time: [2020/11/3 15:33:46]
+kedump: ddr reserve mode disabled
+[1229] Do not support atf-ramdump-memory, atf_ramdump_addr=0x0!
+[ATF](0)[3.099000]INFO:    Get ATF log buffer info. for AEE dump in LK.
+[ATF](0)[3.099774]INFO:    Buf addr:0xbfe14000, buf size:131072, flag addr:0xbfe0002c, flag value:0x41544641
+[1231] ATF: LAST BUFF
+[1232] atf_log_buf_addr:0xbfe14000, atf_log_buf_size:131072, atf_crash_flag addr:0xbfe0002c, atf_log_type:0x41544641
+[1233] plat_atf_log_get:0x5603c4c5, plat_atf_crash_get:0x0
+[1234] mrdump_write_log: Enter
+[1234] mrdump_write_log: offset 53002240 size 20971520
+kedump: lkdump debug init ok
+kedump: boot_reason(0)
+RAM_CONSOLE. boot_arg(PL2LK): sram_addr:0x11d000, sram_size:0x800, def_type:0x1, memory_info_offset:0xec0
+RAM_CONSOLE. start: 0x11d000, size: 0x800
+RAM_CONSOLE. lk last status: 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 
+RAM_CONSOLE. wdt_status 0x0, fiq_step 0x0, exp_type 0x0
+RAM_CONSOLE. set reboot reason info done
+kedump: last is not full pmic reset!
+kedump: partiton 5[2188000 - 1100000]
+kedump: found content in expdb
+kedump: read KEDUMP_CRC from offset 0xe2800 size 0x8
+kedump: read SYS_PSTORE_RAW from offset 0x2800 size 0xe0000
+kedump: crc = 0xdf53656b
+kedump: read SYS_RAMCONSOLE_RAW from offset 0x2000 size 0x800
+kedump: crc = 0x7ffe745c
+kedump: ram_console_should_restore
+RAM_CONSOLE. wdt_status 0x5, fiq_step 0x21, exp_type 0x6
+RAM_CONSOLE. set reboot reason info done
+[1289] [META] Check meta info from pre-loader: 0, 504c504c, 0
+[1290] detecting pmic just reset
+[1291] [LK_BOOT] Load 'para' partition to 0x56182508 (6144 bytes in 1 ms)
+[1291] eng build
+[1341] [RTC] irqsta = 0x1, pdn1 = 0x40, pdn2 = 0x201, spar0 = 0x80, spar1 = 0x800
+[1342] [is_force_boot] Bypass Kernel Power off charging mode and enter Alarm Boot
+[1343] [kernel_power_off_charging_detection] Turn off HW Led
+[1343] < Kernel Enter Normal Boot > 
+[1344] [LK_ENV]get_env usb2jtag from area 0
+[1344] [USB2JTAG] current setting is 0.
+[1345] [PROFILE] ::: lvl(2) boot mode select takes 118 ms
+[1346] mt_get_logo_db_addr_pa: 0x7c6e0000
+[1346] 
+=========================================
+[1347] [LK_BOOT] logo magic number : 0x58881688
+[1348] [LK_BOOT] logo name         : logo
+[1348] [LK_BOOT] logo size         : 3468411
+[1349] =========================================
+[1375] [PROFILE] ::: lvl(2) load_logo takes 29 ms
+[1376] [SEC_POLICY] sboot_state = 0x0
+[1376] [SEC_POLICY] lock_state = 0x3
+[1377] [PROFILE] ::: lvl(3) img_auth_stor takes 1 ms
+[1378] [PROFILE] ::: lvl(2) logo verify takes 2 ms
+[1381] [pmic_get_auxadc_value] channel = 4, reg_val = 0x63d, adc_result = 701
+[1382] T_curr = 292, vbat_old = 37370, vbat_auxcali = 37379, vbat_bgrcali = 37379
+[1383] [pmic_get_auxadc_value] channel = 0, reg_val = 0x5898, adc_result = 3737
+[1384] [lk logo: mt_disp_show_boot_logo 145]
+[1384] [lk logo: init_fb_screen 65]
+[1385] mt_get_logo_db_addr: 0x7c6e0000
+[1385] [lk logo: init_fb_screen 83]MTK_LCM_PHYSICAL_ROTATION = 0
+[1386] init_fb_screen: rotation from items is 0
+[1387] init_fb_screen: phical_screen.rotation is 0
+[1387] [lk logo: sync_anim_version 48]
+[1388] [lk logo: init_fb_screen 112]pinfo[0]=0x0000003c, pinfo[1]=0x0034ec7b, pinfo[2]=248
+[1389] [lk logo: init_fb_screen 114]define ANIMATION_NEW:show new animation with capacity num
+[1390] [lk logo: init_fb_screen 115]CAPACITY_LEFT =447, CAPACITY_TOP =803 
+[1391] [lk logo: init_fb_screen 116]LCM_HEIGHT=751, LCM_WIDTH=1289 
+[1392] mt_get_tempfb_addr: 0x7dcb0000 ,fb_addr 0x7cae0000
+[1393] [show_animation_common: check_logo_index_valid 83]logonum =60, index =0
+[1394] show_animation_common, in_addr=0x7c6e00f8,  logolen=21185
+[1395] [decompress_logo decompress_logo 48]in=0x7c6e00f8, out=0x7dcb0000, inlen=21185, logolen=9338880
+[1445] [decompress_logo decompress_logo 97]have=9216000
+[1445] [show_animation_common: fill_animation_logo 136]bits = 32
+[1446] [show_logo_common: fill_rect_with_content 427]
+[1447] [show_logo_common: fill_rect_with_content_by_32bit_argb8888 128]
+[1448] [show_logo_common]dst_addr= 0xffffffff, color_addr= 0xffffffff, i= 0, j=0
+[1449] [show_logo_common]dst_addr= 0xffffffff, color_addr= 0xffffffff, i= 0, j=1199
+[1586] [show_logo_common]dst_addr= 0xffffffff, color_addr= 0xffffffff, i= 1919, j=0
+[1587] [show_logo_common]dst_addr= 0xffffffff, color_addr= 0xffffffff, i= 1919, j=1199
+[1590] [DISP]func|primary_display_trigger
+[1591] [LK_DDP/ddp_manager]path check busy on scenario primary_disp
+[1592] [DISP]func|ddp_dsi_is_busy
+[1592] [DISPCHECK]trigger mode: DIRECT_LINK
+[1593] [DISPCHECK](x=0,y=0),(w=1200,h=1920)
+[1593] [DISP]func|disp_lcm_is_video_mode
+[1594] [LK_DDP/ddp_manager]path start on scenario primary_disp
+[1595] [DISP]func|ddp_dsi_start
+[1595] [LK_DDP/ddp_manager]dpmgr_path_trigger on scenario primary_disp
+[1596] [LK_DDP/ddp_path]mutex 0 enable
+[1596] [PROFILE] ::: lvl(2) show logo takes 212 ms
+[1597] [LEDS]LK: mt65xx_backlight_on:level =  255
+[1598] [LEDS]LK: lcd-backlight level is 255 
+[1598] [DISP][PWM] disp_pwm_set_backlight(id = 0x1, level_1024 = 1023)
+[1599] elink_pwm_config level is 1023!!!
+[1600] elink_pwm_config backlight coefficient is 80!!!
+[1600] [DISP][PWM] set reg[0x1100e00c] = 0x00000000
+[1601] [DISP][PWM] set reg[0x1100e01c] = 0x033203ff
+[1602] [DISP][PWM] set reg[0x1100e000] = 0x00000001
+[1602] [DISP][PWM] disp_pwm_set_enabled: PWN_EN = 0x1
+[1603] [DISP][PWM] set reg[0x1100e00c] = 0x00000001
+[1604] [DISP][PWM] set reg[0x1100e00c] = 0x00000000
+[1604] [DISP][PWM] reg[0x1100e000] = 0x00000001
+[1605] [DISP][PWM] reg[0x1100e004] = 0x00000001
+[1606] [DISP][PWM] reg[0x1100e008] = 0x00000000
+[1606] [DISP][PWM] reg[0x1100e00c] = 0x00000062
+[1607] [DISP][PWM] reg[0x1100e010] = 0x00000000
+[1607] [DISP][PWM] reg[0x1100e014] = 0x00000000
+[1608] [DISP][PWM] reg[0x1100e018] = 0x00000000
+[1609] [DISP][PWM] reg[0x1100e01c] = 0x00000000
+[1609] [DISP][PWM] reg[0x1100e020] = 0x00000000
+[1610] [DISP][PWM] reg[0x1100e024] = 0x00000000
+[1610] [DISP][PWM] reg[0x1100e028] = 0x00000000
+[1611] [PROFILE] ::: lvl(2) backlight takes 14 ms
+[1614] [DISP]func|primary_display_trigger
+[1614] [LK_DDP/ddp_manager]path check busy on scenario primary_disp
+[1615] [DISP]func|ddp_dsi_is_busy
+[1615] [LK_DDP/ddp_manager]dsi0  is busy
+[1616] [DISP]func|disp_lcm_is_video_mode
+[1617] [PROFILE] ::: lvl(2) disp update takes 5 ms
+[1617] backlight enabled before battery init
+[1618] [dcm_set_default]type:0x4B87, init_dcm_type=0x4B87, INIT_DCM_TYPE_BY_K=0x0
+[1619] [ARMCORE_DCM 0x1] current state:1 (0)
+[1619] [MCUSYS_DCM 0x2] current state:1 (0)
+[1620] [INFRA_DCM 0x4] current state:1 (0)
+[1620] [STALL_DCM 0x80] current state:1 (0)
+[1621] [BIG_CORE_DCM 0x100] current state:1 (0)
+[1622] [GIC_SYNC_DCM 0x200] current state:0 (0)
+[1622] [RGU_DCM 0x800] current state:1 (0)
+[1623] [MCSI_DCM 0x4000] current state:1 (0)
+[1623] 
+******** dcm dump register *********
+[1624] CPUSYS_RGU_SYNC_DCM           (0x0c530088): 0x00000001
+[1625] L2C_SRAM_CTRL                 (0x0c530648): 0x000c0081
+[1626] CCI_CLK_CTRL                  (0x0c530660): 0x00000117
+[1626] BUS_FABRIC_DCM_CTRL           (0x0c530668): 0x3ffd1fcf
+[1627] MCU_MISC_DCM_CTRL             (0x0c53066c): 0x00000101
+[1628] CCI_ADB400_DCM_CONFIG         (0x0c530740): 0x00000807
+[1629] SYNC_DCM_CONFIG               (0x0c530744): 0x00000c03
+[1629] SYNC_DCM_CLUSTER_CONFIG       (0x0c53074c): 0x053f008f
+[1630] MP_GIC_RGU_SYNC_DCM           (0x0c530758): 0x00000000
+[1631] MP0_PLL_DIVIDER_CFG           (0x0c5307a0): 0x83110aff
+[1632] MP2_PLL_DIVIDER_CFG           (0x0c5307a8): 0x83110aff
+[1633] BUS_PLL_DIVIDER_CFG           (0x0c5307c0): 0x03150aff
+[1633] MCSIB_DCM_EN                  (0x0c530b60): 0xffffffff
+[1634] INFRA_BUS_DCM_CTRL            (0x10001070): 0x40ff4203
+[1635] PERI_BUS_DCM_CTRL             (0x10001074): 0xf47f83e3
+[1636] MEM_DCM_CTRL                  (0x10001078): 0x01af07c0
+[1636] P2P_RX_CLK_ON                 (0x100010a0): 0x00000000
+[1637] EMI_CONM                      (0x10219060): 0x000005ff
+[1638] EMI_CONN                      (0x10219068): 0x00000000
+[1639] CHN0_EMI_CHN_EMI_CONB         (0x1022d008): 0x00ff2048
+[1640] CHN1_EMI_CHN_EMI_CONB         (0x10235008): 0x00ff2048
+[1640] DRAMC_CH0_TOP1_DRAMC_PD_CTRL  (0x1022a038): 0xc0000107
+[1641] DRAMC_CH0_TOP1_CLKAR          (0x1022a03c): 0x02040000
+[1642] DRAMC_CH1_TOP1_DRAMC_PD_CTRL  (0x10232038): 0xc0000107
+[1643] DRAMC_CH1_TOP1_CLKAR          (0x1023203c): 0x02040000
+[1643] DRAMC_CH0_TOP0_MISC_CG_CTRL0  (0x10228284): 0x00000110
+[1644] DRAMC_CH0_TOP0_MISC_CG_CTRL2  (0x1022828c): 0x806003be
+[1645] DRAMC_CH0_TOP0_MISC_CTRL3     (0x102282a8): 0x11351135
+[1646] DRAMC_CH0_TOP0_SHU1_B0_DQ8    (0x10228c20): 0x00207fff
+[1647] DRAMC_CH0_TOP0_SHU1_B1_DQ8    (0x10228ca0): 0x00207fff
+[1647] DRAMC_CH0_TOP0_SHU1_CA_CMD8   (0x10228d20): 0x00007fff
+[1648] DRAMC_CH0_TOP0_SHU2_B0_DQ8    (0x10229120): 0x00207fff
+[1649] DRAMC_CH0_TOP0_SHU2_B1_DQ8    (0x102291a0): 0x00207fff
+[1650] DRAMC_CH0_TOP0_SHU2_CA_CMD8   (0x10229220): 0x00007fff
+[1650] DRAMC_CH0_TOP0_SHU3_B0_DQ8    (0x10229620): 0x00207fff
+[1651] DRAMC_CH0_TOP0_SHU3_B1_DQ8    (0x102296a0): 0x00207fff
+[1652] DRAMC_CH0_TOP0_SHU3_CA_CMD8   (0x10229720): 0x00007fff
+[1653] DRAMC_CH0_TOP0_SHU4_B0_DQ8    (0x10229b20): 0x00000000
+[1654] DRAMC_CH0_TOP0_SHU4_B1_DQ8    (0x10229ba0): 0x00000000
+[1654] DRAMC_CH0_TOP0_SHU4_CA_CMD8   (0x10229c20): 0x00000000
+[1655] DRAMC_CH1_TOP0_MISC_CG_CTRL0  (0x10230284): 0x00000110
+[1656] DRAMC_CH1_TOP0_MISC_CG_CTRL2  (0x1023028c): 0x806003be
+[1657] DRAMC_CH1_TOP0_MISC_CTRL3     (0x102302a8): 0x11351135
+[1657] DRAMC_CH1_TOP0_SHU1_B0_DQ8    (0x10230c20): 0x00207fff
+[1658] DRAMC_CH1_TOP0_SHU1_B1_DQ8    (0x10230ca0): 0x00207fff
+[1659] DRAMC_CH1_TOP0_SHU1_CA_CMD8   (0x10230d20): 0x00007fff
+[1660] DRAMC_CH1_TOP0_SHU2_B0_DQ8    (0x10231120): 0x00207fff
+[1661] DRAMC_CH1_TOP0_SHU2_B1_DQ8    (0x102311a0): 0x00207fff
+[1661] DRAMC_CH1_TOP0_SHU2_CA_CMD8   (0x10231220): 0x00007fff
+[1662] DRAMC_CH1_TOP0_SHU3_B0_DQ8    (0x10231620): 0x00207fff
+[1663] DRAMC_CH1_TOP0_SHU3_B1_DQ8    (0x102316a0): 0x00207fff
+[1664] DRAMC_CH1_TOP0_SHU3_CA_CMD8   (0x10231720): 0x00007fff
+[1665] DRAMC_CH1_TOP0_SHU4_B0_DQ8    (0x10231b20): 0x00000000
+[1665] DRAMC_CH1_TOP0_SHU4_B1_DQ8    (0x10231ba0): 0x00000000
+[1666] DRAMC_CH1_TOP0_SHU4_CA_CMD8   (0x10231c20): 0x00000000
+[1671] [init_cust_data_from_dt]:chroff:0,pe:1,powpath:1,vchrmax:10500,vchrmin:4000,vfast:3000,usb:500,ac:2050 1400,nac:2000,cdp:1500,ta:3000,pd:500,t:50 45 0
+[1676] [mt6370_parse_dt]: subpmic_pmu id = 5
+[1676] mt6370_i2c_read_byte: I2CR[0x00] = 0xE6
+[1677] mt6370_is_hw_exist: E6(0x06)
+[1677] mt6370_chg_probe: 1.1.2_MTK
+[1678] mt6370_chg_init_setting: starts
+[1678] mt6370_enable_wdt: en = 1
+[1679] mt6370_i2c_read_byte: I2CR[0x1D] = 0x52
+[1679] mt6370_i2c_write_byte: I2CW[0x1D] = 0xD2
+[1680] mt6370_check_icc_accuracy
+[1680] mt6370_select_input_current_limit: select input current limit = 2
+[1681] mt6370_i2c_read_byte: I2CR[0x12] = 0x03
+[1682] mt6370_i2c_write_byte: I2CW[0x12] = 0x0B
+[1688] mt6370_enable_ilim: enable ilim = 0
+[1688] mt6370_i2c_read_byte: I2CR[0x13] = 0x23
+[1689] mt6370_i2c_write_byte: I2CW[0x13] = 0x22
+[1690] mt6370_enable_jeita: en = 0
+[1690] mt6370_i2c_read_byte: I2CR[0x20] = 0x10
+[1691] mt6370_i2c_write_byte: I2CW[0x20] = 0x00
+[1691] mt_charger_set_ichg: ichg = 500
+[1692] mt6370_i2c_read_byte: I2CR[0x17] = 0x4C
+[1692] mt6370_i2c_write_byte: I2CW[0x17] = 0x10
+[1693] mt_charger_set_aicr: aicr = 500
+[1694] mt6370_i2c_read_byte: I2CR[0x13] = 0x22
+[1694] mt6370_i2c_write_byte: I2CW[0x13] = 0x22
+[1695] mt_charger_set_mivr: mivr = 4500
+[1695] mt6370_i2c_read_byte: I2CR[0x16] = 0x0B
+[1696] mt6370_i2c_write_byte: I2CW[0x16] = 0x0D
+[1697] mt6370_set_battery_voreg: bat voreg = 4350
+[1697] mt6370_i2c_read_byte: I2CR[0x14] = 0x3C
+[1698] mt6370_i2c_write_byte: I2CW[0x14] = 0x5A
+[1701] [init_bat_cust_data_dt]disable:0, car_tune:1000,fg_meter_r 75,rfg:50, gauge0[34000 500]
+[1702] mt6370_enable_hidden_mode: en = 1
+[1703] mt6370_i2c_read_byte: I2CR[0x17] = 0x10
+[1704] mt6370_i2c_write_byte: I2CW[0x17] = 0x10
+[1704] mt6370_i2c_read_byte: I2CR[0x38] = 0x84
+[1705] mt6370_i2c_write_byte: I2CW[0x38] = 0x04
+[1706] mt6370_i2c_read_byte: I2CR[0x12] = 0x0B
+[1706] mt6370_i2c_write_byte: I2CW[0x12] = 0x0A
+[1707] mt6370_i2c_write_byte: I2CW[0x07] = 0x00
+[1707] mt6370_enable_hidden_mode: en = 0
+[1708] charger_enable_charging: disable charging
+[1711] [pmic_get_auxadc_value] channel = 4, reg_val = 0x63d, adc_result = 701
+[1712] T_curr = 292, vbat_old = 36290, vbat_auxcali = 36299, vbat_bgrcali = 36299
+[1713] [pmic_get_auxadc_value] channel = 0, reg_val = 0x5607, adc_result = 3629
+[1714] [upmu_is_chr_det] 0
+[1723] [fgauge_read_IM_current](discharg)FG_CURRENT:0xfaf3,curr:[4928,9856,9856] mA, Rfg:50 ratio:1000
+[1724] [do_ptim] bat 36287 cur 9856
+[1733] [fgauge_read_IM_current](discharg)FG_CURRENT:0xfaf1,curr:[4936,9872,9872] mA, Rfg:50 ratio:1000
+[1734] [do_ptim] bat 36286 cur 9872
+[1743] [fgauge_read_IM_current](discharg)FG_CURRENT:0xfaf6,curr:[4917,9834,9834] mA, Rfg:50 ratio:1000
+[1744] [do_ptim] bat 36281 cur 9834
+[1753] [fgauge_read_IM_current](discharg)FG_CURRENT:0xfafb,curr:[4898,9796,9796] mA, Rfg:50 ratio:1000
+[1754] [do_ptim] bat 36277 cur 9796
+[1762] [fgauge_read_IM_current](discharg)FG_CURRENT:0xfaf2,curr:[4932,9864,9864] mA, Rfg:50 ratio:1000
+[1764] [do_ptim] bat 36292 cur 9864
+[1766] [pmic_get_auxadc_value] channel = 4, reg_val = 0x63d, adc_result = 701
+[1767] T_curr = 292, vbat_old = 36286, vbat_auxcali = 36295, vbat_bgrcali = 36295
+[1768] do_ptim_gauge, 36295(36277, 36281, 36286, 36287, 36292), 9856(9796, 9834, 9856, 9864, 9872)
+[1770] [pmic_get_auxadc_value] channel = 3, reg_val = 0x396, adc_result = 806
+[1771] [fgauge_read_current]g_isbat_init:1,cartune:1000,50,381470
+[1772] [fgauge_read_current]is_charge:0 Ori_curr:0xfaed,curr:[4951,9902,Final:9902] Rfg:50 ratio:1000
+[1773] [BattThermistorConverTemp] 10000 8315 9905 25 30 25
+[1774] [BattVoltToTemp] 818 24000 2800 12
+[1775] [force_get_tbat] 806,818,0,990,50,temp:25 r:75 50
+[1775] [check_sw_ocv]0 ptim[36295 9856] fg_swocv[36295 -9856] boot_vbat:3761 shutdowntime:1 vbat:3629 tmp:25
+[1777] mt6370_enable_hidden_mode: en = 1
+[1777] mt_charger_set_ichg: ichg = 500
+[1778] mt6370_i2c_read_byte: I2CR[0x17] = 0x10
+[1779] mt6370_i2c_write_byte: I2CW[0x17] = 0x10
+[1779] mt6370_i2c_read_byte: I2CR[0x12] = 0x0A
+[1780] mt6370_i2c_write_byte: I2CW[0x12] = 0x0B
+[1780] mt6370_i2c_read_byte: I2CR[0x38] = 0x04
+[1781] mt6370_i2c_write_byte: I2CW[0x38] = 0x84
+[1782] mt6370_i2c_write_byte: I2CW[0x07] = 0x00
+[1782] mt6370_enable_hidden_mode: en = 0
+[1783] charger_enable_charging: enable charging
+[1785] [pmic_get_auxadc_value] channel = 2, reg_val = 0x0, adc_result = 0
+[1787] [pmic_get_auxadc_value] channel = 2, reg_val = 0x0, adc_result = 0
+[1789] [pmic_get_auxadc_value] channel = 2, reg_val = 0x0, adc_result = 0
+[LEDS]LK: leds_battery_rgbled_charging
+[1791] [LEDS] set addr 0x85 = 0x88
+[1791] [LEDS] set addr 0x86 = 0x09
+[1794] [pmic_get_auxadc_value] channel = 4, reg_val = 0x63d, adc_result = 701
+[1795] T_curr = 292, vbat_old = 36260, vbat_auxcali = 36269, vbat_bgrcali = 36269
+[1796] [pmic_get_auxadc_value] channel = 0, reg_val = 0x55f4, adc_result = 3626
+[1797] is_low_battery, FALSE
+[1798] mt6370_enable_wdt: en = 0
+[1798] mt6370_i2c_read_byte: I2CR[0x1D] = 0xD2
+[1799] mt6370_i2c_write_byte: I2CW[0x1D] = 0x52
+[1800] mt6370_enable_hidden_mode: en = 1
+[1800] mt6370_i2c_read_byte: I2CR[0x17] = 0x10
+[1801] mt6370_i2c_write_byte: I2CW[0x17] = 0x10
+[1801] mt6370_i2c_read_byte: I2CR[0x38] = 0x84
+[1802] mt6370_i2c_write_byte: I2CW[0x38] = 0x04
+[1803] mt6370_i2c_read_byte: I2CR[0x12] = 0x0B
+[1803] mt6370_i2c_write_byte: I2CW[0x12] = 0x0A
+[1804] mt6370_i2c_write_byte: I2CW[0x07] = 0x00
+[1805] mt6370_enable_hidden_mode: en = 0
+[1805] charger_enable_charging: disable charging
+[1806] mt_charger_enable_power_path: enable = 0
+[1806] mt6370_i2c_read_byte: I2CR[0x11] = 0x10
+[1807] mt6370_i2c_write_byte: I2CW[0x11] = 0x14
+[1866] [fgauge_read_IM_current](discharg)FG_CURRENT:0xfaee,curr:[4947,9894,9894] mA, Rfg:50 ratio:1000
+[1867] [do_ptim] bat 36253 cur 9894
+[1868] [1,Trigger ADC PTIM mode] volt1=36253, curr_1=9894
+[1868] [2,enable dummy load]
+[1878] [fgauge_read_IM_current](discharg)FG_CURRENT:0xfa65,curr:[5470,10940,10940] mA, Rfg:50 ratio:1000
+[1879] [do_ptim] bat 36114 cur 10940
+[1880] [3,Trigger ADC PTIM mode again] volt2=36114, curr_2=10940
+[1881] [5,Calculate Rac] volt_1=36253,volt_2=36114,curr_1=9894,curr_2=10940,rac_cal=132,ret=132,retry_count=0,volt_diff=139,curr_diff=1046
+[1891] [fgauge_read_IM_current](discharg)FG_CURRENT:0xfae7,curr:[4974,9948,9948] mA, Rfg:50 ratio:1000
+[1892] [do_ptim] bat 36244 cur 9948
+[1892] [1,Trigger ADC PTIM mode] volt1=36244, curr_1=9948
+[1893] [2,enable dummy load]
+[1903] [fgauge_read_IM_current](discharg)FG_CURRENT:0xfa69,curr:[5455,10910,10910] mA, Rfg:50 ratio:1000
+[1904] [do_ptim] bat 36103 cur 10910
+[1904] [3,Trigger ADC PTIM mode again] volt2=36103, curr_2=10910
+[1905] [5,Calculate Rac] volt_1=36244,volt_2=36103,curr_1=9948,curr_2=10910,rac_cal=146,ret=146,retry_count=0,volt_diff=141,curr_diff=962
+[1915] [fgauge_read_IM_current](discharg)FG_CURRENT:0xfaee,curr:[4947,9894,9894] mA, Rfg:50 ratio:1000
+[1916] [do_ptim] bat 36241 cur 9894
+[1917] [1,Trigger ADC PTIM mode] volt1=36241, curr_1=9894
+[1918] [2,enable dummy load]
+[1927] [fgauge_read_IM_current](discharg)FG_CURRENT:0xfa60,curr:[5489,10978,10978] mA, Rfg:50 ratio:1000
+[1928] [do_ptim] bat 36096 cur 10978
+[1929] [3,Trigger ADC PTIM mode again] volt2=36096, curr_2=10978
+[1930] [5,Calculate Rac] volt_1=36241,volt_2=36096,curr_1=9894,curr_2=10978,rac_cal=133,ret=133,retry_count=0,volt_diff=145,curr_diff=1084
+[1940] [fgauge_read_IM_current](discharg)FG_CURRENT:0xfae8,curr:[4970,9940,9940] mA, Rfg:50 ratio:1000
+[1941] [do_ptim] bat 36236 cur 9940
+[1941] [1,Trigger ADC PTIM mode] volt1=36236, curr_1=9940
+[1942] [2,enable dummy load]
+[1952] [fgauge_read_IM_current](discharg)FG_CURRENT:0xfa6b,curr:[5447,10894,10894] mA, Rfg:50 ratio:1000
+[1953] [do_ptim] bat 36095 cur 10894
+[1954] [3,Trigger ADC PTIM mode again] volt2=36095, curr_2=10894
+[1954] [5,Calculate Rac] volt_1=36236,volt_2=36095,curr_1=9940,curr_2=10894,rac_cal=147,ret=147,retry_count=0,volt_diff=141,curr_diff=954
+[1964] [fgauge_read_IM_current](discharg)FG_CURRENT:0xfae8,curr:[4970,9940,9940] mA, Rfg:50 ratio:1000
+[1966] [do_ptim] bat 36238 cur 9940
+[1966] [1,Trigger ADC PTIM mode] volt1=36238, curr_1=9940
+[1967] [2,enable dummy load]
+[1976] [fgauge_read_IM_current](discharg)FG_CURRENT:0xfa67,curr:[5462,10924,10924] mA, Rfg:50 ratio:1000
+[1978] [do_ptim] bat 36093 cur 10924
+[1978] [3,Trigger ADC PTIM mode again] volt2=36093, curr_2=10924
+[1979] [5,Calculate Rac] volt_1=36238,volt_2=36093,curr_1=9940,curr_2=10924,rac_cal=147,ret=147,retry_count=0,volt_diff=145,curr_diff=984
+[1981] [dlpt_R] rac_val:132,146,133,147,147 [132:147:5], imix_r:142
+[1982] mt_charger_enable_power_path: enable = 1
+[1982] mt6370_i2c_read_byte: I2CR[0x11] = 0x14
+[1983] mt6370_i2c_write_byte: I2CW[0x11] = 0x10
+[1983] mt_charger_enable_charging: is the same, en = 0
+[1987] [pmic_get_auxadc_value] channel = 4, reg_val = 0x639, adc_result = 700
+[1988] T_curr = 298, vbat_old = 36230, vbat_auxcali = 36240, vbat_bgrcali = 36240
+[1989] [pmic_get_auxadc_value] channel = 0, reg_val = 0x55e3, adc_result = 3624
+[1990] [check_bat_protect_status]: check VBAT=3624 mV with 3450 mV
+[1991] [PROFILE] ------- Charging takes 0 ms -------- 
+[1991] mt_charger_set_aicr: aicr = 500
+[1992] mt6370_i2c_read_byte: I2CR[0x13] = 0x22
+[1993] mt6370_i2c_write_byte: I2CW[0x13] = 0x22
+[1993] mt_charger_set_ichg: ichg = 500
+[1994] mt6370_i2c_read_byte: I2CR[0x17] = 0x10
+[1994] mt6370_i2c_write_byte: I2CW[0x17] = 0x10
+[1995] mt6370_enable_hidden_mode: en = 1
+[1996] mt_charger_set_ichg: ichg = 500
+[1996] mt6370_i2c_read_byte: I2CR[0x17] = 0x10
+[1997] mt6370_i2c_write_byte: I2CW[0x17] = 0x10
+[1997] mt6370_i2c_read_byte: I2CR[0x12] = 0x0A
+[1998] mt6370_i2c_write_byte: I2CW[0x12] = 0x0B
+[1999] mt6370_i2c_read_byte: I2CR[0x38] = 0x04
+[1999] mt6370_i2c_write_byte: I2CW[0x38] = 0x84
+[2000] mt6370_i2c_write_byte: I2CW[0x07] = 0x00
+[2001] mt6370_enable_hidden_mode: en = 0
+[2001] charger_enable_charging: enable charging
+[2002] [PROFILE] ::: lvl(2) battery init takes 384 ms
+[2002] [RTC] irqsta = 0x0, pdn1 = 0x0, pdn2 = 0x201, spar0 = 0x80, spar1 = 0x800
+[2003] [PROFILE] ::: lvl(2) RTC boot check Init takes 1 ms
+[2004] [LEDS]LK: mt65xx_backlight_on:level =  255
+[2005] [PROFILE] ::: lvl(2) backlight takes 1 ms
+[2007] [DISP]func|primary_display_trigger
+[2008] [LK_DDP/ddp_manager]path check busy on scenario primary_disp
+[2009] [DISP]func|ddp_dsi_is_busy
+[2009] [LK_DDP/ddp_manager]dsi0  is busy
+[2010] [DISP]func|disp_lcm_is_video_mode
+[2010] [PROFILE] ::: lvl(2) display update takes 5 ms
+[2011] [PROFILE] ::: lvl(2) sw_env takes 0 ms
+[2012] [PROFILE] ::: lvl(1) platform_init takes 1916 ms
+[2012] initializing target
+[2013] calling apps_init()
+[2013] [LK_ENV]get_env MTK_DEVICE_ID from area 0
+[2014] [LK_BOOT] Load 'proinfo' partition to 0x560be1fc (32 bytes in 0 ms)
+[2015] mblock[0].start: 0x40000000, sz: 0x14400000, limit: 0xc0000000, max_addr: 0x0, target: -1, reserved_addr: 0x4e000000,reserved_size: 0x6400000
+[2017] mblock_reserve dbg[0]: 1, 1, 1, 1
+[2017] skip this mblock start=54500000 sz=100000 limit=c0000000 end=54600000
+[2018] skip this mblock start=54640000 sz=1c0000 limit=c0000000 end=54800000
+[2019] skip this mblock start=54a00000 sz=1600000 limit=c0000000 end=56000000
+[2020] skip this mblock start=56400000 sz=500000 limit=c0000000 end=56900000
+[2021] mblock[5].start: 0x5e900000, sz: 0x1dde0000, limit: 0xc0000000, max_addr: 0x54400000, target: 0, reserved_addr: 0x762e0000,reserved_size: 0x6400000
+[2023] mblock_reserve dbg[5]: 1, 1, 1, 1
+[2023] mblock[6].start: 0x80000000, sz: 0x3fe00000, limit: 0xc0000000, max_addr: 0x7c6e0000, target: 5, reserved_addr: 0xb9a00000,reserved_size: 0x6400000
+[2025] mblock_reserve dbg[6]: 1, 1, 1, 1
+[2026] skip this mblock start=bfe40000 sz=1bf000 limit=c0000000 end=bffff000
+[2027] skip this mblock start=c0000000 sz=fffff000 limit=c0000000 end=c0000000
+[2028] mblock_reserve: b9a00000 - bfe00000 from mblock 6
+[2029] mblock_reserve [0].start: 0x40000000, sz: 0x14400000
+[2029] mblock_reserve [1].start: 0x54500000, sz: 0x100000
+[2030] mblock_reserve [2].start: 0x54640000, sz: 0x1c0000
+[2031] mblock_reserve [3].start: 0x54a00000, sz: 0x1600000
+[2032] mblock_reserve [4].start: 0x56400000, sz: 0x500000
+[2032] mblock_reserve [5].start: 0x5e900000, sz: 0x1dde0000
+[2033] mblock_reserve [6].start: 0x80000000, sz: 0x39a00000
+[2034] mblock_reserve [7].start: 0xbfe40000, sz: 0x1bf000
+[2035] mblock_reserve [8].start: 0xc0000000, sz: 0xfffff000
+[2035] mblock_reserve-R[0].start: 0xbffff000, sz: 0x1000 map:0 name:dramc-rk0
+[2036] mblock_reserve-R[1].start: 0x1bffff000, sz: 0x1000 map:0 name:dramc-rk1
+[2037] mblock_reserve-R[2].start: 0x7ffc0000, sz: 0x40000 map:1 name:log_store
+[2038] mblock_reserve-R[3].start: 0x54600000, sz: 0x40000 map:0 name:atf-reserved
+[2039] mblock_reserve-R[4].start: 0xbfe00000, sz: 0x40000 map:0 name:atf-log-reserved
+[2040] mblock_reserve-R[5].start: 0x7ff00000, sz: 0xc0000 map:0 name:SSPM-reserved
+[2041] mblock_reserve-R[6].start: 0x7ec00000, sz: 0x1300000 map:0 name:tee-reserved
+[2042] mblock_reserve-R[7].start: 0x7ea00000, sz: 0x200000 map:0 name:items-reserved
+[2044] mblock_reserve-R[8].start: 0x54800000, sz: 0x200000 map:1 name:pl-bootarg
+[2045] mblock_reserve-R[9].start: 0x54400000, sz: 0x10000 map:0 name:ram_console
+[2046] mblock_reserve-R[10].start: 0x54410000, sz: 0xe0000 map:0 name:pstore
+[2046] mblock_reserve-R[11].start: 0x544f0000, sz: 0x10000 map:0 name:minirdump
+[2047] mblock_reserve-R[12].start: 0x56000000, sz: 0x400000 map:0 name:lk_addr_mb
+[2049] mblock_reserve-R[13].start: 0x56900000, sz: 0x8000000 map:0 name:scratch_addr_mb
+[2050] mblock_reserve-R[14].start: 0x7cae0000, sz: 0x1f20000 map:0 name:framebuffer
+[2051] mblock_reserve-R[15].start: 0x7c6e0000, sz: 0x400000 map:0 name:logo_db_addr_pa
+[2052] mblock_reserve-R[16].start: 0xb9a00000, sz: 0x6400000 map:0 name:avb
+[2053] [SEC_POLICY] sboot_state = 0x0
+[2053] [SEC_POLICY] lock_state = 0x3
+[2054] [avb] img_auth_required = 0
+[2054] [dm-verity] ok
+[2055] [dm-verity] status 0x0
+[2056] avb_slot_verify.c[2056] :[2056] 731[2056] : ERROR: [2057] vbmeta[2057] : Error verifying vbmeta image: [2057] OK_NOT_SIGNED[2057] 
+[2410] mblock[0].start: 0x40000000, sz: 0x14400000, limit: 0x54080000, max_addr: 0x0, target: -1, reserved_addr: 0x54000000,reserved_size: 0x80000
+[2412] mblock_reserve dbg[0]: 1, 1, 1, 1
+[2412] skip this mblock start=54500000 sz=100000 limit=54080000 end=54080000
+[2413] skip this mblock start=54640000 sz=1c0000 limit=54080000 end=54080000
+[2414] skip this mblock start=54a00000 sz=1600000 limit=54080000 end=54080000
+[2415] skip this mblock start=56400000 sz=500000 limit=54080000 end=54080000
+[2416] skip this mblock start=5e900000 sz=1dde0000 limit=54080000 end=54080000
+[2417] skip this mblock start=80000000 sz=39a00000 limit=54080000 end=54080000
+[2418] skip this mblock start=bfe40000 sz=1bf000 limit=54080000 end=54080000
+[2419] skip this mblock start=c0000000 sz=fffff000 limit=54080000 end=54080000
+[2420] mblock[0]: 40000000, 14000000 from mblock
+mblock[1]: 54080000, 380000 from mblock
+[2421] mblock_reserve: 54000000 - 54080000 from mblock 0
+[2422] mblock_reserve [0].start: 0x40000000, sz: 0x14000000
+[2423] mblock_reserve [1].start: 0x54080000, sz: 0x380000
+[2424] mblock_reserve [2].start: 0x54500000, sz: 0x100000
+[2424] mblock_reserve [3].start: 0x54640000, sz: 0x1c0000
+[2425] mblock_reserve [4].start: 0x54a00000, sz: 0x1600000
+[2426] mblock_reserve [5].start: 0x56400000, sz: 0x500000
+[2427] mblock_reserve [6].start: 0x5e900000, sz: 0x1dde0000
+[2427] mblock_reserve [7].start: 0x80000000, sz: 0x39a00000
+[2428] mblock_reserve [8].start: 0xbfe40000, sz: 0x1bf000
+[2429] mblock_reserve [9].start: 0xc0000000, sz: 0xfffff000
+[2430] mblock_reserve-R[0].start: 0xbffff000, sz: 0x1000 map:0 name:dramc-rk0
+[2430] mblock_reserve-R[1].start: 0x1bffff000, sz: 0x1000 map:0 name:dramc-rk1
+[2431] mblock_reserve-R[2].start: 0x7ffc0000, sz: 0x40000 map:1 name:log_store
+[2432] mblock_reserve-R[3].start: 0x54600000, sz: 0x40000 map:0 name:atf-reserved
+[2433] mblock_reserve-R[4].start: 0xbfe00000, sz: 0x40000 map:0 name:atf-log-reserved
+[2435] mblock_reserve-R[5].start: 0x7ff00000, sz: 0xc0000 map:0 name:SSPM-reserved
+[2436] mblock_reserve-R[6].start: 0x7ec00000, sz: 0x1300000 map:0 name:tee-reserved
+[2437] mblock_reserve-R[7].start: 0x7ea00000, sz: 0x200000 map:0 name:items-reserved
+[2438] mblock_reserve-R[8].start: 0x54800000, sz: 0x200000 map:1 name:pl-bootarg
+[2439] mblock_reserve-R[9].start: 0x54400000, sz: 0x10000 map:0 name:ram_console
+[2440] mblock_reserve-R[10].start: 0x54410000, sz: 0xe0000 map:0 name:pstore
+[2441] mblock_reserve-R[11].start: 0x544f0000, sz: 0x10000 map:0 name:minirdump
+[2442] mblock_reserve-R[12].start: 0x56000000, sz: 0x400000 map:0 name:lk_addr_mb
+[2443] mblock_reserve-R[13].start: 0x56900000, sz: 0x8000000 map:0 name:scratch_addr_mb
+[2444] mblock_reserve-R[14].start: 0x7cae0000, sz: 0x1f20000 map:0 name:framebuffer
+[2445] mblock_reserve-R[15].start: 0x7c6e0000, sz: 0x400000 map:0 name:logo_db_addr_pa
+[2446] mblock_reserve-R[16].start: 0xb9a00000, sz: 0x6400000 map:0 name:avb
+[2447] mblock_reserve-R[17].start: 0x54000000, sz: 0x80000 map:1 name:dtb_kernel_addr_mb
+[2448] mblock[0].start: 0x40000000, sz: 0x14000000, limit: 0x4c880000, max_addr: 0x0, target: -1, reserved_addr: 0x40080000,reserved_size: 0xc800000
+[2450] mblock_reserve dbg[0]: 1, 1, 1, 1
+[2450] skip this mblock start=54080000 sz=380000 limit=4c880000 end=4c880000
+[2451] skip this mblock start=54500000 sz=100000 limit=4c880000 end=4c880000
+[2452] skip this mblock start=54640000 sz=1c0000 limit=4c880000 end=4c880000
+[2453] skip this mblock start=54a00000 sz=1600000 limit=4c880000 end=4c880000
+[2454] skip this mblock start=56400000 sz=500000 limit=4c880000 end=4c880000
+[2455] skip this mblock start=5e900000 sz=1dde0000 limit=4c880000 end=4c880000
+[2456] skip this mblock start=80000000 sz=39a00000 limit=4c880000 end=4c880000
+[2457] skip this mblock start=bfe40000 sz=1bf000 limit=4c880000 end=4c880000
+[2458] skip this mblock start=c0000000 sz=fffff000 limit=4c880000 end=4c880000
+[2459] mblock[0]: 40000000, 80000 from mblock
+mblock[1]: 4c880000, 7780000 from mblock
+[2460] mblock_reserve: 40080000 - 4c880000 from mblock 0
+[2461] mblock_reserve [0].start: 0x40000000, sz: 0x80000
+[2462] mblock_reserve [1].start: 0x4c880000, sz: 0x7780000
+[2463] mblock_reserve [2].start: 0x54080000, sz: 0x380000
+[2463] mblock_reserve [3].start: 0x54500000, sz: 0x100000
+[2464] mblock_reserve [4].start: 0x54640000, sz: 0x1c0000
+[2465] mblock_reserve [5].start: 0x54a00000, sz: 0x1600000
+[2466] mblock_reserve [6].start: 0x56400000, sz: 0x500000
+[2466] mblock_reserve [7].start: 0x5e900000, sz: 0x1dde0000
+[2467] mblock_reserve [8].start: 0x80000000, sz: 0x39a00000
+[2468] mblock_reserve [9].start: 0xbfe40000, sz: 0x1bf000
+[2469] mblock_reserve [10].start: 0xc0000000, sz: 0xfffff000
+[2469] mblock_reserve-R[0].start: 0xbffff000, sz: 0x1000 map:0 name:dramc-rk0
+[2470] mblock_reserve-R[1].start: 0x1bffff000, sz: 0x1000 map:0 name:dramc-rk1
+[2471] mblock_reserve-R[2].start: 0x7ffc0000, sz: 0x40000 map:1 name:log_store
+[2472] mblock_reserve-R[3].start: 0x54600000, sz: 0x40000 map:0 name:atf-reserved
+[2473] mblock_reserve-R[4].start: 0xbfe00000, sz: 0x40000 map:0 name:atf-log-reserved
+[2474] mblock_reserve-R[5].start: 0x7ff00000, sz: 0xc0000 map:0 name:SSPM-reserved
+[2475] mblock_reserve-R[6].start: 0x7ec00000, sz: 0x1300000 map:0 name:tee-reserved
+[2476] mblock_reserve-R[7].start: 0x7ea00000, sz: 0x200000 map:0 name:items-reserved
+[2477] mblock_reserve-R[8].start: 0x54800000, sz: 0x200000 map:1 name:pl-bootarg
+[2478] mblock_reserve-R[9].start: 0x54400000, sz: 0x10000 map:0 name:ram_console
+[2479] mblock_reserve-R[10].start: 0x54410000, sz: 0xe0000 map:0 name:pstore
+[2480] mblock_reserve-R[11].start: 0x544f0000, sz: 0x10000 map:0 name:minirdump
+[2481] mblock_reserve-R[12].start: 0x56000000, sz: 0x400000 map:0 name:lk_addr_mb
+[2482] mblock_reserve-R[13].start: 0x56900000, sz: 0x8000000 map:0 name:scratch_addr_mb
+[2484] mblock_reserve-R[14].start: 0x7cae0000, sz: 0x1f20000 map:0 name:framebuffer
+[2485] mblock_reserve-R[15].start: 0x7c6e0000, sz: 0x400000 map:0 name:logo_db_addr_pa
+[2486] mblock_reserve-R[16].start: 0xb9a00000, sz: 0x6400000 map:0 name:avb
+[2487] mblock_reserve-R[17].start: 0x54000000, sz: 0x80000 map:1 name:dtb_kernel_addr_mb
+[2488] mblock_reserve-R[18].start: 0x40080000, sz: 0xc800000 map:0 name:kernel_addr_mb
+[2489] skip this mblock start=40000000 sz=80000 limit=56000000 end=40080000
+[2490] mblock[1].start: 0x4c880000, sz: 0x7780000, limit: 0x56000000, max_addr: 0x0, target: -1, reserved_addr: 0x53000000,reserved_size: 0x1000000
+[2492] mblock_reserve dbg[1]: 1, 1, 1, 1
+[2492] skip this mblock start=54080000 sz=380000 limit=56000000 end=54400000
+[2493] skip this mblock start=54500000 sz=100000 limit=56000000 end=54600000
+[2494] skip this mblock start=54640000 sz=1c0000 limit=56000000 end=54800000
+[2495] mblock[5].start: 0x54a00000, sz: 0x1600000, limit: 0x56000000, max_addr: 0x54000000, target: 1, reserved_addr: 0x55000000,reserved_size: 0x1000000
+[2497] mblock_reserve dbg[5]: 1, 1, 1, 1
+[2497] skip this mblock start=56400000 sz=500000 limit=56000000 end=56000000
+[2498] skip this mblock start=5e900000 sz=1dde0000 limit=56000000 end=56000000
+[2499] skip this mblock start=80000000 sz=39a00000 limit=56000000 end=56000000
+[2500] skip this mblock start=bfe40000 sz=1bf000 limit=56000000 end=56000000
+[2501] skip this mblock start=c0000000 sz=fffff000 limit=56000000 end=56000000
+[2502] mblock_reserve: 55000000 - 56000000 from mblock 5
+[2503] mblock_reserve [0].start: 0x40000000, sz: 0x80000
+[2504] mblock_reserve [1].start: 0x4c880000, sz: 0x7780000
+[2505] mblock_reserve [2].start: 0x54080000, sz: 0x380000
+[2505] mblock_reserve [3].start: 0x54500000, sz: 0x100000
+[2506] mblock_reserve [4].start: 0x54640000, sz: 0x1c0000
+[2507] mblock_reserve [5].start: 0x54a00000, sz: 0x600000
+[2507] mblock_reserve [6].start: 0x56400000, sz: 0x500000
+[2508] mblock_reserve [7].start: 0x5e900000, sz: 0x1dde0000
+[2509] mblock_reserve [8].start: 0x80000000, sz: 0x39a00000
+[2510] mblock_reserve [9].start: 0xbfe40000, sz: 0x1bf000
+[2510] mblock_reserve [10].start: 0xc0000000, sz: 0xfffff000
+[2511] mblock_reserve-R[0].start: 0xbffff000, sz: 0x1000 map:0 name:dramc-rk0
+[2512] mblock_reserve-R[1].start: 0x1bffff000, sz: 0x1000 map:0 name:dramc-rk1
+[2513] mblock_reserve-R[2].start: 0x7ffc0000, sz: 0x40000 map:1 name:log_store
+[2514] mblock_reserve-R[3].start: 0x54600000, sz: 0x40000 map:0 name:atf-reserved
+[2515] mblock_reserve-R[4].start: 0xbfe00000, sz: 0x40000 map:0 name:atf-log-reserved
+[2516] mblock_reserve-R[5].start: 0x7ff00000, sz: 0xc0000 map:0 name:SSPM-reserved
+[2517] mblock_reserve-R[6].start: 0x7ec00000, sz: 0x1300000 map:0 name:tee-reserved
+[2518] mblock_reserve-R[7].start: 0x7ea00000, sz: 0x200000 map:0 name:items-reserved
+[2519] mblock_reserve-R[8].start: 0x54800000, sz: 0x200000 map:1 name:pl-bootarg
+[2520] mblock_reserve-R[9].start: 0x54400000, sz: 0x10000 map:0 name:ram_console
+[2521] mblock_reserve-R[10].start: 0x54410000, sz: 0xe0000 map:0 name:pstore
+[2522] mblock_reserve-R[11].start: 0x544f0000, sz: 0x10000 map:0 name:minirdump
+[2523] mblock_reserve-R[12].start: 0x56000000, sz: 0x400000 map:0 name:lk_addr_mb
+[2524] mblock_reserve-R[13].start: 0x56900000, sz: 0x8000000 map:0 name:scratch_addr_mb
+[2525] mblock_reserve-R[14].start: 0x7cae0000, sz: 0x1f20000 map:0 name:framebuffer
+[2527] mblock_reserve-R[15].start: 0x7c6e0000, sz: 0x400000 map:0 name:logo_db_addr_pa
+[2528] mblock_reserve-R[16].start: 0xb9a00000, sz: 0x6400000 map:0 name:avb
+[2529] mblock_reserve-R[17].start: 0x54000000, sz: 0x80000 map:1 name:dtb_kernel_addr_mb
+[2530] mblock_reserve-R[18].start: 0x40080000, sz: 0xc800000 map:0 name:kernel_addr_mb
+[2531] mblock_reserve-R[19].start: 0x55000000, sz: 0x1000000 map:0 name:ramdisk_addr_mb
+[2545] [avb] cmdline = 
+[2546] [SEC_POLICY] sboot_state = 0x0
+[2546] [SEC_POLICY] lock_state = 0x3
+[2547] [avb] img_auth_required = 0
+[2547] [avb] boot/recovery vfy time = 532 ms
+[2548] mblock_create mblock start b9a00000 size: 6400000
+[2548] mblock-create-debug[0].start: 0x40000000, sz: 0x80000
+[2549] mblock-create-debug[1].start: 0x4c880000, sz: 0x7780000
+[2550] mblock-create-debug[2].start: 0x54080000, sz: 0x380000
+[2551] mblock-create-debug[3].start: 0x54500000, sz: 0x100000
+[2551] mblock-create-debug[4].start: 0x54640000, sz: 0x1c0000
+[2552] mblock-create-debug[5].start: 0x54a00000, sz: 0x600000
+[2553] mblock-create-debug[6].start: 0x56400000, sz: 0x500000
+[2554] mblock-create-debug[7].start: 0x5e900000, sz: 0x1dde0000
+[2555] mblock-create-debug[8].start: 0x80000000, sz: 0x3fe00000
+[2555] mblock-create-debug[9].start: 0xbfe40000, sz: 0x1bf000
+[2556] mblock-create-debug[10].start: 0xc0000000, sz: 0xfffff000
+[2557] mblock-create-debug-R[0].start: 0xbffff000, sz: 0x1000 map: 0 name: dramc-rk0
+[2558] mblock-create-debug-R[1].start: 0x1bffff000, sz: 0x1000 map: 0 name: dramc-rk1
+[2559] mblock-create-debug-R[2].start: 0x7ffc0000, sz: 0x40000 map: 1 name: log_store
+[2560] mblock-create-debug-R[3].start: 0x54600000, sz: 0x40000 map: 0 name: atf-reserved
+[2561] mblock-create-debug-R[4].start: 0xbfe00000, sz: 0x40000 map: 0 name: atf-log-reserved
+[2563] mblock-create-debug-R[5].start: 0x7ff00000, sz: 0xc0000 map: 0 name: SSPM-reserved
+[2564] mblock-create-debug-R[6].start: 0x7ec00000, sz: 0x1300000 map: 0 name: tee-reserved
+[2565] mblock-create-debug-R[7].start: 0x7ea00000, sz: 0x200000 map: 0 name: items-reserved
+[2566] mblock-create-debug-R[8].start: 0x54800000, sz: 0x200000 map: 1 name: pl-bootarg
+[2567] mblock-create-debug-R[9].start: 0x54400000, sz: 0x10000 map: 0 name: ram_console
+[2568] mblock-create-debug-R[10].start: 0x54410000, sz: 0xe0000 map: 0 name: pstore
+[2569] mblock-create-debug-R[11].start: 0x544f0000, sz: 0x10000 map: 0 name: minirdump
+[2570] mblock-create-debug-R[12].start: 0x56000000, sz: 0x400000 map: 0 name: lk_addr_mb
+[2571] mblock-create-debug-R[13].start: 0x56900000, sz: 0x8000000 map: 0 name: scratch_addr_mb
+[2573] mblock-create-debug-R[14].start: 0x7cae0000, sz: 0x1f20000 map: 0 name: framebuffer
+[2574] mblock-create-debug-R[15].start: 0x7c6e0000, sz: 0x400000 map: 0 name: logo_db_addr_pa
+[2575] mblock-create-debug-R[16].start: 0x54000000, sz: 0x80000 map: 1 name: dtb_kernel_addr_mb
+[2576] mblock-create-debug-R[17].start: 0x40080000, sz: 0xc800000 map: 0 name: kernel_addr_mb
+[2577] mblock-create-debug-R[18].start: 0x55000000, sz: 0x1000000 map: 0 name: ramdisk_addr_mb
+[2578] [avb] avb_ret = 0
+[2579] [avb] ret = 0
+[2579] boot state: orange
+[2584] [DISP]func|primary_display_trigger
+[2584] [LK_DDP/ddp_manager]path check busy on scenario primary_disp
+[2585] [DISP]func|ddp_dsi_is_busy
+[2586] [LK_DDP/ddp_manager]dsi0  is busy
+[2586] [DISP]func|disp_lcm_is_video_mode
+[2589] [DISP]func|primary_display_trigger
+[2589] [LK_DDP/ddp_manager]path check busy on scenario primary_disp
+[2590] [DISP]func|ddp_dsi_is_busy
+[2590] [LK_DDP/ddp_manager]dsi0  is busy
+[2591] [DISP]func|disp_lcm_is_video_mode
+[2594] [DISP]func|primary_display_trigger
+[2594] [LK_DDP/ddp_manager]path check busy on scenario primary_disp
+[2595] [DISP]func|ddp_dsi_is_busy
+[2595] [LK_DDP/ddp_manager]dsi0  is busy
+[2596] [DISP]func|disp_lcm_is_video_mode
+[2598] [DISP]func|primary_display_trigger
+[2599] [LK_DDP/ddp_manager]path check busy on scenario primary_disp
+[2600] [DISP]func|ddp_dsi_is_busy
+[2600] [LK_DDP/ddp_manager]dsi0  is busy
+[2601] [DISP]func|disp_lcm_is_video_mode
+
+
+
+
