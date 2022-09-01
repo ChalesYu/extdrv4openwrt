@@ -2140,27 +2140,410 @@ mblock[1]: 4c880000, 7780000 from mblock
 [2578] [avb] avb_ret = 0
 [2579] [avb] ret = 0
 [2579] boot state: orange
-[2584] [DISP]func|primary_display_trigger
-[2584] [LK_DDP/ddp_manager]path check busy on scenario primary_disp
-[2585] [DISP]func|ddp_dsi_is_busy
-[2586] [LK_DDP/ddp_manager]dsi0  is busy
-[2586] [DISP]func|disp_lcm_is_video_mode
-[2589] [DISP]func|primary_display_trigger
-[2589] [LK_DDP/ddp_manager]path check busy on scenario primary_disp
-[2590] [DISP]func|ddp_dsi_is_busy
-[2590] [LK_DDP/ddp_manager]dsi0  is busy
-[2591] [DISP]func|disp_lcm_is_video_mode
-[2594] [DISP]func|primary_display_trigger
-[2594] [LK_DDP/ddp_manager]path check busy on scenario primary_disp
-[2595] [DISP]func|ddp_dsi_is_busy
-[2595] [LK_DDP/ddp_manager]dsi0  is busy
-[2596] [DISP]func|disp_lcm_is_video_mode
-[2598] [DISP]func|primary_display_trigger
-[2599] [LK_DDP/ddp_manager]path check busy on scenario primary_disp
-[2600] [DISP]func|ddp_dsi_is_busy
-[2600] [LK_DDP/ddp_manager]dsi0  is busy
-[2601] [DISP]func|disp_lcm_is_video_mode
+[20920] [DISP]func|primary_display_trigger
+[20920] [LK_DDP/ddp_manager]path check busy on scenario primary_disp
+[20921] [DISP]func|ddp_dsi_is_busy
+[20921] [LK_DDP/ddp_manager]dsi0  is busy
+[20922] [DISP]func|disp_lcm_is_video_mode
+[20925] [DISP]func|primary_display_trigger
+[20925] [LK_DDP/ddp_manager]path check busy on scenario primary_disp
+[20926] [DISP]func|ddp_dsi_is_busy
+[20926] [LK_DDP/ddp_manager]dsi0  is busy
+[20927] [DISP]func|disp_lcm_is_video_mode
+[20930] [DISP]func|primary_display_trigger
+[20930] [LK_DDP/ddp_manager]path check busy on scenario primary_disp
+[20931] [DISP]func|ddp_dsi_is_busy
+[20931] [LK_DDP/ddp_manager]dsi0  is busy
+[20932] [DISP]func|disp_lcm_is_video_mode
+[20934] [DISP]func|primary_display_trigger
+[20935] [LK_DDP/ddp_manager]path check busy on scenario primary_disp
+[20936] [DISP]func|ddp_dsi_is_busy
+[20936] [LK_DDP/ddp_manager]dsi0  is busy
+[20937] [DISP]func|disp_lcm_is_video_mode
+[25938] [PROFILE] ::: lvl(1) load recovery image takes 5592 ms
+[25943] elink_append_cmdline: ddr_name = 
+[25943] elink_append_cmdline: ddr_speed = 0
+[25944] fail to send root of trust info. : 0xffffffff
+[25945] kernel real kernel_sz=0x008f0281
+[25946] Wake up iothread.
+[25956] Met bootstrap2.
+[25956] DISABLE SCP
+[25956] [PROFILE] ::: lvl(2) load scp takes 0 ms
+[25957] [ccci] recovery mode, no need load modem
+[25958] [ccci-off]src clk ena = 0x1006300
+[25958] [ccci-off] later power down not needed or not ready!
+[25959] [PROFILE] ::: lvl(2) load modem image takes 2 ms
+[25960] Wake up bootstrap2.
+[26316] [PROFILE] ::: lvl(1) decompress_kernel takes 370 ms
+[26317] Wait for iothread...
+[26317] Met iothread.
+[26318] proj_code: 0x0
+[26318] [LK] segment = 0x34
+[26319] model=MT6771V/WM
+[26319]  mem_start=0x40000000 mem_sz=0x180000000
+[26320]  mem_reg_property[19].start_hi = 0x00000000
+[26320]  mem_reg_property[19].start_lo = 0x00000040
+[26321]  mem_reg_property[19].size_hi  = 0x01000000
+[26322]  mem_reg_property[19].size_lo  = 0x00000080
+[26326] j:0, mblock[0].rank: 0, size: 0x80000
+[26327] j:0, mblock[1].rank: 0, size: 0x7780000
+[26327] j:0, mblock[2].rank: 0, size: 0x380000
+[26328] j:0, mblock[3].rank: 0, size: 0x100000
+[26328] j:0, mblock[4].rank: 0, size: 0x1c0000
+[26329] j:0, mblock[5].rank: 0, size: 0x600000
+[26330] j:0, mblock[6].rank: 0, size: 0x500000
+[26330] j:0, mblock[7].rank: 0, size: 0x1dde0000
+[26332]  rsv mem rsv_mem_reg_property[0].start_hi = 0x00000000
+[26333]  rsv mem rsv_mem_reg_property[0].start_lo = 0x0000905E
+[26334]  rsv mem rsv_mem_reg_property[0].size_hi = 0x00000000
+[26335]  rsv mem rsv_mem_reg_property[0].size_lo = 0x0000DE1D
+[26336] j:1, mblock[0].rank: 0, size: 0x80000
+[26337] j:1, mblock[1].rank: 0, size: 0x7780000
+[26337] j:1, mblock[2].rank: 0, size: 0x380000
+[26338] j:1, mblock[3].rank: 0, size: 0x100000
+[26338] j:1, mblock[4].rank: 0, size: 0x1c0000
+[26339] j:1, mblock[5].rank: 0, size: 0x600000
+[26340] j:1, mblock[6].rank: 0, size: 0x500000
+[26340] j:1, mblock[7].rank: 0, size: 0x1dde0000
+[26341] j:1, mblock[8].rank: 0, size: 0x3fe00000
+[26341] j:1, mblock[9].rank: 0, size: 0x1bf000
+[26342] j:1, mblock[10].rank: 1, size: 0xfffff000
+[26344]  rsv mem rsv_mem_reg_property[1].start_hi = 0x00000000
+[26345]  rsv mem rsv_mem_reg_property[1].start_lo = 0x000000C0
+[26346]  rsv mem rsv_mem_reg_property[1].size_hi = 0x00000000
+[26347]  rsv mem rsv_mem_reg_property[1].size_lo = 0x00F0FFFF
+[26351] PASS memory DTS node
+[26353] [SCP] set core status=disabled
+[26354] SSPM: set reserved mem status=okay
+[26354] [atf] ATF does not support ram dump
+[26363] Storage type :2
+[26364] target_atag_imix_r:150
+[26366] fg_swocv_v buf [36158], [0x5616cc08:0x5616cc0d:5]
+[26368] fg_swocv_i buf [-9840], [0x5616cc08:0x5616cc0d:5]
+[26370] shutdown_time buf [-31], [0x5616cc08:0x5616cc0b:3]
+RAM_CONSOLE. [0x11d000,0x800,0x1,0xec0]
+RAM_CONSOLE. log_store [0x11df00,0x100]
+[26374] boot_voltage buf [3756], [0x5616cc08:0x5616cc0c:4]
+[26375] boot_voltage buf [0], [0x5616cc08:0x5616cc09:1]
+[26377] Not Support VCORE DVFS
+[26377] SSSS:0x40000
+[26378] SSSS:0x0
+[26378] SSSS:0x0
+[26378] SSSS:0x800
+[26378] SSSS:0x7300
+[26379] SSSS:0x788
+[26379] SSSS:0x0
+[26379] SSSS:0x34
+[26380] [DISP]func|disp_lcm_get_name
+[26381] [LK_DDP/RDMA] RDMA0 polling interrupt ret =9999 
+[26395] [LK_DDP/RDMA] RDMA0 polling interrupt ret =9867 
+[26411] [LK_DDP/RDMA] RDMA0 polling interrupt ret =9843 
+[26428] [LK_DDP/RDMA] RDMA0 polling interrupt ret =9842 
+[26428] mt_disp_get_lcd_time, fps=6067
+[26429] videolfb - fb_base    = 0x7cae0000
+[26429] videolfb - islcmfound = 1
+[26430] videolfb - fps        = 6067
+[26430] videolfb - vram       = 32636928
+[26431] videolfb - lcmname    = hx8279_sl101pm32d1720_wuxga_b06
+[26434] [ccci] create modem arguments info DT OK
+[26436] Create PTP DT OK
+start dump lk masp atag 
+dump sw sbc:0x22, sw sdl:0x22 , hw sbc: 0
+dump lock_state, 0x0
+[26438] create masp atag OK
+[26438] tee_reserved_mem not supported
+[26439] [LK] non_secure_sram (0x12a000, 0x6000)
+[26440] [PROFILE] ::: lvl(0) 1st logo takes 19945 ms
+[26441] [PROFILE] ::: lvl(0) boot_time takes 26440 ms
+[26442] rc_wdt_status = 2, rc_exp_type = 2
+[26442] [LK_ENV]get_env usb2jtag from area 0
+[26443] [USB2JTAG] current setting is 0.
+[26443] [LK_ENV]get_env hibboot from area 0
+[26444] [LK_ENV]get_env resume from area 0
+[26445] mrdump_key_fdt:no force mode set
+[26447] mrdump_key_fdt:exist force mode=EINT
+[26447] target_atag_commandline skip for not used
+[26460] mblock_create mblock start 54000000 size: 80000
+[26460] mblock_candidate_right->size = 380000                           mblock_candidate_left->size = 7780000 
+[26461] mblock-create-debug[0].start: 0x40000000, sz: 0x80000
+[26462] mblock-create-debug[1].start: 0x4c880000, sz: 0x7800000
+[26463] mblock-create-debug[2].start: 0x54080000, sz: 0x380000
+[26464] mblock-create-debug[3].start: 0x54500000, sz: 0x100000
+[26465] mblock-create-debug[4].start: 0x54640000, sz: 0x1c0000
+[26465] mblock-create-debug[5].start: 0x54a00000, sz: 0x600000
+[26466] mblock-create-debug[6].start: 0x56400000, sz: 0x500000
+[26467] mblock-create-debug[7].start: 0x5e900000, sz: 0x1dde0000
+[26468] mblock-create-debug[8].start: 0x80000000, sz: 0x3fe00000
+[26469] mblock-create-debug[9].start: 0xbfe40000, sz: 0x1bf000
+[26469] mblock-create-debug[10].start: 0xc0000000, sz: 0xfffff000
+[26470] mblock-create-debug-R[0].start: 0xbffff000, sz: 0x1000 map: 0 name: dramc-rk0
+[26471] mblock-create-debug-R[1].start: 0x1bffff000, sz: 0x1000 map: 0 name: dramc-rk1
+[26472] mblock-create-debug-R[2].start: 0x7ffc0000, sz: 0x40000 map: 1 name: log_store
+[26473] mblock-create-debug-R[3].start: 0x54600000, sz: 0x40000 map: 0 name: atf-reserved
+[26475] mblock-create-debug-R[4].start: 0xbfe00000, sz: 0x40000 map: 0 name: atf-log-reserved
+[26476] mblock-create-debug-R[5].start: 0x7ff00000, sz: 0xc0000 map: 0 name: SSPM-reserved
+[26477] mblock-create-debug-R[6].start: 0x7ec00000, sz: 0x1300000 map: 0 name: tee-reserved
+[26478] mblock-create-debug-R[7].start: 0x7ea00000, sz: 0x200000 map: 0 name: items-reserved
+[26479] mblock-create-debug-R[8].start: 0x54800000, sz: 0x200000 map: 1 name: pl-bootarg
+[26480] mblock-create-debug-R[9].start: 0x54400000, sz: 0x10000 map: 0 name: ram_console
+[26481] mblock-create-debug-R[10].start: 0x54410000, sz: 0xe0000 map: 0 name: pstore
+[26482] mblock-create-debug-R[11].start: 0x544f0000, sz: 0x10000 map: 0 name: minirdump
+[26484] mblock-create-debug-R[12].start: 0x56000000, sz: 0x400000 map: 0 name: lk_addr_mb
+[26485] mblock-create-debug-R[13].start: 0x56900000, sz: 0x8000000 map: 0 name: scratch_addr_mb
+[26486] mblock-create-debug-R[14].start: 0x7cae0000, sz: 0x1f20000 map: 0 name: framebuffer
+[26487] mblock-create-debug-R[15].start: 0x7c6e0000, sz: 0x400000 map: 0 name: logo_db_addr_pa
+[26488] mblock-create-debug-R[16].start: 0x40080000, sz: 0xc800000 map: 0 name: kernel_addr_mb
+[26489] mblock-create-debug-R[17].start: 0x55000000, sz: 0x1000000 map: 0 name: ramdisk_addr_mb
+[26491] mblock_create mblock start 40080000 size: c800000
+[26491] mblock_candidate_right->size = 7800000                          mblock_candidate_left->size = 80000 
+[26492] mblock-create-debug[0].start: 0x40000000, sz: 0x80000
+[26493] mblock-create-debug[1].start: 0x40080000, sz: 0x14000000
+[26494] mblock-create-debug[2].start: 0x54080000, sz: 0x380000
+[26495] mblock-create-debug[3].start: 0x54500000, sz: 0x100000
+[26496] mblock-create-debug[4].start: 0x54640000, sz: 0x1c0000
+[26496] mblock-create-debug[5].start: 0x54a00000, sz: 0x600000
+[26497] mblock-create-debug[6].start: 0x56400000, sz: 0x500000
+[26498] mblock-create-debug[7].start: 0x5e900000, sz: 0x1dde0000
+[26499] mblock-create-debug[8].start: 0x80000000, sz: 0x3fe00000
+[26500] mblock-create-debug[9].start: 0xbfe40000, sz: 0x1bf000
+[26500] mblock-create-debug[10].start: 0xc0000000, sz: 0xfffff000
+[26501] mblock-create-debug-R[0].start: 0xbffff000, sz: 0x1000 map: 0 name: dramc-rk0
+[26502] mblock-create-debug-R[1].start: 0x1bffff000, sz: 0x1000 map: 0 name: dramc-rk1
+[26503] mblock-create-debug-R[2].start: 0x7ffc0000, sz: 0x40000 map: 1 name: log_store
+[26504] mblock-create-debug-R[3].start: 0x54600000, sz: 0x40000 map: 0 name: atf-reserved
+[26506] mblock-create-debug-R[4].start: 0xbfe00000, sz: 0x40000 map: 0 name: atf-log-reserved
+[26507] mblock-create-debug-R[5].start: 0x7ff00000, sz: 0xc0000 map: 0 name: SSPM-reserved
+[26508] mblock-create-debug-R[6].start: 0x7ec00000, sz: 0x1300000 map: 0 name: tee-reserved
+[26509] mblock-create-debug-R[7].start: 0x7ea00000, sz: 0x200000 map: 0 name: items-reserved
+[26510] mblock-create-debug-R[8].start: 0x54800000, sz: 0x200000 map: 1 name: pl-bootarg
+[26511] mblock-create-debug-R[9].start: 0x54400000, sz: 0x10000 map: 0 name: ram_console
+[26512] mblock-create-debug-R[10].start: 0x54410000, sz: 0xe0000 map: 0 name: pstore
+[26513] mblock-create-debug-R[11].start: 0x544f0000, sz: 0x10000 map: 0 name: minirdump
+[26515] mblock-create-debug-R[12].start: 0x56000000, sz: 0x400000 map: 0 name: lk_addr_mb
+[26516] mblock-create-debug-R[13].start: 0x56900000, sz: 0x8000000 map: 0 name: scratch_addr_mb
+[26517] mblock-create-debug-R[14].start: 0x7cae0000, sz: 0x1f20000 map: 0 name: framebuffer
+[26518] mblock-create-debug-R[15].start: 0x7c6e0000, sz: 0x400000 map: 0 name: logo_db_addr_pa
+[26519] mblock-create-debug-R[16].start: 0x55000000, sz: 0x1000000 map: 0 name: ramdisk_addr_mb
+[26520] mblock_create mblock start 55000000 size: 1000000
+[26521] mblock-create-debug[0].start: 0x40000000, sz: 0x80000
+[26522] mblock-create-debug[1].start: 0x40080000, sz: 0x14000000
+[26523] mblock-create-debug[2].start: 0x54080000, sz: 0x380000
+[26524] mblock-create-debug[3].start: 0x54500000, sz: 0x100000
+[26524] mblock-create-debug[4].start: 0x54640000, sz: 0x1c0000
+[26525] mblock-create-debug[5].start: 0x54a00000, sz: 0x1600000
+[26526] mblock-create-debug[6].start: 0x56400000, sz: 0x500000
+[26527] mblock-create-debug[7].start: 0x5e900000, sz: 0x1dde0000
+[26528] mblock-create-debug[8].start: 0x80000000, sz: 0x3fe00000
+[26528] mblock-create-debug[9].start: 0xbfe40000, sz: 0x1bf000
+[26529] mblock-create-debug[10].start: 0xc0000000, sz: 0xfffff000
+[26530] mblock-create-debug-R[0].start: 0xbffff000, sz: 0x1000 map: 0 name: dramc-rk0
+[26531] mblock-create-debug-R[1].start: 0x1bffff000, sz: 0x1000 map: 0 name: dramc-rk1
+[26532] mblock-create-debug-R[2].start: 0x7ffc0000, sz: 0x40000 map: 1 name: log_store
+[26533] mblock-create-debug-R[3].start: 0x54600000, sz: 0x40000 map: 0 name: atf-reserved
+[26534] mblock-create-debug-R[4].start: 0xbfe00000, sz: 0x40000 map: 0 name: atf-log-reserved
+[26535] mblock-create-debug-R[5].start: 0x7ff00000, sz: 0xc0000 map: 0 name: SSPM-reserved
+[26537] mblock-create-debug-R[6].start: 0x7ec00000, sz: 0x1300000 map: 0 name: tee-reserved
+[26538] mblock-create-debug-R[7].start: 0x7ea00000, sz: 0x200000 map: 0 name: items-reserved
+[26539] mblock-create-debug-R[8].start: 0x54800000, sz: 0x200000 map: 1 name: pl-bootarg
+[26540] mblock-create-debug-R[9].start: 0x54400000, sz: 0x10000 map: 0 name: ram_console
+[26541] mblock-create-debug-R[10].start: 0x54410000, sz: 0xe0000 map: 0 name: pstore
+[26542] mblock-create-debug-R[11].start: 0x544f0000, sz: 0x10000 map: 0 name: minirdump
+[26543] mblock-create-debug-R[12].start: 0x56000000, sz: 0x400000 map: 0 name: lk_addr_mb
+[26544] mblock-create-debug-R[13].start: 0x56900000, sz: 0x8000000 map: 0 name: scratch_addr_mb
+[26546] mblock-create-debug-R[14].start: 0x7cae0000, sz: 0x1f20000 map: 0 name: framebuffer
+[26547] mblock-create-debug-R[15].start: 0x7c6e0000, sz: 0x400000 map: 0 name: logo_db_addr_pa
+[26548] mblock_create mblock start 56000000 size: 400000
+[26549] mblock_candidate_right->size = 500000                           mblock_candidate_left->size = 1600000 
+[26550] mblock-create-debug[0].start: 0x40000000, sz: 0x80000
+[26551] mblock-create-debug[1].start: 0x40080000, sz: 0x14000000
+[26551] mblock-create-debug[2].start: 0x54080000, sz: 0x380000
+[26552] mblock-create-debug[3].start: 0x54500000, sz: 0x100000
+[26553] mblock-create-debug[4].start: 0x54640000, sz: 0x1c0000
+[26554] mblock-create-debug[5].start: 0x54a00000, sz: 0x1a00000
+[26555] mblock-create-debug[6].start: 0x56400000, sz: 0x500000
+[26555] mblock-create-debug[7].start: 0x5e900000, sz: 0x1dde0000
+[26556] mblock-create-debug[8].start: 0x80000000, sz: 0x3fe00000
+[26557] mblock-create-debug[9].start: 0xbfe40000, sz: 0x1bf000
+[26558] mblock-create-debug[10].start: 0xc0000000, sz: 0xfffff000
+[26559] mblock-create-debug-R[0].start: 0xbffff000, sz: 0x1000 map: 0 name: dramc-rk0
+[26560] mblock-create-debug-R[1].start: 0x1bffff000, sz: 0x1000 map: 0 name: dramc-rk1
+[26561] mblock-create-debug-R[2].start: 0x7ffc0000, sz: 0x40000 map: 1 name: log_store
+[26562] mblock-create-debug-R[3].start: 0x54600000, sz: 0x40000 map: 0 name: atf-reserved
+[26563] mblock-create-debug-R[4].start: 0xbfe00000, sz: 0x40000 map: 0 name: atf-log-reserved
+[26564] mblock-create-debug-R[5].start: 0x7ff00000, sz: 0xc0000 map: 0 name: SSPM-reserved
+[26565] mblock-create-debug-R[6].start: 0x7ec00000, sz: 0x1300000 map: 0 name: tee-reserved
+[26566] mblock-create-debug-R[7].start: 0x7ea00000, sz: 0x200000 map: 0 name: items-reserved
+[26568] mblock-create-debug-R[8].start: 0x54800000, sz: 0x200000 map: 1 name: pl-bootarg
+[26569] mblock-create-debug-R[9].start: 0x54400000, sz: 0x10000 map: 0 name: ram_console
+[26570] mblock-create-debug-R[10].start: 0x54410000, sz: 0xe0000 map: 0 name: pstore
+[26571] mblock-create-debug-R[11].start: 0x544f0000, sz: 0x10000 map: 0 name: minirdump
+[26572] mblock-create-debug-R[12].start: 0x56900000, sz: 0x8000000 map: 0 name: scratch_addr_mb
+[26573] mblock-create-debug-R[13].start: 0x7cae0000, sz: 0x1f20000 map: 0 name: framebuffer
+[26574] mblock-create-debug-R[14].start: 0x7c6e0000, sz: 0x400000 map: 0 name: logo_db_addr_pa
+[26575] mblock_create mblock start 56900000 size: 8000000
+[26576] mblock_candidate_right->size = 1dde0000                                 mblock_candidate_left->size = 500000 
+[26577] mblock-create-debug[0].start: 0x40000000, sz: 0x80000
+[26578] mblock-create-debug[1].start: 0x40080000, sz: 0x14000000
+[26579] mblock-create-debug[2].start: 0x54080000, sz: 0x380000
+[26580] mblock-create-debug[3].start: 0x54500000, sz: 0x100000
+[26581] mblock-create-debug[4].start: 0x54640000, sz: 0x1c0000
+[26581] mblock-create-debug[5].start: 0x54a00000, sz: 0x1a00000
+[26582] mblock-create-debug[6].start: 0x56400000, sz: 0x500000
+[26583] mblock-create-debug[7].start: 0x56900000, sz: 0x25de0000
+[26584] mblock-create-debug[8].start: 0x80000000, sz: 0x3fe00000
+[26585] mblock-create-debug[9].start: 0xbfe40000, sz: 0x1bf000
+[26585] mblock-create-debug[10].start: 0xc0000000, sz: 0xfffff000
+[26586] mblock-create-debug-R[0].start: 0xbffff000, sz: 0x1000 map: 0 name: dramc-rk0
+[26587] mblock-create-debug-R[1].start: 0x1bffff000, sz: 0x1000 map: 0 name: dramc-rk1
+[26588] mblock-create-debug-R[2].start: 0x7ffc0000, sz: 0x40000 map: 1 name: log_store
+[26589] mblock-create-debug-R[3].start: 0x54600000, sz: 0x40000 map: 0 name: atf-reserved
+[26591] mblock-create-debug-R[4].start: 0xbfe00000, sz: 0x40000 map: 0 name: atf-log-reserved
+[26592] mblock-create-debug-R[5].start: 0x7ff00000, sz: 0xc0000 map: 0 name: SSPM-reserved
+[26593] mblock-create-debug-R[6].start: 0x7ec00000, sz: 0x1300000 map: 0 name: tee-reserved
+[26594] mblock-create-debug-R[7].start: 0x7ea00000, sz: 0x200000 map: 0 name: items-reserved
+[26595] mblock-create-debug-R[8].start: 0x54800000, sz: 0x200000 map: 1 name: pl-bootarg
+[26596] mblock-create-debug-R[9].start: 0x54400000, sz: 0x10000 map: 0 name: ram_console
+[26597] mblock-create-debug-R[10].start: 0x54410000, sz: 0xe0000 map: 0 name: pstore
+[26598] mblock-create-debug-R[11].start: 0x544f0000, sz: 0x10000 map: 0 name: minirdump
+[26600] mblock-create-debug-R[12].start: 0x7cae0000, sz: 0x1f20000 map: 0 name: framebuffer
+[26601] mblock-create-debug-R[13].start: 0x7c6e0000, sz: 0x400000 map: 0 name: logo_db_addr_pa
+[26602] mblock_create mblock start 7c6e0000 size: 400000
+[26603] mblock-create-debug[0].start: 0x40000000, sz: 0x80000
+[26603] mblock-create-debug[1].start: 0x40080000, sz: 0x14000000
+[26604] mblock-create-debug[2].start: 0x54080000, sz: 0x380000
+[26605] mblock-create-debug[3].start: 0x54500000, sz: 0x100000
+[26606] mblock-create-debug[4].start: 0x54640000, sz: 0x1c0000
+[26607] mblock-create-debug[5].start: 0x54a00000, sz: 0x1a00000
+[26607] mblock-create-debug[6].start: 0x56400000, sz: 0x500000
+[26608] mblock-create-debug[7].start: 0x56900000, sz: 0x261e0000
+[26609] mblock-create-debug[8].start: 0x80000000, sz: 0x3fe00000
+[26610] mblock-create-debug[9].start: 0xbfe40000, sz: 0x1bf000
+[26611] mblock-create-debug[10].start: 0xc0000000, sz: 0xfffff000
+[26611] mblock-create-debug-R[0].start: 0xbffff000, sz: 0x1000 map: 0 name: dramc-rk0
+[26612] mblock-create-debug-R[1].start: 0x1bffff000, sz: 0x1000 map: 0 name: dramc-rk1
+[26614] mblock-create-debug-R[2].start: 0x7ffc0000, sz: 0x40000 map: 1 name: log_store
+[26615] mblock-create-debug-R[3].start: 0x54600000, sz: 0x40000 map: 0 name: atf-reserved
+[26616] mblock-create-debug-R[4].start: 0xbfe00000, sz: 0x40000 map: 0 name: atf-log-reserved
+[26617] mblock-create-debug-R[5].start: 0x7ff00000, sz: 0xc0000 map: 0 name: SSPM-reserved
+[26618] mblock-create-debug-R[6].start: 0x7ec00000, sz: 0x1300000 map: 0 name: tee-reserved
+[26619] mblock-create-debug-R[7].start: 0x7ea00000, sz: 0x200000 map: 0 name: items-reserved
+[26620] mblock-create-debug-R[8].start: 0x54800000, sz: 0x200000 map: 1 name: pl-bootarg
+[26621] mblock-create-debug-R[9].start: 0x54400000, sz: 0x10000 map: 0 name: ram_console
+[26623] mblock-create-debug-R[10].start: 0x54410000, sz: 0xe0000 map: 0 name: pstore
+[26624] mblock-create-debug-R[11].start: 0x544f0000, sz: 0x10000 map: 0 name: minirdump
+[26625] mblock-create-debug-R[12].start: 0x7cae0000, sz: 0x1f20000 map: 0 name: framebuffer
+[26626] mblock_create mblock start 54800000 size: 200000
+[26627] mblock_candidate_right->size = 1a00000                          mblock_candidate_left->size = 1c0000 
+[26628] mblock-create-debug[0].start: 0x40000000, sz: 0x80000
+[26628] mblock-create-debug[1].start: 0x40080000, sz: 0x14000000
+[26629] mblock-create-debug[2].start: 0x54080000, sz: 0x380000
+[26630] mblock-create-debug[3].start: 0x54500000, sz: 0x100000
+[26631] mblock-create-debug[4].start: 0x54640000, sz: 0x1c0000
+[26632] mblock-create-debug[5].start: 0x54800000, sz: 0x1c00000
+[26632] mblock-create-debug[6].start: 0x56400000, sz: 0x500000
+[26633] mblock-create-debug[7].start: 0x56900000, sz: 0x261e0000
+[26634] mblock-create-debug[8].start: 0x80000000, sz: 0x3fe00000
+[26635] mblock-create-debug[9].start: 0xbfe40000, sz: 0x1bf000
+[26636] mblock-create-debug[10].start: 0xc0000000, sz: 0xfffff000
+[26637] mblock-create-debug-R[0].start: 0xbffff000, sz: 0x1000 map: 0 name: dramc-rk0
+[26638] mblock-create-debug-R[1].start: 0x1bffff000, sz: 0x1000 map: 0 name: dramc-rk1
+[26639] mblock-create-debug-R[2].start: 0x7ffc0000, sz: 0x40000 map: 1 name: log_store
+[26640] mblock-create-debug-R[3].start: 0x54600000, sz: 0x40000 map: 0 name: atf-reserved
+[26641] mblock-create-debug-R[4].start: 0xbfe00000, sz: 0x40000 map: 0 name: atf-log-reserved
+[26642] mblock-create-debug-R[5].start: 0x7ff00000, sz: 0xc0000 map: 0 name: SSPM-reserved
+[26643] mblock-create-debug-R[6].start: 0x7ec00000, sz: 0x1300000 map: 0 name: tee-reserved
+[26644] mblock-create-debug-R[7].start: 0x7ea00000, sz: 0x200000 map: 0 name: items-reserved
+[26646] mblock-create-debug-R[8].start: 0x54400000, sz: 0x10000 map: 0 name: ram_console
+[26647] mblock-create-debug-R[9].start: 0x54410000, sz: 0xe0000 map: 0 name: pstore
+[26648] mblock-create-debug-R[10].start: 0x544f0000, sz: 0x10000 map: 0 name: minirdump
+[26649] mblock-create-debug-R[11].start: 0x7cae0000, sz: 0x1f20000 map: 0 name: framebuffer
+[26650] mblock_sanity_check:PASS
+[26651] mblock_reserved_append: add_subnode name=mblock-1-dramc-rk0 start:0xbffff000 size:0x1000
+[26654] mblock-reserved-memory is appended (0xbffff000, 0x1000)
+[26654] mblock_reserved_append: add_subnode name=mblock-2-dramc-rk1 start:0x1bffff000 size:0x1000
+[26657] mblock-reserved-memory is appended (0x1bffff000, 0x1000)
+[26658] mblock_reserved_append: add_subnode name=mblock-3-log_store start:0x7ffc0000 size:0x40000
+[26661] mblock-reserved-memory is appended (0x7ffc0000, 0x40000)
+[26661] mblock_reserved_append: add_subnode name=mblock-4-atf-reserved start:0x54600000 size:0x40000
+[26664] mblock-reserved-memory is appended (0x54600000, 0x40000)
+[26665] mblock_reserved_append: add_subnode name=mblock-5-atf-log-reserved start:0xbfe00000 size:0x40000
+[26668] mblock-reserved-memory is appended (0xbfe00000, 0x40000)
+[26669] mblock_reserved_append: add_subnode name=mblock-6-SSPM-reserved start:0x7ff00000 size:0xc0000
+[26672] mblock-reserved-memory is appended (0x7ff00000, 0xc0000)
+[26673] mblock_reserved_append: add_subnode name=mblock-7-tee-reserved start:0x7ec00000 size:0x1300000
+[26676] mblock-reserved-memory is appended (0x7ec00000, 0x1300000)
+[26677] mblock_reserved_append: add_subnode name=mblock-8-items-reserved start:0x7ea00000 size:0x200000
+[26680] mblock-reserved-memory is appended (0x7ea00000, 0x200000)
+[26681] mblock_reserved_append: add_subnode name=mblock-9-ram_console start:0x54400000 size:0x10000
+[26684] mblock-reserved-memory is appended (0x54400000, 0x10000)
+[26684] mblock_reserved_append: add_subnode name=mblock-10-pstore start:0x54410000 size:0xe0000
+[26687] mblock-reserved-memory is appended (0x54410000, 0xe0000)
+[26688] mblock_reserved_append: add_subnode name=mblock-11-minirdump start:0x544f0000 size:0x10000
+[26691] mblock-reserved-memory is appended (0x544f0000, 0x10000)
+[26692] mblock_reserved_append: add_subnode name=mblock-12-framebuffer start:0x7cae0000 size:0x1f20000
+[26695] mblock-reserved-memory is appended (0x7cae0000, 0x1f20000)
+[26701] booting linux @ 0x40080000, ramdisk @ 0x55000000 (6393478)
+[26702] [LEDS]LK: leds_deinit: LEDS off 
+[26702] [LEDS]LK: red level is 0 
+[26703] [LEDS]LK: green level is 0 
+[26703] [LEDS]LK: blue level is 0 
+[26704] [DEVAPC] sec_post_init
+[26705] [DEVAPC] platform_sec_post_init - SMC call to ATF from LK
+[26713] DRAM Rank :2
+[26714] DRAM Rank[0] Start = 0x0, Size = 0x0
+[26715] DRAM Rank[1] Start = 0x0, Size = 0x0
+[26716] mblock_magic:0x99999999 mblock_version:0x2
+[26717] mblock[0].start: 0x40000000, size: 0x80000
+[26719] mblock[1].start: 0x40080000, size: 0x14000000
+[26720] mblock[2].start: 0x54080000, size: 0x380000
+[26721] mblock[3].start: 0x54500000, size: 0x100000
+[26722] mblock[4].start: 0x54640000, size: 0x1c0000
+[26724] mblock[5].start: 0x54800000, size: 0x1c00000
+[26725] mblock[6].start: 0x56400000, size: 0x500000
+[26726] mblock[7].start: 0x56900000, size: 0x261e0000
+[26727] mblock[8].start: 0x80000000, size: 0x3fe00000
+[26729] mblock[9].start: 0xbfe40000, size: 0x1bf000
+[26730] mblock[10].start: 0xc0000000, size: 0xfffff000
+[26731] mblock[0].start: 0xbffff000, size: 0x1000 map:0 name:dramc-rk0
+[26733] mblock[1].start: 0x1bffff000, size: 0x1000 map:0 name:dramc-rk1
+[26734] mblock[2].start: 0x7ffc0000, size: 0x40000 map:1 name:log_store
+[26736] mblock[3].start: 0x54600000, size: 0x40000 map:0 name:atf-reserved
+[26738] mblock[4].start: 0xbfe00000, size: 0x40000 map:0 name:atf-log-reserved
+[26740] mblock[5].start: 0x7ff00000, size: 0xc0000 map:0 name:SSPM-reserved
+[26741] mblock[6].start: 0x7ec00000, size: 0x1300000 map:0 name:tee-reserved
+[26743] mblock[7].start: 0x7ea00000, size: 0x200000 map:0 name:items-reserved
+[26745] mblock[8].start: 0x54400000, size: 0x10000 map:0 name:ram_console
+[26746] mblock[9].start: 0x54410000, size: 0xe0000 map:0 name:pstore
+[26748] mblock[10].start: 0x544f0000, size: 0x10000 map:0 name:minirdump
+[26750] mblock[11].start: 0x7cae0000, size: 0x1f20000 map:0 name:framebuffer
+[12615] [cmdline clear] clear str size=36
+[12616] g_cmdline size: 684
+[12617] cmdline: console=tty0 console=ttyS0,921600n1 vmalloc=400M slub_debug=OFZPU swiotlb=noforce page_owner=on cgroup.memory=nosocket,nokmem a
+[12620]        : ndroidboot.hardware=mt6771 firmware_class.path=/vendor/firmware loop.max_part=7 has_battery_removed=0 androidboot.boot_devices=
+[12623]        : bootdevice,11230000.mmc root=/dev/ram  androidboot.verifiedbootstate=orange bootopt=64S3,32N2,64N2 buildvariant=user ddr_name= 
+[12626]        : ddr_speed=0 androidboot.meta_log_disable=0 printk.disable_uart=0 bootprof.pl_t=1311 bootprof.lk_t=12304 bootprof.logo_t=5834 an
+[12629]        : droidboot.serialno=xxxxxxxxxxxxxxx androidboot.bootreason=PowerKey gpt=1 usb2jtag_mode=0 mrdump_ddrsv=yes mrdump_cb=0x11e000,0x
+[12633]        : 2000 androidboot.dtb_idx=0 androidboot.dtbo_idx=0
+[12634] lk boot time = 12304 ms
+[12635] lk boot mode = 2
+[12636] lk boot reason = 0
+[12636] lk finished --> jump to linux kernel 64Bit
 
+[12638] 
+[LK]jump to K64 0x40080000
+[ATF](0)[14.509042]INFO:    save kernel info
+[ATF](0)[14.509545]INFO:    Kernel_EL 2
+[ATF](0)[14.509972]NOTICE:  Kernel is 64Bit
+[ATF](0)[14.510457]NOTICE:  pc=0x40080000, r0=0x54000000, r1=0x0
+[ATF](0)[14.511167]INFO:    BL3-1: Preparing for EL3 exit to normal world, Kernel
+[ATF](0)[14.512061]INFO:    BL3-1: Next image address = 0x40080000
+[ATF](0)[14.512793]INFO:    BL3-1: Next image spsr = 0x3c9
+[ATF](0)[14.513445]INFO:    SPM: enable SPMC mode
+[ATF](0)[14.514001]INFO:    el3_exit
+[    0.000000] <5>-(0)[0:swapper]Booting Linux on physical CPU 0x0
+[    0.000000] <5>-(0)[0:swapper]Linux version 4.14.141+ (nobody@android-build) (Android (5484270 based on r353983c) clang version 9.0.3 (https://android.googlesource.com/toolchain/clang 740
+[    0.000000] <5>-(0)[0:swapper]Boot CPU: AArch64 Processor [410fd034]
+[    0.000000] <5>-(0)[0:swapper]Machine model: MT6771V/WM
 
-
+[..........................................................]
 
