@@ -1,0 +1,45 @@
+From f8fa6479286a1bac00ee4cbf14960d29da5e19ca Mon Sep 17 00:00:00 2001
+From: chalesyu <574249312@qq.com>
+Date: Wed, 14 Sep 2022 00:00:00 +0000
+Subject: [PATCH] fix atf for p030
+
+---
+ plat/mediatek/mt8183/include/platform_def.h | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/plat/mediatek/mt8183/include/platform_def.h b/plat/mediatek/mt8183/include/platform_def.h
+index 25ccfbc52..b73505f3b 100644
+--- a/plat/mediatek/mt8183/include/platform_def.h
++++ b/plat/mediatek/mt8183/include/platform_def.h
+@@ -99,7 +99,7 @@
+ #define UART0_BASE    (IO_PHYS + 0x01002000)
+ #define UART1_BASE    (IO_PHYS + 0x01003000)
+ 
+-#define UART_BAUDRATE 115200
++#define UART_BAUDRATE 921600
+ #define UART_CLOCK    26000000
+ 
+ /*******************************************************************************
+@@ -285,8 +285,8 @@ INTR_PROP_DESC(MT_IRQ_SEC_SGI_7, GIC_HIGHEST_SEC_PRIORITY, grp, \
+  * Platform memory map related constants
+  ******************************************************************************/
+ 
+-#define TZRAM_BASE          0x54600000
+-#define TZRAM_SIZE          0x00030000
++#define TZRAM_BASE          0x7EC00000
++#define TZRAM_SIZE          0x01300000
+ 
+ /*******************************************************************************
+  * BL31 specific defines.
+@@ -296,7 +296,7 @@ INTR_PROP_DESC(MT_IRQ_SEC_SGI_7, GIC_HIGHEST_SEC_PRIORITY, grp, \
+  * present). BL31_BASE is calculated using the current BL31 debug size plus a
+  * little space for growth.
+  */
+-#define BL31_BASE       (TZRAM_BASE + 0x1000)
++#define BL31_BASE       (0x001005C0 + 0xA40)
+ #define BL31_LIMIT      (TZRAM_BASE + TZRAM_SIZE)
+ 
+ /*******************************************************************************
+-- 
+
+

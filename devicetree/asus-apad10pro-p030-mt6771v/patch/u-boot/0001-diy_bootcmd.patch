@@ -1,0 +1,38 @@
+From 79a4013d2e4af8f5631ece8de7f0f53ad0bfe7e4 Mon Sep 17 00:00:00 2001
+From: chalesyu <574249312@qq.com>
+Date: Fri, 9 Sep 2022 00:00:00 +0000
+Subject: [PATCH] diy_cmd
+
+---
+ include/config_distro_bootcmd.h | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/include/config_distro_bootcmd.h b/include/config_distro_bootcmd.h
+index 5506f3168f..168f7683aa 100644
+--- a/include/config_distro_bootcmd.h
++++ b/include/config_distro_bootcmd.h
+@@ -25,6 +25,13 @@
+  * message that includes some other pre-processor symbols in the text.
+  */
+ 
++#define DIY_BOOTCMD \
++		"	echo a; \
++			echo b; \
++			echo c; \
++			setenv bootargs init=/bin/sh debug=1 earlycon=uart8250,mmio32,0x11002000 console=ttyS0,921600n8 swiotlb=512 maxcpus=1 ; \
++			unzip  40b80000 55000000;  unzip  40100000 4c100000 ;  unzip  40180000 4c280000; booti 4c280000 55000000 4c100000;"
++
+ #define BOOTENV_SHARED_BLKDEV_BODY(devtypel) \
+ 		"if " #devtypel " dev ${devnum}; then " \
+ 			"devtype=" #devtypel "; " \
+@@ -501,6 +508,7 @@
+ 		BOOTENV_SET_NVME_NEED_INIT                                \
+ 		BOOTENV_SET_IDE_NEED_INIT                                 \
+ 		BOOTENV_SET_VIRTIO_NEED_INIT                              \
++		DIY_BOOTCMD                              \
+ 		"for target in ${boot_targets}; do "                      \
+ 			"run bootcmd_${target}; "                         \
+ 		"done\0"
+-- 
+
+

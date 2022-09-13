@@ -1,0 +1,19 @@
+kernel structure:
+
+dt.gz: dtb with gzip compressed
+Image.gz: mainline kernel Image with gzip compressed
+uInitrd.gz: uInitrd ramdisk with gzip compressed
+
+[|(0x0 u-boot)...|(0x80000 dt.gz)...|(0x100000 Image.gz)......|(0xb00000 uInitrd.gz)......}
+
+unpack android boot img , use this replace vendor kernel, then repack boot.img and flash back.
+
+
+make uInitrd:
+  unpack ramdisk:
+   zcat initrd.cpio.gz | cpio -idmv
+   rm initrd.cpio.gz
+
+  repack ramdisk:
+   find . | cpio -H newc -o | xz -9 --format=lzma > ramdisk.img
+   mkimage -A arm64 -O linux -T ramdisk -C lzma -a 0 -e 0 -d ramdisk.img  uInitrd
