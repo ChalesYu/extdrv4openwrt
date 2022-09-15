@@ -1,0 +1,8 @@
+Name                  flash_address         memory_address         size
+
+sspm_1(tinysys-sspm)  0x1A600200            0x7FF00018             0x78150
+lk(lk)                0x23700200            0x56000000             0xb6cb8
+tee1(atf)             0x26900200            0x1005C0               0x13c00
+tee1(atf_dram)        0x26914E70            0x54600000             0x11c00
+tee1(tee)             0x26927AE0            0x7EBFFDC0             0x5a400
+
