@@ -1,0 +1,25 @@
+unsigned int __fastcall auto_scan_dram_rank_width(__dram_para_t *para)
+{
+  unsigned int v1; // r6
+  __dram_para_t *v2; // r4
+  unsigned int v3; // r5
+  unsigned int result; // r0
+
+  v1 = para->dram_para1;
+  v2 = para;
+  para->dram_para1 = 11534512;
+  v3 = para->dram_tpr13;
+  para->dram_para2 = (para->dram_para2 | 0x1000) & 0xFFFFFFF0;
+  para->dram_tpr13 = v3 | 5;
+  mctl_core_init(para);
+  if ( MEMORY[0x4003010] & 0x100000 )
+    return 0;
+  result = dqs_gate_detect(v2);
+  if ( result )
+  {
+    v2->dram_tpr13 = v3;
+    result = 1;
+    v2->dram_para1 = v1;
+  }
+  return result;
+}

@@ -1,0 +1,40 @@
+unsigned int __fastcall ccm_set_pll_ddr_clk(unsigned int pll, __dram_para_t *para)
+{
+  __dram_para_t *v2; // r6
+  unsigned int v3; // r7
+  unsigned int *v4; // r5
+  unsigned int v5; // r0
+  unsigned int v6; // r0
+  signed int v7; // r3
+  unsigned int v8; // r4
+  unsigned int v9; // r3
+
+  v2 = para;
+  v3 = 50336016;
+  v4 = (unsigned int *)50335760;
+  if ( pll )
+    v3 = 50336024;
+  if ( pll )
+    v4 = (unsigned int *)50335768;
+  if ( ((para->dram_tpr13 >> 6) & 1) == pll )
+    v5 = para->dram_clk;
+  else
+    v5 = para->dram_tpr9;
+  v6 = 2 * v5 / 0x18;
+  if ( v6 <= 0xB )
+    v7 = 12;
+  else
+    v7 = v6;
+  v8 = v6;
+  v9 = *v4 & 0xFFFF80FC | 0x80000000 | ((v7 - 1) << 8);
+  *v4 = v9;
+  v9 &= 0xDFFFFFFF;
+  *v4 = v9;
+  *v4 = v9 | 0x20000000;
+  while ( !(*v4 & 0x10000000) )
+    ;
+  _usdelay(20);
+  if ( v2->dram_tpr13 & 0x800000 )
+    ccm_set_pll_ddr_sscg(v2, (unsigned int)v4, v3);
+  return 24 * v8;
+}

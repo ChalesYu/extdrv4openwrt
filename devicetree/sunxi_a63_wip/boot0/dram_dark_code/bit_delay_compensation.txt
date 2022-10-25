@@ -1,0 +1,32 @@
+void __fastcall bit_delay_compensation(__dram_para_t *para)
+{
+  int v1; // r1
+  unsigned int (*v2)[11]; // r2
+  int v3; // r3
+  unsigned int ic_dxN_rd_delay[4][11]; // [sp+0h] [bp-178h]
+  unsigned int ic_dxN_wr_delay[4][11]; // [sp+B0h] [bp-C8h]
+
+  memcpy(ic_dxN_rd_delay, &unk_1B9C, 0xB0u);
+  memcpy(ic_dxN_wr_delay, &unk_1C4C, 0xB0u);
+  v1 = 0;
+  MEMORY[0x4003100] &= 0xFBFFFFFF;
+  v2 = ic_dxN_rd_delay;
+  do
+  {
+    v3 = 0;
+    do
+    {
+      *(_DWORD *)(v1 + 67121936 + v3 * 4) += (*v2)[v3]
+                                           + (*(_DWORD *)((char *)v2
+                                                        + (char *)ic_dxN_wr_delay
+                                                        - (char *)ic_dxN_rd_delay
+                                                        + v3 * 4) << 8);
+      ++v3;
+    }
+    while ( v3 != 11 );
+    v1 += 128;
+    ++v2;
+  }
+  while ( v1 != 512 );
+  MEMORY[0x4003100] |= 0x4000000u;
+}

@@ -1,0 +1,96 @@
+void __fastcall mctl_com_init(__dram_para_t *para)
+{
+  unsigned int v1; // r3
+  unsigned int v2; // r12
+  signed int v3; // r5
+  unsigned int v4; // r1
+  bool v5; // cf
+  bool v6; // zf
+  unsigned int v7; // r2
+  unsigned int v8; // r7
+  unsigned int v9; // r6
+  int v10; // r3
+  int *v11; // r5
+  char v12; // r4
+  unsigned int v13; // r1
+  unsigned int v14; // r2
+  int v15; // r2
+  signed int v16; // r2
+  unsigned int v17; // r3
+
+  v1 = para->dram_para2;
+  v2 = para->dram_para2 & 1;
+  if ( v1 & 1 )
+    v3 = 0;
+  else
+    v3 = 4096;
+  v4 = para->dram_type - 6;
+  v5 = v4 >= 1;
+  v6 = v4 == 1;
+  v7 = MEMORY[0x4002000] & 0xFF000FFF | 0x400000 | ((para->dram_type & 7) << 16) | v3;
+  if ( v4 <= 1 )
+    v7 |= 0x80000u;
+  else
+    v4 = para->dram_tpr13;
+  if ( !v6 && v5 )
+    v7 |= ((v4 >> 5) & 1) << 19;
+  MEMORY[0x4002000] = v7;
+  if ( v1 & 0x100 )
+  {
+    if ( (unsigned __int16)v1 >> 12 == 1 )
+      v8 = 2;
+    else
+      v8 = 1;
+  }
+  else
+  {
+    v8 = 1;
+  }
+  v9 = para->dram_para1;
+  v10 = (v1 >> 12) & 3;
+  v11 = (int *)67117056;
+  v12 = 12;
+  v13 = 0;
+  do
+  {
+    v14 = *v11 & 0xFFFFF000 | v10 | 4 * ((v9 >> v12) & 1) | (unsigned __int8)(16 * ((v9 >> (v12 - 8)) - 1));
+    switch ( (v9 >> 16 * v13) & 0xF )
+    {
+      case 1u:
+        v15 = v14 | 0x700;
+        break;
+      case 2u:
+        v15 = v14 | 0x800;
+        break;
+      case 4u:
+        v15 = v14 | 0x900;
+        break;
+      case 8u:
+        v15 = v14 | 0xA00;
+        break;
+      default:
+        v15 = v14 | 0x600;
+        break;
+    }
+    ++v13;
+    v12 += 16;
+    *v11 = v15;
+    ++v11;
+  }
+  while ( v13 < v8 );
+  v16 = 513;
+  if ( MEMORY[0x4002000] & 1 )
+    v16 = 771;
+  MEMORY[0x4003120] = v16;
+  if ( v2 )
+  {
+    MEMORY[0x4003444] = 0;
+    MEMORY[0x40034C4] = 0;
+  }
+  v17 = para->dram_tpr4;
+  if ( v17 )
+  {
+    MEMORY[0x4002000] |= (para->dram_tpr4 & 3) << 25;
+    MEMORY[0x4002004] |= ((v17 >> 2) & 0x1FF) << 12;
+  }
+}

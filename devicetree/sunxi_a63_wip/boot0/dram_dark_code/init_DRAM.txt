@@ -1,0 +1,111 @@
+int __fastcall init_DRAM(int type, __dram_para_t *para)
+{
+  __dram_para_t *v2; // r4
+  unsigned int v3; // r5
+  const char *v4; // r0
+  int v5; // r0
+  signed int v6; // r1
+  unsigned int v7; // r5
+  unsigned int v8; // r1
+  signed int v9; // r2
+  const char *v10; // r0
+  unsigned int v11; // r3
+  unsigned int v12; // r1
+  unsigned int v13; // r1
+
+  v2 = para;
+  MEMORY[0x7010310] |= 0x100u;
+  MEMORY[0x7010318] = 0;
+  _usdelay(10);
+  v3 = bond_id_check();
+  if ( !v3 )
+  {
+    v4 = "ic cant match axp, please check...\n";
+LABEL_9:
+    printf(v4);
+    return v3;
+  }
+  printf("chip id check OK\n");
+  if ( v2->dram_tpr13 & 0x2000 )
+  {
+    v5 = dram_vol_set(v2);
+    if ( !v5 )
+      return v5;
+  }
+  if ( !(v2->dram_tpr13 & 1) )
+  {
+    v5 = auto_scan_dram_config(v2);
+    if ( !v5 )
+      return v5;
+  }
+  printf("DRAM BOOT DRIVE INFO: %s\n", "V0.573");
+  printf("DRAM CLK = %d MHZ\n", v2->dram_clk);
+  printf("DRAM Type = %d (2:DDR2,3:DDR3,6:LPDDR2,7:LPDDR3)\n", v2->dram_type);
+  printf("DRAM ZQ value: 0x%x\n", v2->dram_zq);
+  v3 = mctl_core_init(v2);
+  if ( !v3 )
+  {
+    v4 = "DRAM initial error : 1 !\n";
+    goto LABEL_9;
+  }
+  v7 = v2->dram_para2;
+  if ( (v7 & 0x80000000) == 0 )
+  {
+    v3 = DRAMC_get_dram_size();
+    v8 = v3;
+    if ( v3 >= 0xC00 )
+      v3 = 3072;
+    printf("DRAM SIZE =%d M\n", v8);
+    v2->dram_para2 = LOWORD(v2->dram_para2) | (v3 << 16);
+  }
+  else
+  {
+    v3 = (v7 >> 16) & 0x7FFF;
+  }
+  if ( v2->dram_tpr13 & 0x40000000 )
+  {
+    v9 = v2->dram_tpr8;
+    v6 = 268435968;
+    v10 = "Enable Auto SR\n";
+    if ( !v9 )
+      v9 = 268435968;
+    MEMORY[0x40030A0] = v9;
+    MEMORY[0x400309C] = 1034;
+    MEMORY[0x4003004] |= 1u;
+  }
+  else
+  {
+    v10 = "Disable Auto SR\n";
+    MEMORY[0x40030A0] = MEMORY[0x40030A0] >> 16 << 16;
+    MEMORY[0x4003004] &= 0xFFFFFFFE;
+  }
+  printf(v10, v6);
+  v11 = v2->dram_tpr13;
+  if ( v11 & 0x200 || v2->dram_type == 6 )
+    v12 = MEMORY[0x4003100] & 0xFFFF0FFF | 0x5000;
+  else
+    v12 = MEMORY[0x4003100] & 0xFFFF0FFF;
+  MEMORY[0x4003100] = v12;
+  MEMORY[0x4003140] |= 0x80000000;
+  if ( v11 & 0x100 )
+    MEMORY[0x40030B8] |= 0x300u;
+  if ( v11 & 0x4000000 )
+    v13 = MEMORY[0x4003108] & 0xFFFFDFFF;
+  else
+    v13 = MEMORY[0x4003108] | 0x2000;
+  MEMORY[0x4003108] = v13;
+  if ( v2->dram_type == 7 )
+    MEMORY[0x400307C] = MEMORY[0x400307C] & 0xFFF0FFFF | 0x10000;
+  if ( !(v11 & 0x8000000) )
+  {
+    if ( v11 & 0x1000000 )
+      set_master_priority_pad();
+    else
+      set_master_priority();
+  }
+  dram_enable_all_master();
+  if ( v2->dram_tpr13 & 0x10000000 && dramc_simple_wr_test(v3, 0x1000u) )
+    v3 = 0;
+  return v3;
+}
+

@@ -1,0 +1,7 @@
+void dram_enable_all_master()
+{
+  MEMORY[0x4002020] = -1;
+  MEMORY[0x4002024] = 255;
+  MEMORY[0x4002028] = 0xFFFF;
+  _usdelay(10);
+}

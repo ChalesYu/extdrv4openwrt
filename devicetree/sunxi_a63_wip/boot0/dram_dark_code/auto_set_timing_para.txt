@@ -1,0 +1,538 @@
+void __fastcall auto_set_timing_para(__dram_para_t *para)
+{
+  unsigned int v1; // r6
+  __dram_para_t *v2; // r5
+  unsigned int v3; // r4
+  unsigned int v4; // r7
+  int v5; // r2
+  unsigned int v6; // r3
+  unsigned int v7; // r10
+  int v8; // r7
+  signed int v9; // r8
+  int v10; // r11
+  signed int v11; // r9
+  unsigned int v12; // r0
+  unsigned int v13; // r0
+  unsigned int v14; // r0
+  int v15; // r3
+  unsigned int v16; // r0
+  unsigned int v17; // r0
+  unsigned int v18; // r0
+  unsigned int v19; // r0
+  int v20; // r3
+  unsigned int v21; // r0
+  unsigned int v22; // r0
+  int v23; // r3
+  unsigned int v24; // r0
+  unsigned int v25; // r0
+  unsigned int v26; // r0
+  unsigned int v27; // r0
+  unsigned int v28; // r0
+  unsigned int v29; // r0
+  int v30; // r3
+  unsigned int v31; // r0
+  unsigned int v32; // r0
+  unsigned int v33; // r0
+  unsigned int v34; // r0
+  unsigned int v35; // r0
+  unsigned int v36; // r0
+  int v37; // r3
+  unsigned int v38; // r0
+  bool v39; // cf
+  signed int v40; // r3
+  signed int v41; // r4
+  signed int v42; // r3
+  signed int v43; // r1
+  signed int v44; // r0
+  signed int v45; // r3
+  signed int v46; // r2
+  unsigned int v47; // r0
+  signed int v48; // r3
+  signed int v49; // r4
+  signed int v50; // r3
+  signed int v51; // r2
+  signed int v52; // r12
+  unsigned int v53; // r0
+  signed int v54; // r3
+  signed int v55; // r12
+  signed int v56; // r3
+  signed int v57; // r4
+  signed int v58; // r2
+  int v59; // r8
+  unsigned int v60; // r5
+  unsigned int v61; // r3
+  signed int v62; // [sp+0h] [bp-90h]
+  unsigned int tcwl; // [sp+4h] [bp-8Ch]
+  unsigned int tcwla; // [sp+4h] [bp-8Ch]
+  unsigned int mr3; // [sp+8h] [bp-88h]
+  unsigned int mr3a; // [sp+8h] [bp-88h]
+  signed int txp; // [sp+Ch] [bp-84h]
+  signed int trc; // [sp+10h] [bp-80h]
+  signed int tfaw; // [sp+14h] [bp-7Ch]
+  int trefi; // [sp+18h] [bp-78h]
+  signed int tras; // [sp+1Ch] [bp-74h]
+  signed int trfc; // [sp+20h] [bp-70h]
+  unsigned int tcl; // [sp+24h] [bp-6Ch]
+  unsigned int tmrd; // [sp+28h] [bp-68h]
+  unsigned int tmod; // [sp+2Ch] [bp-64h]
+  unsigned int trd2wr; // [sp+30h] [bp-60h]
+  unsigned int wr_latency; // [sp+34h] [bp-5Ch]
+  unsigned int tdinit0; // [sp+38h] [bp-58h]
+  unsigned int tdinit1; // [sp+3Ch] [bp-54h]
+  unsigned int tdinit2; // [sp+40h] [bp-50h]
+  unsigned int tdinit3; // [sp+44h] [bp-4Ch]
+  unsigned int mr0; // [sp+48h] [bp-48h]
+  unsigned int mr1; // [sp+4Ch] [bp-44h]
+  unsigned int mr2; // [sp+50h] [bp-40h]
+  unsigned int twtp; // [sp+54h] [bp-3Ch]
+  signed int trasmax; // [sp+58h] [bp-38h]
+  unsigned int twr2rd; // [sp+5Ch] [bp-34h]
+  int trtp; // [sp+60h] [bp-30h]
+  int tccd; // [sp+64h] [bp-2Ch]
+
+  v1 = para->dram_clk;
+  v2 = para;
+  v3 = para->dram_clk >> 1;
+  mr3 = para->dram_tpr13;
+  tcwl = para->dram_type;
+  if ( mr3 & 2 )
+  {
+    v4 = para->dram_tpr0;
+    txp = (v4 >> 11) & 0xF;
+    v5 = (v4 >> 15) & 0x3F;
+    v6 = para->dram_tpr1;
+    v7 = (v4 >> 6) & 0x1F;
+    tccd = (v4 >> 21) & 7;
+    trc = para->dram_tpr0 & 0x3F;
+    v8 = (v6 >> 23) & 0x1F;
+    v9 = (v6 >> 20) & 7;
+    v10 = (v6 >> 11) & 0xF;
+    v11 = (v6 >> 6) & 0x1F;
+    tras = para->dram_tpr1 & 0x3F;
+    tfaw = v5;
+    trtp = (v6 >> 15) & 0x1F;
+    trfc = (para->dram_tpr2 >> 12) & 0x1FF;
+    trefi = para->dram_tpr2 & 0xFFF;
+  }
+  else
+  {
+    switch ( tcwl )
+    {
+      case 3u:
+        if ( v1 > 0x320 )
+        {
+          tfaw = auto_cal_timing(0x23u, v3);
+          v16 = auto_cal_timing(6u, v3);
+          if ( v16 < 2 )
+            v16 = 2;
+          txp = v16;
+          v7 = auto_cal_timing(0xEu, v3);
+          trc = auto_cal_timing(0x30u, v3);
+          v8 = txp;
+          v17 = auto_cal_timing(8u, v3);
+          if ( v17 <= 1 )
+            v9 = 2;
+          else
+            v9 = v17;
+          v18 = auto_cal_timing(0xFu, v3);
+          if ( v18 <= 1 )
+            v10 = 2;
+          else
+            v10 = v18;
+          tras = auto_cal_timing(0x22u, v3);
+          v19 = auto_cal_timing(0x1E78u, v3);
+          v20 = v19 & 0x1F;
+          if ( v19 & 0x1F )
+            v20 = 1;
+          trefi = v20 + (v19 >> 5);
+          trfc = auto_cal_timing(0x15Eu, v3);
+        }
+        else
+        {
+          tfaw = auto_cal_timing(0x32u, v3);
+          v12 = auto_cal_timing(0xAu, v3);
+          if ( v12 <= 1 )
+            v12 = 2;
+          txp = v12;
+          v7 = auto_cal_timing(0xFu, v3);
+          if ( v7 < 2 )
+            v10 = 2;
+          else
+            v10 = v7;
+          trc = auto_cal_timing(0x35u, v3);
+          v13 = auto_cal_timing(8u, v3);
+          if ( v13 <= 1 )
+            v8 = 2;
+          else
+            v8 = v13;
+          v9 = v8;
+          tras = auto_cal_timing(0x26u, v3);
+          v14 = auto_cal_timing(0x1E78u, v3);
+          v15 = v14 & 0x1F;
+          if ( v14 & 0x1F )
+            v15 = 1;
+          trefi = v15 + (v14 >> 5);
+          trfc = auto_cal_timing(0x15Eu, v3);
+        }
+        v11 = v7;
+        break;
+      case 2u:
+        tfaw = auto_cal_timing(0x32u, v3);
+        txp = auto_cal_timing(0xAu, v3);
+        v7 = auto_cal_timing(0x14u, v3);
+        trc = auto_cal_timing(0x41u, v3);
+        v9 = auto_cal_timing(8u, v3);
+        v21 = auto_cal_timing(0xFu, v3);
+        v10 = v21;
+        v11 = v21;
+        tras = auto_cal_timing(0x2Du, v3);
+        v22 = auto_cal_timing(0x1E78u, v3);
+        v23 = v22 & 0x1F;
+        if ( v22 & 0x1F )
+          v23 = 1;
+        trefi = v23 + (v22 >> 5);
+        v8 = 2;
+        trfc = auto_cal_timing(0x148u, v3);
+        break;
+      case 6u:
+        v24 = auto_cal_timing(0x32u, v3);
+        if ( v24 <= 3 )
+          v24 = 4;
+        tfaw = v24;
+        v25 = auto_cal_timing(0xAu, v3);
+        if ( !v25 )
+          v25 = 1;
+        txp = v25;
+        v26 = auto_cal_timing(0x18u, v3);
+        if ( v26 <= 1 )
+          v7 = 2;
+        else
+          v7 = v26;
+        trc = auto_cal_timing(0x46u, v3);
+        v27 = auto_cal_timing(8u, v3);
+        v8 = v27;
+        if ( v27 && v27 > 1 )
+        {
+          v9 = v27;
+        }
+        else
+        {
+          v8 = 1;
+          v9 = 2;
+        }
+        v28 = auto_cal_timing(0xFu, v3);
+        if ( v28 <= 1 )
+          v10 = 2;
+        else
+          v10 = v28;
+        v11 = auto_cal_timing(0x11u, v3);
+        tras = auto_cal_timing(0x2Au, v3);
+        v29 = auto_cal_timing(0xF3Cu, v3);
+        v30 = v29 & 0x1F;
+        if ( v29 & 0x1F )
+          v30 = 1;
+        trefi = v30 + (v29 >> 5);
+        trfc = auto_cal_timing(0xD2u, v3);
+        break;
+      case 7u:
+        v31 = auto_cal_timing(0x32u, v3);
+        if ( v31 <= 3 )
+          v31 = 4;
+        tfaw = v31;
+        v32 = auto_cal_timing(0xAu, v3);
+        if ( !v32 )
+          v32 = 1;
+        txp = v32;
+        v33 = auto_cal_timing(0x12u, v3);
+        if ( v33 < 2 )
+          v7 = 2;
+        else
+          v7 = v33;
+        v11 = v33;
+        trc = auto_cal_timing(0x3Cu, v3);
+        v34 = auto_cal_timing(8u, v3);
+        if ( v34 <= 1 )
+          v8 = 2;
+        else
+          v8 = v34;
+        v35 = auto_cal_timing(0xFu, v3);
+        if ( v35 <= 1 )
+          v10 = 2;
+        else
+          v10 = v35;
+        tras = auto_cal_timing(0x2Au, v3);
+        v36 = auto_cal_timing(0xF3Cu, v3);
+        v37 = v36 & 0x1F;
+        if ( v36 & 0x1F )
+          v37 = 1;
+        trefi = v37 + (v36 >> 5);
+        trfc = auto_cal_timing(0xD2u, v3);
+        if ( mr3 & 0x1000000 )
+        {
+          v9 = v8;
+        }
+        else
+        {
+          v11 = auto_cal_timing(0x11u, v3);
+          v9 = v8;
+          trc = auto_cal_timing(0x3Bu, v3);
+          v7 = v11;
+          tfaw = auto_cal_timing(0x2Cu, v3);
+        }
+        break;
+      default:
+        trfc = 128;
+        v9 = 3;
+        trefi = 98;
+        v11 = 6;
+        v8 = 10;
+        v10 = 8;
+        tras = 14;
+        tfaw = 16;
+        v7 = 6;
+        trc = 20;
+        txp = 3;
+        break;
+    }
+    trtp = v9;
+    v2->dram_tpr0 = trc | 0x400000 | (v7 << 6) | (txp << 11) | (tfaw << 15);
+    v2->dram_tpr1 = (v10 << 11) | (v11 << 6) | tras | (v9 << 15) | (v9 << 20) | (v8 << 23);
+    v2->dram_tpr2 = trefi | (trfc << 12);
+    tccd = 2;
+  }
+  switch ( tcwl )
+  {
+    case 2u:
+      v38 = v3 / 0xF;
+      v39 = v3 >= 0xCD;
+      if ( v3 >= 0xCD )
+        v40 = 4;
+      else
+        v40 = 3;
+      if ( v3 >= 0xCD )
+        v41 = 2;
+      else
+        v41 = 1;
+      tcl = v40;
+      v42 = 3699;
+      mr1 = v2->dram_mr1;
+      if ( !v39 )
+        v42 = 2659;
+      trasmax = v38;
+      mr0 = v42;
+      v62 = v41;
+      tdinit0 = 400 * v1 + 1;
+      tdinit2 = 200 * v1 + 1;
+      tdinit1 = 500 * v1 / 0x3E8 + 1;
+      tdinit3 = v1 + 1;
+      v43 = 4;
+      v44 = 3;
+      tmod = 12;
+      v45 = 0;
+      twtp = v10 + 5;
+      v46 = 5;
+      twr2rd = v9 + 5;
+      trd2wr = 4;
+      tmrd = 2;
+      tcwla = 3;
+      wr_latency = 1;
+      mr3a = 0;
+      mr2 = 0;
+      break;
+    case 3u:
+      v47 = v3 / 0xF;
+      if ( v1 <= 0x320 )
+        v48 = 6;
+      else
+        v48 = 7;
+      if ( v1 <= 0x320 )
+        v49 = 2;
+      else
+        v49 = 3;
+      tcl = v48;
+      v50 = 7280;
+      mr1 = v2->dram_mr1;
+      if ( v1 <= 0x320 )
+        v51 = 24;
+      else
+        v51 = 32;
+      mr2 = v51;
+      if ( v1 <= 0x320 )
+      {
+        v52 = 4;
+      }
+      else
+      {
+        v50 = 7700;
+        v52 = 5;
+      }
+      trasmax = v47;
+      mr0 = v50;
+      wr_latency = v49;
+      tdinit0 = 500 * v1 + 1;
+      v62 = v52;
+      tdinit2 = 200 * v1 + 1;
+      tdinit3 = v1 + 1;
+      tdinit1 = 360 * v1 / 0x3E8 + 1;
+      twtp = v10 + 2 + v52;
+      twr2rd = v9 + 2 + v52;
+      if ( ((mr3 >> 2) & 3) == 1 )
+      {
+        v43 = 4;
+        v44 = 3;
+        tmod = 12;
+        tcwla = v52;
+        v46 = 5;
+        trd2wr = 5;
+      }
+      else
+      {
+        if ( v1 <= 0x390 )
+        {
+          v43 = 4;
+          v44 = 3;
+          v46 = 5;
+          trd2wr = 5;
+          tcwla = v52;
+        }
+        else
+        {
+          tcwla = v52;
+          v46 = 5;
+          v43 = 4;
+          trd2wr = 6;
+          v44 = 3;
+        }
+        tmod = 12;
+      }
+      v45 = 0;
+      tmrd = 4;
+      mr3a = 0;
+      break;
+    case 6u:
+      trasmax = v3 / 0x1E;
+      mr3a = v2->dram_mr3;
+      tdinit0 = 200 * v1 + 1;
+      tdinit2 = 11 * v1 + 1;
+      trd2wr = 10;
+      v46 = 5;
+      tdinit1 = 100 * v1 / 0x3E8 + 1;
+      tdinit3 = v1 + 1;
+      v44 = 2;
+      v45 = 3;
+      wr_latency = 1;
+      twtp = v10 + 5;
+      twr2rd = v9 + 5;
+      v43 = 5;
+      tmod = 5;
+      tmrd = 5;
+      tcwla = 2;
+      tcl = 4;
+      v62 = 3;
+      mr2 = 6;
+      goto LABEL_113;
+    case 7u:
+      v53 = v3 / 0x1E;
+      if ( v1 <= 0x320 )
+        v54 = 3;
+      else
+        v54 = 4;
+      if ( v1 <= 0x320 )
+        v55 = 2;
+      else
+        v55 = 3;
+      tcwla = v54;
+      if ( v1 <= 0x320 )
+        v56 = 10;
+      else
+        v56 = 12;
+      if ( v1 <= 0x320 )
+        v57 = 6;
+      else
+        v57 = 7;
+      trasmax = v53;
+      mr3a = v2->dram_mr3;
+      if ( v1 <= 0x320 )
+        v58 = 5;
+      else
+        v58 = 6;
+      mr2 = v56;
+      tcl = v57;
+      wr_latency = v55;
+      v62 = v58;
+      tdinit0 = 200 * v1 + 1;
+      v46 = 5;
+      tdinit2 = 11 * v1 + 1;
+      tdinit1 = 100 * v1 / 0x3E8 + 1;
+      v43 = 5;
+      trd2wr = 13;
+      v44 = 3;
+      v45 = 5;
+      tdinit3 = v1 + 1;
+      twtp = v10 + 5 + tcwla;
+      twr2rd = v9 + 5 + tcwla;
+      tmod = 12;
+      tmrd = 5;
+LABEL_113:
+      mr1 = 195;
+      mr0 = 0;
+      break;
+    default:
+      v43 = 3;
+      v46 = 4;
+      twr2rd = 8;
+      trasmax = 27;
+      v44 = 2;
+      v45 = 0;
+      twtp = 12;
+      trd2wr = 4;
+      tmod = 6;
+      tmrd = 2;
+      tcwla = 3;
+      tcl = 3;
+      wr_latency = 1;
+      v62 = 1;
+      mr3a = 0;
+      mr2 = 0;
+      mr1 = 0;
+      mr0 = 0;
+      tdinit3 = 0;
+      tdinit2 = 0;
+      tdinit1 = 0;
+      tdinit0 = 0;
+      break;
+  }
+  if ( trtp + v11 < tcl + 2 )
+    trtp = 2 - v11 + tcl;
+  if ( !HIWORD(v2->dram_mr0) )
+    v2->dram_mr0 = mr0;
+  if ( !HIWORD(v2->dram_mr1) )
+    v2->dram_mr1 = mr1;
+  if ( !HIWORD(v2->dram_mr2) )
+    v2->dram_mr2 = mr2;
+  if ( !HIWORD(v2->dram_mr3) )
+    v2->dram_mr3 = mr3a;
+  MEMORY[0x4003030] = LOWORD(v2->dram_mr0);
+  MEMORY[0x4003034] = LOWORD(v2->dram_mr1);
+  MEMORY[0x4003038] = LOWORD(v2->dram_mr2);
+  v59 = LOWORD(v2->dram_mr3);
+  v60 = v2->dram_odt_en;
+  MEMORY[0x400303C] = v59;
+  MEMORY[0x400302C] = (v60 >> 4) & 3;
+  MEMORY[0x4003058] = tras | (tfaw << 16) | (twtp << 24) | (trasmax << 8);
+  MEMORY[0x400305C] = trc | (v8 << 16) | (trtp << 8);
+  MEMORY[0x4003060] = (tcl << 16) | (tcwla << 24) | twr2rd | (trd2wr << 8);
+  MEMORY[0x4003064] = (tmrd << 12) | (v45 << 16) | tmod;
+  MEMORY[0x4003068] = (tccd << 16) | (v7 << 24) | v11 | (txp << 8);
+  MEMORY[0x400306C] = v44 | (v46 << 16) | (v46 << 24) | (v43 << 8);
+  if ( v1 > 0x320 )
+    v61 = ((MEMORY[0x4003078] | 0xF0000000) >> 16 << 16) | 0x7600;
+  else
+    v61 = ((MEMORY[0x4003078] | 0xF0000000) >> 16 << 16) | 0x6600;
+  MEMORY[0x4003078] = v61 | 0x10;
+  MEMORY[0x4003080] = wr_latency | 0x2000100 | (v62 << 16);
+  MEMORY[0x4003050] = tdinit0 | (tdinit1 << 20);
+  MEMORY[0x4003054] = tdinit2 | (tdinit3 << 20);
+  MEMORY[0x4003090] = trfc | (trefi << 16);
+  MEMORY[0x4003094] = (trefi << 15) & 0xFFF0000;
+}

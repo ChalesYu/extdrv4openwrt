@@ -1,0 +1,19 @@
+unsigned __int16 __fastcall crc_16(unsigned __int16 reg, unsigned __int8 data_crc)
+{
+  int v2; // r0
+  int v3; // r3
+  int v4; // r1
+
+  v2 = reg ^ (data_crc << 8);
+  LOWORD(v3) = 8;
+  do
+  {
+    v4 = v2 & 0x8000;
+    LOWORD(v2) = 2 * v2;
+    if ( v4 )
+      LOWORD(v2) = v2 ^ 0x8005;
+    v3 = (unsigned __int16)(v3 - 1);
+  }
+  while ( v3 );
+  return v2;
+}

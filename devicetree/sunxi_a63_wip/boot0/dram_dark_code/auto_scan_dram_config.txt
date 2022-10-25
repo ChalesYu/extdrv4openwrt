@@ -1,0 +1,42 @@
+unsigned int __fastcall auto_scan_dram_config(__dram_para_t *para)
+{
+  __dram_para_t *v1; // r4
+  unsigned int v2; // r5
+  const char *v3; // r0
+  unsigned int v4; // r3
+
+  v1 = para;
+  if ( !(para->dram_tpr13 & 0x2000) )
+  {
+    v2 = auto_scan_dram_type(para);
+    if ( !v2 )
+    {
+      v3 = "[ERROR DEBUG] auto scan dram type fail !\n";
+LABEL_10:
+      printf(v3);
+      return v2;
+    }
+  }
+  if ( !(v1->dram_tpr13 & 0x4000) )
+  {
+    v2 = auto_scan_dram_rank_width(v1);
+    if ( !v2 )
+    {
+      v3 = "[ERROR DEBUG] auto scan dram rank&width fail !\n";
+      goto LABEL_10;
+    }
+  }
+  if ( !(v1->dram_tpr13 & 1) )
+  {
+    v2 = auto_scan_dram_size(v1);
+    if ( !v2 )
+    {
+      v3 = "[ERROR DEBUG] auto scan dram size fail !\n";
+      goto LABEL_10;
+    }
+  }
+  v4 = v1->dram_tpr13;
+  if ( !(v4 & 0x8000) )
+    v1->dram_tpr13 = v4 | 0x6003;
+  return 1;
+}

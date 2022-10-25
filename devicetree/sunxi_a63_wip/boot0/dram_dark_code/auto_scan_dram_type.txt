@@ -1,0 +1,92 @@
+unsigned int __fastcall auto_scan_dram_type(__dram_para_t *para)
+{
+  __dram_para_t *v1; // r4
+  unsigned int v2; // r6
+  unsigned int v3; // r5
+  unsigned int v4; // r8
+  unsigned int v5; // r7
+  unsigned int result; // r0
+
+  v1 = para;
+  v2 = para->dram_tpr13;
+  v3 = 1 - para->dram_clk;
+  v4 = para->dram_para1;
+  if ( para->dram_clk > 1 )
+    v3 = 0;
+  para->dram_para1 = 11534512;
+  v5 = para->dram_para2;
+  para->dram_para2 = 0;
+  para->dram_tpr13 = v2 | 5;
+  if ( v3 )
+    para->dram_clk = 24 * LOBYTE(para->dram_tpr7);
+  para->dram_type = 7;
+  if ( para->dram_clk <= 0x294 )
+  {
+    para->dram_zq = 3881979;
+  }
+  else
+  {
+    para->dram_zq = 4013563;
+    para->dram_tpr3 = -1266844266;
+  }
+  para->dram_tpr10 = 8;
+  para->dram_tpr11 = 1145307136;
+  para->dram_tpr12 = 13107;
+  para->dram_mr3 = 2;
+  result = dram_vol_set(para);
+  if ( result )
+  {
+    mctl_core_init(v1);
+    if ( dqs_gate_detect(v1) )
+      goto LABEL_24;
+    if ( v3 )
+      v1->dram_clk = 24 * BYTE1(v1->dram_tpr7);
+    v1->dram_type = 6;
+    v1->dram_zq = 3881977;
+    v1->dram_tpr10 = 8;
+    v1->dram_tpr11 = 1145307136;
+    v1->dram_tpr12 = 13107;
+    v1->dram_mr3 = 2;
+    mctl_core_init(v1);
+    if ( dqs_gate_detect(v1) )
+      goto LABEL_24;
+    if ( v3 )
+      v1->dram_clk = 24 * BYTE2(v1->dram_tpr7);
+    v1->dram_type = 3;
+    v1->dram_zq = 3881979;
+    v1->dram_tpr10 = 8;
+    v1->dram_tpr11 = 1413742592;
+    v1->dram_tpr12 = 13364;
+    v1->dram_mr1 = 64;
+    result = dram_vol_set(v1);
+    if ( result )
+    {
+      mctl_core_init(v1);
+      if ( dqs_gate_detect(v1) )
+        goto LABEL_24;
+      if ( v3 )
+        v1->dram_clk = 24 * HIBYTE(v1->dram_tpr7);
+      v1->dram_type = 2;
+      v1->dram_zq = 3881977;
+      v1->dram_tpr10 = 0;
+      v1->dram_tpr11 = 0;
+      v1->dram_tpr12 = 0;
+      v1->dram_mr1 = 64;
+      result = dram_vol_set(v1);
+      if ( result )
+      {
+        mctl_core_init(v1);
+        result = dqs_gate_detect(v1);
+        if ( result )
+        {
+LABEL_24:
+          result = 1;
+          v1->dram_tpr13 = v2;
+          v1->dram_para1 = v4;
+          v1->dram_para2 = v5;
+        }
+      }
+    }
+  }
+  return result;
+}
