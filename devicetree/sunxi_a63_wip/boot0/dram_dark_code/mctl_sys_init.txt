@@ -1,4 +1,4 @@
-unsigned int __fastcall mctl_sys_init(__dram_para_t *para)
+unsigned int mctl_sys_init(__dram_para_t *para)
 {
   __dram_para_t *v1; // r4
   unsigned int v2; // r0
@@ -8,20 +8,20 @@ unsigned int __fastcall mctl_sys_init(__dram_para_t *para)
   unsigned int v6; // r3
 
   v1 = para;
-  MEMORY[0x3001540] &= 0x7FFFFFFFu;
-  MEMORY[0x3001540] &= 0xBFFFFFFF;
-  MEMORY[0x300180C] &= 0xFFFFFFFE;
-  MEMORY[0x300180C] &= 0xFFFEFFFF;
-  MEMORY[0x3001010] &= 0x7FFFFFFFu;
-  MEMORY[0x3001010] |= 0x40000000u;
-  MEMORY[0x3001018] &= 0x7FFFFFFFu;
-  MEMORY[0x3001018] |= 0x40000000u;
-  MEMORY[0x3001800] &= 0xBFFFFFFF;
+  mctl_write_w((mctl_read_w(0x3001540) & 0x7FFFFFFFu) , 0x3001540);
+  mctl_write_w((mctl_read_w(0x3001540) & 0xBFFFFFFF) , 0x3001540);
+  mctl_write_w((mctl_read_w(0x300180C) & 0xFFFFFFFE) , 0x300180C);
+  mctl_write_w((mctl_read_w(0x300180C) & 0xFFFEFFFF) , 0x300180C);
+  mctl_write_w((mctl_read_w(0x3001010) & 0x7FFFFFFFu) , 0x3001010);
+  mctl_write_w((mctl_read_w(0x3001010) | 0x40000000u) , 0x3001010);
+  mctl_write_w((mctl_read_w(0x3001018) & 0x7FFFFFFFu) , 0x3001018);
+  mctl_write_w((mctl_read_w(0x3001018) | 0x40000000u) , 0x3001018);
+  mctl_write_w((mctl_read_w(0x3001800) & 0xBFFFFFFF) , 0x3001800);
   _usdelay(100);
   if ( v1->dram_tpr13 & 0x40 )
   {
     v2 = ccm_set_pll_ddr_clk(1u, v1);
-    MEMORY[0x3001800] = MEMORY[0x3001800] & 0xFCFFFFFF | 0x1000000;
+    mctl_write_w((mctl_read_w(0x3001800) & 0xFCFFFFFF | 0x1000000) , 0x3001800);
     v3 = v1->dram_tpr9;
     v1->dram_clk = v2 >> 1;
     if ( v3 )
@@ -35,7 +35,7 @@ LABEL_6:
   else
   {
     v5 = ccm_set_pll_ddr_clk(0, v1);
-    MEMORY[0x3001800] &= 0xFCFFFFFF;
+    mctl_write_w((mctl_read_w(0x3001800) & 0xFCFFFFFF) , 0x3001800);
     v6 = v1->dram_tpr9;
     v1->dram_clk = v5 >> 1;
     if ( v6 )
@@ -46,15 +46,15 @@ LABEL_6:
   }
 LABEL_7:
   _usdelay(1000);
-  MEMORY[0x3001800] = MEMORY[0x3001800] & 0xFFFFFFFC | 0x8000000;
-  MEMORY[0x300180C] |= 0x10000u;
-  MEMORY[0x300180C] |= 1u;
+  mctl_write_w((mctl_read_w(0x3001800) & 0xFFFFFFFC | 0x8000000) , 0x3001800);
+  mctl_write_w((mctl_read_w(0x300180C) | 0x10000u) , 0x300180C);
+  mctl_write_w((mctl_read_w(0x300180C) | 1u) , 0x300180C);
   dram_disable_all_master();
-  MEMORY[0x3001540] |= 0x40000000u;
-  MEMORY[0x3001540] |= 0x80000000;
-  MEMORY[0x3001800] |= 0x40000000u;
+  mctl_write_w((mctl_read_w(0x300180C) | 0x40000000u) , 0x3001540);
+  mctl_write_w((mctl_read_w(0x300180C) | 0x80000000) , 0x3001540);
+  mctl_write_w((mctl_read_w(0x300180C) | 0x40000000u) , 0x3001800);
   _usdelay(5);
-  MEMORY[0x400300C] = 0x8000;
+  mctl_write_w(0x8000 , 0x400300C);
   _usdelay(10);
   return 0;
 }

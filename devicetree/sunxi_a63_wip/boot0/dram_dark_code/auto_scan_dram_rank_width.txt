@@ -1,4 +1,4 @@
-unsigned int __fastcall auto_scan_dram_rank_width(__dram_para_t *para)
+unsigned int auto_scan_dram_rank_width(__dram_para_t *para)
 {
   unsigned int v1; // r6
   __dram_para_t *v2; // r4
@@ -12,7 +12,7 @@ unsigned int __fastcall auto_scan_dram_rank_width(__dram_para_t *para)
   para->dram_para2 = (para->dram_para2 | 0x1000) & 0xFFFFFFF0;
   para->dram_tpr13 = v3 | 5;
   mctl_core_init(para);
-  if ( MEMORY[0x4003010] & 0x100000 )
+  if ( mctl_read_w(0x4003010) & 0x100000 )
     return 0;
   result = dqs_gate_detect(v2);
   if ( result )

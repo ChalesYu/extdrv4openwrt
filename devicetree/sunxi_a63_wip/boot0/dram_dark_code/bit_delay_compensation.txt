@@ -1,4 +1,4 @@
-void __fastcall bit_delay_compensation(__dram_para_t *para)
+void bit_delay_compensation(__dram_para_t *para)
 {
   int v1; // r1
   unsigned int (*v2)[11]; // r2

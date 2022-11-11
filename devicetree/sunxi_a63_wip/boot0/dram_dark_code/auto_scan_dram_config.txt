@@ -1,4 +1,4 @@
-unsigned int __fastcall auto_scan_dram_config(__dram_para_t *para)
+unsigned int auto_scan_dram_config(__dram_para_t *para)
 {
   __dram_para_t *v1; // r4
   unsigned int v2; // r5

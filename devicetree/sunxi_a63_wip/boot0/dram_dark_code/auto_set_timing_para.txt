@@ -1,4 +1,4 @@
-void __fastcall auto_set_timing_para(__dram_para_t *para)
+void  auto_set_timing_para(__dram_para_t *para)
 {
   unsigned int v1; // r6
   __dram_para_t *v2; // r5
@@ -512,27 +512,27 @@ LABEL_113:
     v2->dram_mr2 = mr2;
   if ( !HIWORD(v2->dram_mr3) )
     v2->dram_mr3 = mr3a;
-  MEMORY[0x4003030] = LOWORD(v2->dram_mr0);
-  MEMORY[0x4003034] = LOWORD(v2->dram_mr1);
-  MEMORY[0x4003038] = LOWORD(v2->dram_mr2);
+  mctl_write_w(LOWORD(v2->dram_mr0) ,  0x4003030); // LOWORD(v2->dram_mr0);
+  mctl_write_w(LOWORD(v2->dram_mr1) ,  0x4003034); // LOWORD(v2->dram_mr1);
+  mctl_write_w(LOWORD(v2->dram_mr2) ,  0x4003038); // LOWORD(v2->dram_mr2);
   v59 = LOWORD(v2->dram_mr3);
   v60 = v2->dram_odt_en;
-  MEMORY[0x400303C] = v59;
-  MEMORY[0x400302C] = (v60 >> 4) & 3;
-  MEMORY[0x4003058] = tras | (tfaw << 16) | (twtp << 24) | (trasmax << 8);
-  MEMORY[0x400305C] = trc | (v8 << 16) | (trtp << 8);
-  MEMORY[0x4003060] = (tcl << 16) | (tcwla << 24) | twr2rd | (trd2wr << 8);
-  MEMORY[0x4003064] = (tmrd << 12) | (v45 << 16) | tmod;
-  MEMORY[0x4003068] = (tccd << 16) | (v7 << 24) | v11 | (txp << 8);
-  MEMORY[0x400306C] = v44 | (v46 << 16) | (v46 << 24) | (v43 << 8);
+  mctl_write_w(v59 ,  0x400303C); // v59;
+  mctl_write_w((v60 >> 4) & 3 ,  0x400302C); // (v60 >> 4) & 3;
+  mctl_write_w((tras | (tfaw << 16) | (twtp << 24) | (trasmax << 8)) ,  0x4003058); // tras | (tfaw << 16) | (twtp << 24) | (trasmax << 8);
+  mctl_write_w((trc | (v8 << 16) | (trtp << 8)) ,  0x400305C); // trc | (v8 << 16) | (trtp << 8);
+  mctl_write_w(((tcl << 16) | (tcwla << 24) | twr2rd | (trd2wr << 8)) ,  0x4003060); // (tcl << 16) | (tcwla << 24) | twr2rd | (trd2wr << 8);
+  mctl_write_w(((tmrd << 12) | (v45 << 16) | tmod) ,  0x4003064); // (tmrd << 12) | (v45 << 16) | tmod;
+  mctl_write_w(((tccd << 16) | (v7 << 24) | v11 | (txp << 8)) ,  0x4003068); // (tccd << 16) | (v7 << 24) | v11 | (txp << 8);
+  mctl_write_w((v44 | (v46 << 16) | (v46 << 24) | (v43 << 8)) ,  0x400306C); // v44 | (v46 << 16) | (v46 << 24) | (v43 << 8);
   if ( v1 > 0x320 )
-    v61 = ((MEMORY[0x4003078] | 0xF0000000) >> 16 << 16) | 0x7600;
+    v61 = ((mctl_read_w(0x4003078) | 0xF0000000) >> 16 << 16) | 0x7600;
   else
-    v61 = ((MEMORY[0x4003078] | 0xF0000000) >> 16 << 16) | 0x6600;
-  MEMORY[0x4003078] = v61 | 0x10;
-  MEMORY[0x4003080] = wr_latency | 0x2000100 | (v62 << 16);
-  MEMORY[0x4003050] = tdinit0 | (tdinit1 << 20);
-  MEMORY[0x4003054] = tdinit2 | (tdinit3 << 20);
-  MEMORY[0x4003090] = trfc | (trefi << 16);
-  MEMORY[0x4003094] = (trefi << 15) & 0xFFF0000;
+    v61 = ((mctl_read_w(0x4003078) | 0xF0000000) >> 16 << 16) | 0x6600;
+  mctl_write_w(v61 | 0x10 ,  0x4003078); // v61 | 0x10;
+  mctl_write_w((wr_latency | 0x2000100 | (v62 << 16)) ,  0x4003080); // wr_latency | 0x2000100 | (v62 << 16);
+  mctl_write_w((tdinit0 | (tdinit1 << 20)) ,  0x4003050); // tdinit0 | (tdinit1 << 20);
+  mctl_write_w((tdinit2 | (tdinit3 << 20)) ,  0x4003054); // tdinit2 | (tdinit3 << 20);
+  mctl_write_w((trfc | (trefi << 16)) ,  0x4003090); // trfc | (trefi << 16);
+  mctl_write_w(((trefi << 15) & 0xFFF0000) ,  0x4003094); // (trefi << 15) & 0xFFF0000;
 }

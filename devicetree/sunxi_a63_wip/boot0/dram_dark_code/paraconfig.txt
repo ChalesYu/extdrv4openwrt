@@ -1,4 +1,8 @@
-void __fastcall paraconfig(unsigned int *para, unsigned int mask, unsigned int value)
+/*****************************************************************************
+ *Simulation code
+ ****************************************************************************/
+void paraconfig(unsigned int *para, unsigned int mask, unsigned int value)
 {
-  *para = *para & ~mask | value;
+	*para &= ~(mask);
+	*para |= value;
 }

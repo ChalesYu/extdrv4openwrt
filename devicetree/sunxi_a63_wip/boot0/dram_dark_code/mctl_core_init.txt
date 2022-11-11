@@ -1,4 +1,4 @@
-unsigned int __fastcall mctl_core_init(__dram_para_t *para)
+unsigned int mctl_core_init(__dram_para_t *para)
 {
   __dram_para_t *v1; // r4
 

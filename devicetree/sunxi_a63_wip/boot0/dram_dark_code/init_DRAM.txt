@@ -1,4 +1,4 @@
-int __fastcall init_DRAM(int type, __dram_para_t *para)
+int init_DRAM(int type, __dram_para_t *para)
 {
   __dram_para_t *v2; // r4
   unsigned int v3; // r5
@@ -14,8 +14,8 @@ int __fastcall init_DRAM(int type, __dram_para_t *para)
   unsigned int v13; // r1
 
   v2 = para;
-  MEMORY[0x7010310] |= 0x100u;
-  MEMORY[0x7010318] = 0;
+  mctl_write_w((mctl_read_w(0x7010310)| 0x100u),0x7010310);
+  mctl_write_w(0 ,0x7010318);
   _usdelay(10);
   v3 = bond_id_check();
   if ( !v3 )
@@ -69,33 +69,34 @@ LABEL_9:
     v10 = "Enable Auto SR\n";
     if ( !v9 )
       v9 = 268435968;
-    MEMORY[0x40030A0] = v9;
-    MEMORY[0x400309C] = 1034;
-    MEMORY[0x4003004] |= 1u;
+    mctl_write_w(v9, 0x40030A0);
+    mctl_write_w(1034, 0x400309C);
+    mctl_write_w((mctl_read_w(0x4003004)| 1u),0x4003004);
   }
   else
   {
     v10 = "Disable Auto SR\n";
-    MEMORY[0x40030A0] = MEMORY[0x40030A0] >> 16 << 16;
-    MEMORY[0x4003004] &= 0xFFFFFFFE;
+    mctl_write_w((mctl_read_w(0x40030A0) >> 16 << 16),0x40030A0);
+    mctl_write_w((mctl_read_w(0x4003004) & 0xFFFFFFFE),0x4003004);
   }
   printf(v10, v6);
   v11 = v2->dram_tpr13;
   if ( v11 & 0x200 || v2->dram_type == 6 )
-    v12 = MEMORY[0x4003100] & 0xFFFF0FFF | 0x5000;
+    v12 = mctl_read_w(0x4003100) & 0xFFFF0FFF | 0x5000;
   else
-    v12 = MEMORY[0x4003100] & 0xFFFF0FFF;
-  MEMORY[0x4003100] = v12;
-  MEMORY[0x4003140] |= 0x80000000;
+    v12 = mctl_read_w(0x4003100) & 0xFFFF0FFF;
+
+  mctl_write_w(v12 ,0x4003100);
+  mctl_write_w((mctl_read_w(0x4003140)| 0x80000000),0x4003140);
   if ( v11 & 0x100 )
-    MEMORY[0x40030B8] |= 0x300u;
+    mctl_write_w((mctl_read_w(0x40030B8)| 0x300u),0x40030B8);
   if ( v11 & 0x4000000 )
-    v13 = MEMORY[0x4003108] & 0xFFFFDFFF;
+    v13 = mctl_read_w(0x4003108) & 0xFFFFDFFF;
   else
-    v13 = MEMORY[0x4003108] | 0x2000;
-  MEMORY[0x4003108] = v13;
+    v13 = mctl_read_w(0x4003108) | 0x2000;
+  mctl_write_w(v13 ,0x4003108);
   if ( v2->dram_type == 7 )
-    MEMORY[0x400307C] = MEMORY[0x400307C] & 0xFFF0FFFF | 0x10000;
+    mctl_write_w((mctl_read_w(0x400307C) & 0xFFF0FFFF | 0x10000),0x400307C);
   if ( !(v11 & 0x8000000) )
   {
     if ( v11 & 0x1000000 )
