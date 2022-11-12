@@ -83,13 +83,13 @@ unsigned int auto_cal_timing(unsigned int time_ns,unsigned int clk)
 	return value;
 }
 
-unsigned int ccm_set_pll_ddr_sscg(__dram_para_t *para, unsigned int PLL_CTRL, unsigned int PLL_PAT)
+unsigned int ccm_set_pll_ddr_sscg(__dram_para_t *para, unsigned int* PLL_CTRL, unsigned int PLL_PAT)
 {
   signed int v3; // r3
   unsigned int result; // r0
 
-  if ( *(_DWORD *)PLL_CTRL & 2 )
-    *(_DWORD *)PLL_PAT |= 0x80000u;
+  if ( mctl_read_w(PLL_CTRL) & 2 )
+    mctl_write_w((mctl_read_w(PLL_PAT) | 0x80000u), PLL_PAT);
   switch ( (para->dram_tpr13 >> 20) & 7 )
   {
     case 1u:
@@ -108,9 +108,9 @@ unsigned int ccm_set_pll_ddr_sscg(__dram_para_t *para, unsigned int PLL_CTRL, un
       v3 = -234474701;
       break;
   }
-  *(_DWORD *)PLL_PAT = v3;
+  mctl_write_w(v3, PLL_PAT);
   result = 0;
-  *(_DWORD *)PLL_CTRL |= 0x1000000u;
+  mctl_write_w((mctl_read_w(PLL_CTRL) | 0x1000000u), PLL_CTRL);
   return result;
 }
 
@@ -142,16 +142,16 @@ unsigned int ccm_set_pll_ddr_clk(unsigned int pll, __dram_para_t *para)
   else
     v7 = v6;
   v8 = v6;
-  v9 = *v4 & 0xFFFF80FC | 0x80000000 | ((v7 - 1) << 8);
-  *v4 = v9;
+  v9 = mctl_read_w(v4) & 0xFFFF80FC | 0x80000000 | ((v7 - 1) << 8);
+  mctl_write_w(v9 , v4);
   v9 &= 0xDFFFFFFF;
-  *v4 = v9;
-  *v4 = v9 | 0x20000000;
-  while ( !(*v4 & 0x10000000) )
+  mctl_write_w(v9 , v4);
+  mctl_write_w((v9 | 0x20000000) , v4);
+  while ( !(mctl_read_w(v4) & 0x10000000) )
     ;
   _usdelay(20);
   if ( v2->dram_tpr13 & 0x800000 )
-    ccm_set_pll_ddr_sscg(v2, (unsigned int)v4, v3);
+    ccm_set_pll_ddr_sscg(v2, v4, v3);
   return 24 * v8;
 }
 
@@ -882,28 +882,28 @@ void eye_delay_compensation(__dram_para_t *para)
   v4 = (_DWORD *)67121936;
   do
   {
-    *v4 |= ((v1 & 0xF) << 9) | 2 * (v3 & 0xF);
+    mctl_write_w((mctl_read_w(v4) | ((v1 & 0xF) << 9) | 2 * (v3 & 0xF)) , v4);
     ++v4;
   }
   while ( v4 != (_DWORD *)67121972 );
   v5 = (_DWORD *)67122064;
   do
   {
-    *v5 |= ((BYTE)v1 >> 4 << 9) | 2 * ((BYTE)v3 >> 4);
+    mctl_write_w((mctl_read_w(v5) | ((BYTE)v1 >> 4 << 9) | 2 * ((BYTE)v3 >> 4)) , v5);
     ++v5;
   }
   while ( v5 != (_DWORD *)67122100 );
   v6 = (_DWORD *)67122192;
   do
   {
-    *v6 |= (((v1 >> 8) & 0xF) << 9) | 2 * ((v3 >> 8) & 0xF);
+    mctl_write_w((mctl_read_w(v6) | (((v1 >> 8) & 0xF) << 9) | 2 * ((v3 >> 8) & 0xF)) , v6);
     ++v6;
   }
   while ( v6 != (_DWORD *)67122228 );
   v7 = (_DWORD *)67122320;
   do
   {
-    *v7 |= ((WORD)v1 >> 12 << 9) | 2 * ((WORD)v3 >> 12);
+    mctl_write_w((mctl_read_w(v7) | ((WORD)v1 >> 12 << 9) | 2 * ((WORD)v3 >> 12)) , v7);
     ++v7;
   }
   while ( v7 != (_DWORD *)67122356 );
@@ -934,7 +934,7 @@ void eye_delay_compensation(__dram_para_t *para)
   v17 = (_DWORD *)67121728;
   do
   {
-    *v17 |= (BYTE)v16 >> 4 << 8;
+    mctl_write_w((mctl_read_w(v17) | ((BYTE)v16 >> 4 << 8)) , v17);
     ++v17;
   }
   while ( v17 != (_DWORD *)67121788 );
@@ -967,10 +967,10 @@ unsigned int mctl_channel_init(unsigned int ch_index, __dram_para_t *para)
   v6 = (unsigned int *)67121988;
   do
   {
-    v7 = *v6 & 0xFFFF0FC1 | v5;
+    v7 = mctl_read_w(v6) & 0xFFFF0FC1 | v5;
     if ( v4 > 0x2A0 )
       v7 = v7 & 0xFFFFF9FF | 0x400;
-    *v6 = v7;
+    mctl_write_w(v7, v6);
     v6 += 32;
   }
   while ( v6 != (unsigned int *)67122500 );
@@ -1173,6 +1173,70 @@ void dram_disable_all_master()
   _usdelay(10);
 }
 
+unsigned int dramc_simple_wr_test(unsigned int dram_size, unsigned int test_length)
+{
+  int v2; // r3
+  _DWORD *v3; // r2
+  unsigned int v4; // r0
+  int v5; // r3
+  int v6; // r4
+  _DWORD *v7; // r4
+  int v8; // r3
+  int v9; // r5
+  int v10; // r7
+  int v11; // r6
+  int v12; // r1
+  int v13; // r2
+  _DWORD *v14; // r3
+  int v15; // r6
+  int v16; // r5
+  int v18; // [sp+0h] [bp-18h]
+
+  v18 = v2;
+  v3 = (_DWORD *)0x40000000;
+  v4 = dram_size >> 1 << 20;
+  v5 = 0;
+  while ( v5 != test_length )
+  {
+    mctl_write_w((v5 + 19088743), v3);
+    v6 = v5++ - 19088744;
+    *(_DWORD *)((char *)v3 + v4) = v6;
+    ++v3;
+  }
+  v7 = (_DWORD *)0x40000000;
+  v8 = 0;
+  while ( v8 != test_length )
+  {
+    v9 = mctl_read_w(v7) + v4;
+    v10 = (mctl_read_w(v7) + v4);
+    v11 = v8 - 19088744;
+    if ( v10 != v8 - 19088744 )
+    {
+      printf("DRAM simple test FAIL.\n");
+      v12 = v10;
+      v13 = v11;
+      mctl_write_w(v9, v14);
+LABEL_9:
+      printf("%x != %x at address %x\n", v12, v13, v14, v18);
+      return 1;
+    }
+    v15 = mctl_read_w(v7);
+    v16 = v8 + 19088743;
+    if ( mctl_read_w(v7) != v8 + 19088743 )
+    {
+      printf("DRAM simple test FAIL.\n");
+      v12 = v15;
+      v13 = v16;
+      v14 = v7;
+      goto LABEL_9;
+    }
+    ++v8;
+    ++v7;
+  }
+  printf("DRAM simple test OK.\n");
+  return 0;
+}
+
 static __dram_para_t now_dram_para = {
 //A63 SBC
 #if 1
@@ -1353,11 +1417,10 @@ IC_NOT_MATCH_AXP:
   }
   dram_enable_all_master();
 
-/*
-  if ( v2->dram_tpr13 & 0x10000000 && dramc_simple_wr_test(v3, 0x1000u) )
-    v3 = 0;
-*/
-	size = v8;
-	return size;
+//  if ( v2->dram_tpr13 & 0x10000000 && dramc_simple_wr_test(v3, 0x1000u) )
+//  		v3 = 0;
+
+   size = v8;
+   return size;
 };
 
