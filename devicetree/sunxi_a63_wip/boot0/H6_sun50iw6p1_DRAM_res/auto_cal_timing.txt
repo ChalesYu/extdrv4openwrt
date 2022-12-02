@@ -1,0 +1,4 @@
+unsigned int __fastcall auto_cal_timing(unsigned int time_ns, unsigned int clk)
+{
+  return (time_ns * clk % 0x3E8 != 0) + time_ns * clk / 0x3E8;
+}

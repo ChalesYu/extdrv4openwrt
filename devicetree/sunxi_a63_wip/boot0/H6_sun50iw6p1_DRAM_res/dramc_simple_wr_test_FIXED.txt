@@ -1,0 +1,67 @@
+#define WORD uint16_t
+#define DWORD uint32_t
+#define _DWORD uint32_t
+#define BYTE uint8_t
+#define LOWORD(l)           ((WORD)((DWORD)(l) & 0xffff))
+#define HIWORD(l)           ((WORD)((DWORD)(l) >> 16))
+#define LOBYTE(w)           ((BYTE)((DWORD)(w) & 0xff))
+#define HIBYTE(w)           ((BYTE)((DWORD)(w) >> 8))
+
+unsigned int  dramc_simple_wr_test(unsigned int dram_size, unsigned int test_length)
+{
+  int v2; // r2
+  unsigned int v4; // r0
+  int i; // r3
+  int v6; // r1
+  int v7; // r3
+  int j; // r6
+//  _DWORD * pv2;
+//  _DWORD * pv2v4;
+
+  v2 = 0x40000000;
+  v4 = dram_size >> 1 << 20;
+  for ( i = 0; i != test_length; ++i )
+  {
+//    *(_DWORD *)v2 = i + 19088743;
+    _DWORD * pv2 = (_DWORD *)v2;
+    *pv2 =  (i + 19088743);
+    
+    v6 = i - 19088744;
+    
+//    *(_DWORD *)(v2 += v4) = v6;
+	v2 += v4;
+	_DWORD * pv2v4 = (_DWORD *)v2;
+	*pv2v4 = v6 ;
+	v2 -= v4;
+
+     v2 += 4;
+  }
+  v7 = 0x40000000;
+  printf("DRAM simple test: fill value OK.\n");
+  printf("DRAM simple test: Now start read back.\n");
+  for ( j = 0; j != test_length; ++j )
+  {
+	v7 += v4;
+	_DWORD * pv7v4 = (_DWORD *)v7;
+
+    if (  *pv7v4 != (j - 19088744)  )
+    {
+      printf("DRAM simple test FAIL-----%x != %x at address %x\n");
+      return 1;
+    }
+	v7 -= v4;
+
+
+	_DWORD * pv7 = (_DWORD *)v7;
+    if (  *pv7 != (j + 19088743)  )
+    {
+      printf("DRAM simple test FAIL-----%x != %x at address %x\n");
+      return 1;
+    }
+
+
+    v7 += 4;
+  }
+  printf("DRAM simple test OK.\n");
+  return 0;
+}

@@ -1,0 +1,10 @@
+void phy_hard_reset()
+{
+  int v0; // r5
+
+  MEMORY[0x4005010] &= ~0x4000000u;
+  v0 = MEMORY[0x4005010] | 0x4000000;
+  _usdelay(0xAu);
+  MEMORY[0x4005010] = v0;
+  _usdelay(0xAu);
+}

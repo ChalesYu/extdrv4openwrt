@@ -1,0 +1,7 @@
+unsigned int __fastcall mctl_core_init(__dram_para_t *para)
+{
+  mctl_sys_init(para);
+  mctl_com_init(para);
+  auto_set_timing_para(para);
+  return mctl_channel_init(0, para);
+}

@@ -1,0 +1,7 @@
+unsigned int __fastcall id_judge_fun(unsigned __int16 disturb_code)
+{
+  if ( (MEMORY[0x1C15004] & 7) != 0 )
+    return 0;
+  else
+    return disturb_coding(disturb_code, 1u);
+}
