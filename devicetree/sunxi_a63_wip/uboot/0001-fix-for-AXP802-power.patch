@@ -1,0 +1,1047 @@
+From 747e64f740b1ce4f7f2942f8db609c1e9f9451f9 Mon Sep 17 00:00:00 2001
+From: chalesyu <574249312@qq.com>
+Date: Thu, 1 Dec 2022 00:00:00 +0000
+Subject: [PATCH] fix for AXP802 power
+
+using r_rsb like AXP803
+sun8i_rsb.c copy from drivers/i2c/sun8i_rsb.c
+---
+ arch/arm/include/asm/arch-sunxi/gpio.h |   1 +
+ arch/arm/mach-sunxi/Makefile           |   2 +-
+ arch/arm/mach-sunxi/pmic_bus.c         |  71 +++---
+ arch/arm/mach-sunxi/sun8i_rsb.c        | 313 +++++++++++++++++++++++
+ board/sunxi/board.c                    |  21 +-
+ configs/teclast_m8_defconfig           |   5 +
+ drivers/i2c/sun8i_rsb.c                |  13 +-
+ drivers/power/Kconfig                  |  14 +-
+ drivers/power/Makefile                 |   1 +
+ drivers/power/axp806.c                 | 339 +++++++++++++++++++++++++
+ include/axp806.h                       |  18 ++
+ include/axp_pmic.h                     |   1 +
+ 12 files changed, 750 insertions(+), 49 deletions(-)
+ create mode 100644 arch/arm/mach-sunxi/sun8i_rsb.c
+ create mode 100644 drivers/power/axp806.c
+ create mode 100644 include/axp806.h
+
+diff --git a/arch/arm/include/asm/arch-sunxi/gpio.h b/arch/arm/include/asm/arch-sunxi/gpio.h
+index 437e86479c..21f28f75d6 100644
+--- a/arch/arm/include/asm/arch-sunxi/gpio.h
++++ b/arch/arm/include/asm/arch-sunxi/gpio.h
+@@ -198,6 +198,7 @@ enum sunxi_gpio_number {
+ #define SUN8I_A23_GPL_R_TWI	3
+ #define SUN8I_GPL_R_UART	2
+ #define SUN50I_GPL_R_TWI	2
++#define SUN50I_H6_GPL_R_TWI	3
+ #define SUN50I_H616_GPL_R_TWI	3
+ 
+ #define SUN9I_GPN_R_RSB		3
+diff --git a/arch/arm/mach-sunxi/Makefile b/arch/arm/mach-sunxi/Makefile
+index 5a48726474..07bacb2fae 100644
+--- a/arch/arm/mach-sunxi/Makefile
++++ b/arch/arm/mach-sunxi/Makefile
+@@ -41,7 +41,7 @@ obj-$(CONFIG_DRAM_SUN9I)	+= dram_sun9i.o
+ obj-$(CONFIG_SPL_SPI_SUNXI)	+= spl_spi_sunxi.o
+ obj-$(CONFIG_SUNXI_DRAM_DW)	+= dram_sunxi_dw.o
+ obj-$(CONFIG_SUNXI_DRAM_DW)	+= dram_timings/
+-obj-$(CONFIG_DRAM_SUN50I_H6)	+= dram_sun50i_a63.o
++obj-$(CONFIG_DRAM_SUN50I_H6)	+= dram_sun50i_a63.o sun8i_rsb.o
+ #obj-$(CONFIG_DRAM_SUN50I_H6)	+= dram_timings/
+ obj-$(CONFIG_DRAM_SUN50I_H616)	+= dram_sun50i_h616.o
+ obj-$(CONFIG_DRAM_SUN50I_H616)	+= dram_timings/
+diff --git a/arch/arm/mach-sunxi/pmic_bus.c b/arch/arm/mach-sunxi/pmic_bus.c
+index c090840637..08f990ac12 100644
+--- a/arch/arm/mach-sunxi/pmic_bus.c
++++ b/arch/arm/mach-sunxi/pmic_bus.c
+@@ -8,6 +8,8 @@
+  * axp223 uses the rsb bus, these functions abstract this.
+  */
+ 
++#define DBG
++
+ #include <axp_pmic.h>
+ #include <common.h>
+ #include <dm.h>
+@@ -16,15 +18,22 @@
+ #include <i2c.h>
+ #include <power/pmic.h>
+ #include <asm/arch/pmic_bus.h>
++#include <asm/gpio.h>
+ 
+ #define AXP152_I2C_ADDR			0x30
+ 
+ #define AXP209_I2C_ADDR			0x34
+ 
+ #define AXP305_I2C_ADDR			0x36
++#define AXP806_I2C_ADDR			0x36
+ 
+ #define AXP221_CHIP_ADDR		0x68
+ 
++//For A63 board with AXP802
++#define AXP803_HW_ADDR	0x3a3
++#define AXP803_RT_ADDR	0x2d
++
++
+ #if CONFIG_IS_ENABLED(PMIC_AXP)
+ static struct udevice *pmic;
+ #else
+@@ -53,19 +62,23 @@ int pmic_bus_init(void)
+ 	ret = uclass_get_device_by_driver(UCLASS_PMIC, DM_DRIVER_GET(axp_pmic),
+ 					  &pmic);
+ #else
+-	if (IS_ENABLED(CONFIG_SYS_I2C_SUN6I_P2WI)) {
+-		p2wi_init();
+-		ret = p2wi_change_to_p2wi_mode(AXP221_CHIP_ADDR,
+-					       AXP_PMIC_MODE_REG,
+-					       AXP_PMIC_MODE_P2WI);
+-	} else if (IS_ENABLED(CONFIG_SYS_I2C_SUN8I_RSB)) {
++//	if (IS_ENABLED(CONFIG_SYS_I2C_SUN6I_P2WI)) {
++//		p2wi_init();
++//		ret = p2wi_change_to_p2wi_mode(AXP221_CHIP_ADDR,
++//					       AXP_PMIC_MODE_REG,
++//					       AXP_PMIC_MODE_P2WI);
++//	} else if (IS_ENABLED(CONFIG_SYS_I2C_SUN8I_RSB)) {
++
++	clock_twi_onoff(5, 1);
++	sunxi_gpio_set_cfgpin(SUNXI_GPL(0), SUN50I_H6_GPL_R_TWI);
++	sunxi_gpio_set_cfgpin(SUNXI_GPL(1), SUN50I_H6_GPL_R_TWI);
+ 		ret = rsb_init();
+ 		if (ret)
+ 			return ret;
+ 
+-		ret = rsb_set_device_address(AXP_PMIC_PRI_DEVICE_ADDR,
+-					     AXP_PMIC_PRI_RUNTIME_ADDR);
+-	}
++		ret = rsb_set_device_address(AXP803_HW_ADDR,
++					     AXP803_RT_ADDR);
++//	}
+ #endif
+ 
+ 	needs_init = ret;
+@@ -75,30 +88,30 @@ int pmic_bus_init(void)
+ 
+ int pmic_bus_read(u8 reg, u8 *data)
+ {
+-#if CONFIG_IS_ENABLED(PMIC_AXP)
+-	return pmic_read(pmic, reg, data, 1);
+-#else
+-	if (IS_ENABLED(CONFIG_SYS_I2C_SUN6I_P2WI))
+-		return p2wi_read(reg, data);
+-	if (IS_ENABLED(CONFIG_SYS_I2C_SUN8I_RSB))
+-		return rsb_read(AXP_PMIC_PRI_RUNTIME_ADDR, reg, data);
+-
+-	return i2c_read(pmic_i2c_address(), reg, 1, data, 1);
+-#endif
++//#if CONFIG_IS_ENABLED(PMIC_AXP)
++//	return pmic_read(pmic, reg, data, 1);
++//#else
++//	if (IS_ENABLED(CONFIG_SYS_I2C_SUN6I_P2WI))
++//		return p2wi_read(reg, data);
++//	if (IS_ENABLED(CONFIG_SYS_I2C_SUN8I_RSB))
++		return rsb_read(AXP803_RT_ADDR, reg, data);
++
++//	return i2c_read(pmic_i2c_address(), reg, 1, data, 1);
++//y#endif
+ }
+ 
+ int pmic_bus_write(u8 reg, u8 data)
+ {
+-#if CONFIG_IS_ENABLED(PMIC_AXP)
+-	return pmic_write(pmic, reg, &data, 1);
+-#else
+-	if (IS_ENABLED(CONFIG_SYS_I2C_SUN6I_P2WI))
+-		return p2wi_write(reg, data);
+-	if (IS_ENABLED(CONFIG_SYS_I2C_SUN8I_RSB))
+-		return rsb_write(AXP_PMIC_PRI_RUNTIME_ADDR, reg, data);
+-
+-	return i2c_write(pmic_i2c_address(), reg, 1, &data, 1);
+-#endif
++//#if CONFIG_IS_ENABLED(PMIC_AXP)
++//	return pmic_write(pmic, reg, &data, 1);
++//#else
++//	if (IS_ENABLED(CONFIG_SYS_I2C_SUN6I_P2WI))
++//		return p2wi_write(reg, data);
++//	if (IS_ENABLED(CONFIG_SYS_I2C_SUN8I_RSB))
++		return rsb_write(AXP803_RT_ADDR, reg, data);
++
++//	return i2c_write(pmic_i2c_address(), reg, 1, &data, 1);
++//#endif
+ }
+ 
+ int pmic_bus_setbits(u8 reg, u8 bits)
+diff --git a/arch/arm/mach-sunxi/sun8i_rsb.c b/arch/arm/mach-sunxi/sun8i_rsb.c
+new file mode 100644
+index 0000000000..5e085df9e5
+--- /dev/null
++++ b/arch/arm/mach-sunxi/sun8i_rsb.c
+@@ -0,0 +1,313 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * (C) Copyright 2014 Hans de Goede <hdegoede@redhat.com>
++ *
++ * Based on allwinner u-boot sources rsb code which is:
++ * (C) Copyright 2007-2013
++ * Allwinner Technology Co., Ltd. <www.allwinnertech.com>
++ * lixiang <lixiang@allwinnertech.com>
++ */
++
++#include <axp_pmic.h>
++#include <clk.h>
++#include <common.h>
++#include <dm.h>
++#include <errno.h>
++#include <i2c.h>
++#include <reset.h>
++#include <time.h>
++#include <asm/arch/cpu.h>
++#include <asm/arch/gpio.h>
++#include <asm/arch/prcm.h>
++#include <asm/arch/rsb.h>
++
++//replace prcm_apb0_enable(PRCM_APB0_GATE_PIO | PRCM_APB0_GATE_RSB);
++#define SUNXI_RSB_BASE 0x7083000
++#define SUNXI_R_PRCM_BASE		0x07010000
++
++static int sun8i_rsb_await_trans(struct sunxi_rsb_reg *base)
++{
++	unsigned long tmo = timer_get_us() + 1000000;
++	u32 stat;
++	int ret;
++
++	while (1) {
++		stat = readl(&base->stat);
++		if (stat & RSB_STAT_LBSY_INT) {
++			ret = -EBUSY;
++			break;
++		}
++		if (stat & RSB_STAT_TERR_INT) {
++			ret = -EIO;
++			break;
++		}
++		if (stat & RSB_STAT_TOVER_INT) {
++			ret = 0;
++			break;
++		}
++		if (timer_get_us() > tmo) {
++			ret = -ETIME;
++			break;
++		}
++	}
++	writel(stat, &base->stat); /* Clear status bits */
++
++	return ret;
++}
++
++static int sun8i_rsb_do_trans(struct sunxi_rsb_reg *base)
++{
++	setbits_le32(&base->ctrl, RSB_CTRL_START_TRANS);
++
++	return sun8i_rsb_await_trans(base);
++}
++
++static int sun8i_rsb_read(struct sunxi_rsb_reg *base, u16 runtime_addr,
++			  u8 reg_addr, u8 *data)
++{
++	int ret;
++
++	writel(RSB_DEVADDR_RUNTIME_ADDR(runtime_addr), &base->devaddr);
++	writel(reg_addr, &base->addr);
++	writel(RSB_CMD_BYTE_READ, &base->cmd);
++
++	ret = sun8i_rsb_do_trans(base);
++	if (ret)
++		return ret;
++
++	*data = readl(&base->data) & 0xff;
++
++	return 0;
++}
++
++static int sun8i_rsb_write(struct sunxi_rsb_reg *base, u16 runtime_addr,
++			   u8 reg_addr, u8 data)
++{
++	writel(RSB_DEVADDR_RUNTIME_ADDR(runtime_addr), &base->devaddr);
++	writel(reg_addr, &base->addr);
++	writel(data, &base->data);
++	writel(RSB_CMD_BYTE_WRITE, &base->cmd);
++
++	return sun8i_rsb_do_trans(base);
++}
++
++static int sun8i_rsb_set_device_address(struct sunxi_rsb_reg *base,
++					u16 device_addr, u16 runtime_addr)
++{
++	writel(RSB_DEVADDR_RUNTIME_ADDR(runtime_addr) |
++	       RSB_DEVADDR_DEVICE_ADDR(device_addr), &base->devaddr);
++	writel(RSB_CMD_SET_RTSADDR, &base->cmd);
++
++	return sun8i_rsb_do_trans(base);
++}
++
++static void sun8i_rsb_set_clk(struct sunxi_rsb_reg *base)
++{
++	u32 div = 0;
++	u32 cd_odly = 0;
++
++	/* Source is Hosc24M, set RSB clk to 3Mhz */
++	div = 24000000 / 3000000 / 2 - 1;
++	cd_odly = div >> 1;
++	if (!cd_odly)
++		cd_odly = 1;
++
++	writel((cd_odly << 8) | div, &base->ccr);
++}
++
++static int sun8i_rsb_set_device_mode(struct sunxi_rsb_reg *base)
++{
++	unsigned long tmo = timer_get_us() + 1000000;
++
++	writel(RSB_DMCR_DEVICE_MODE_START | RSB_DMCR_DEVICE_MODE_DATA,
++	       &base->dmcr);
++
++	while (readl(&base->dmcr) & RSB_DMCR_DEVICE_MODE_START) {
++		if (timer_get_us() > tmo)
++			return -ETIME;
++	}
++
++	return sun8i_rsb_await_trans(base);
++}
++
++static int sun8i_rsb_init(struct sunxi_rsb_reg *base)
++{
++	writel(RSB_CTRL_SOFT_RST, &base->ctrl);
++	sun8i_rsb_set_clk(base);
++
++	return sun8i_rsb_set_device_mode(base);
++}
++
++#if IS_ENABLED(CONFIG_AXP_PMIC_BUS)
++int rsb_read(const u16 runtime_addr, const u8 reg_addr, u8 *data)
++{
++	struct sunxi_rsb_reg *base = (struct sunxi_rsb_reg *)SUNXI_RSB_BASE;
++
++	return sun8i_rsb_read(base, runtime_addr, reg_addr, data);
++}
++
++int rsb_write(const u16 runtime_addr, const u8 reg_addr, u8 data)
++{
++	struct sunxi_rsb_reg *base = (struct sunxi_rsb_reg *)SUNXI_RSB_BASE;
++
++	return sun8i_rsb_write(base, runtime_addr, reg_addr, data);
++}
++
++int rsb_set_device_address(u16 device_addr, u16 runtime_addr)
++{
++	struct sunxi_rsb_reg *base = (struct sunxi_rsb_reg *)SUNXI_RSB_BASE;
++
++	return sun8i_rsb_set_device_address(base, device_addr, runtime_addr);
++}
++
++
++int ext_atf_a63_sunxi_init_platform_r_twi(void)
++{
++	uint32_t pin_func = 0x77;
++	uint32_t device_bit;
++	unsigned int reset_offset = 0xb0;
++
++		pin_func = 0x22 ;
++		device_bit = BIT(16);
++		reset_offset = 0x1bc ;
++
++	/* switch pins PL0 and PL1 to the desired function */
++	clrsetbits_32(SUNXI_R_PIO_BASE + 0x00, 0xffU, pin_func);
++
++	/* level 2 drive strength */
++	clrsetbits_32(SUNXI_R_PIO_BASE + 0x14, 0x0fU, 0xaU);
++
++	/* set both pins to pull-up */
++	clrsetbits_32(SUNXI_R_PIO_BASE + 0x1c, 0x0fU, 0x5U);
++
++	/* un-gate clock */
++	setbits_32(SUNXI_R_PRCM_BASE + reset_offset, BIT(0));
++
++	/* assert, then de-assert reset of I2C/RSB controller */
++	clrbits_32(SUNXI_R_PRCM_BASE + reset_offset, device_bit);
++	setbits_32(SUNXI_R_PRCM_BASE + reset_offset, device_bit);
++
++	return 0;
++}
++
++
++int rsb_init(void)
++{
++	struct sunxi_rsb_reg *base = (struct sunxi_rsb_reg *)SUNXI_RSB_BASE;
++
++	/* Enable RSB and PIO clk, and de-assert their resets */
++	ext_atf_a63_sunxi_init_platform_r_twi();
++//	prcm_apb0_enable(PRCM_APB0_GATE_PIO | PRCM_APB0_GATE_RSB);
++
++		sunxi_gpio_set_cfgpin(SUNXI_GPL(0), SUN8I_GPL_R_RSB);
++		sunxi_gpio_set_cfgpin(SUNXI_GPL(1), SUN8I_GPL_R_RSB);
++		sunxi_gpio_set_pull(SUNXI_GPL(0), 1);
++		sunxi_gpio_set_pull(SUNXI_GPL(1), 1);
++		sunxi_gpio_set_drv(SUNXI_GPL(0), 2);
++		sunxi_gpio_set_drv(SUNXI_GPL(1), 2);
++
++	return sun8i_rsb_init(base);
++}
++#endif
++
++#if CONFIG_IS_ENABLED(DM_I2C)
++struct sun8i_rsb_priv {
++	struct sunxi_rsb_reg *base;
++};
++
++/*
++ * The mapping from hardware address to runtime address is fixed, and shared
++ * among all RSB drivers. See the comment in drivers/bus/sunxi-rsb.c in Linux.
++ */
++static int sun8i_rsb_get_runtime_address(u16 device_addr)
++{
++	if (device_addr == AXP_PMIC_PRI_DEVICE_ADDR)
++		return AXP_PMIC_PRI_RUNTIME_ADDR;
++	if (device_addr == AXP_PMIC_SEC_DEVICE_ADDR)
++		return AXP_PMIC_SEC_RUNTIME_ADDR;
++
++	return -ENXIO;
++}
++
++static int sun8i_rsb_xfer(struct udevice *bus, struct i2c_msg *msg, int nmsgs)
++{
++	int runtime_addr = sun8i_rsb_get_runtime_address(msg->addr);
++	struct sun8i_rsb_priv *priv = dev_get_priv(bus);
++
++	if (runtime_addr < 0)
++		return runtime_addr;
++
++	/* The hardware only supports SMBus-style transfers. */
++	if (nmsgs == 2 && msg[1].flags == I2C_M_RD && msg[1].len == 1)
++		return sun8i_rsb_read(priv->base, runtime_addr,
++				      msg[0].buf[0], &msg[1].buf[0]);
++
++	if (nmsgs == 1 && msg[0].len == 2)
++		return sun8i_rsb_write(priv->base, runtime_addr,
++				       msg[0].buf[0], msg[0].buf[1]);
++
++	return -EINVAL;
++}
++
++static int sun8i_rsb_probe_chip(struct udevice *bus, uint chip_addr,
++				uint chip_flags)
++{
++	int runtime_addr = sun8i_rsb_get_runtime_address(chip_addr);
++	struct sun8i_rsb_priv *priv = dev_get_priv(bus);
++
++	if (runtime_addr < 0)
++		return runtime_addr;
++
++	return sun8i_rsb_set_device_address(priv->base, chip_addr, runtime_addr);
++}
++
++static int sun8i_rsb_probe(struct udevice *bus)
++{
++	struct sun8i_rsb_priv *priv = dev_get_priv(bus);
++	struct reset_ctl *reset;
++	struct clk *clk;
++
++	priv->base = dev_read_addr_ptr(bus);
++
++	reset = devm_reset_control_get(bus, NULL);
++	if (!IS_ERR(reset))
++		reset_deassert(reset);
++
++	clk = devm_clk_get(bus, NULL);
++	if (!IS_ERR(clk))
++		clk_enable(clk);
++
++	return sun8i_rsb_init(priv->base);
++}
++
++static int sun8i_rsb_child_pre_probe(struct udevice *child)
++{
++	struct dm_i2c_chip *chip = dev_get_parent_plat(child);
++	struct udevice *bus = child->parent;
++
++	/* Ensure each transfer is for a single register. */
++	chip->flags |= DM_I2C_CHIP_RD_ADDRESS | DM_I2C_CHIP_WR_ADDRESS;
++
++	return sun8i_rsb_probe_chip(bus, chip->chip_addr, 0);
++}
++
++static const struct dm_i2c_ops sun8i_rsb_ops = {
++	.xfer		= sun8i_rsb_xfer,
++	.probe_chip	= sun8i_rsb_probe_chip,
++};
++
++static const struct udevice_id sun8i_rsb_ids[] = {
++	{ .compatible = "allwinner,sun8i-a23-rsb" },
++	{ /* sentinel */ }
++};
++
++U_BOOT_DRIVER(sun8i_rsb) = {
++	.name			= "sun8i_rsb",
++	.id			= UCLASS_I2C,
++	.of_match		= sun8i_rsb_ids,
++	.probe			= sun8i_rsb_probe,
++	.child_pre_probe	= sun8i_rsb_child_pre_probe,
++	.priv_auto		= sizeof(struct sun8i_rsb_priv),
++	.ops			= &sun8i_rsb_ops,
++};
++#endif /* CONFIG_IS_ENABLED(DM_I2C) */
+diff --git a/board/sunxi/board.c b/board/sunxi/board.c
+index 21a2407e06..52d25bc5ca 100644
+--- a/board/sunxi/board.c
++++ b/board/sunxi/board.c
+@@ -112,6 +112,10 @@ void i2c_init_board(void)
+ 	clock_twi_onoff(5, 1);
+ 	sunxi_gpio_set_cfgpin(SUNXI_GPL(8), SUN50I_GPL_R_TWI);
+ 	sunxi_gpio_set_cfgpin(SUNXI_GPL(9), SUN50I_GPL_R_TWI);
++#elif CONFIG_MACH_SUN50I_H6
++	clock_twi_onoff(5, 1);
++	sunxi_gpio_set_cfgpin(SUNXI_GPL(0), SUN50I_H6_GPL_R_TWI);
++	sunxi_gpio_set_cfgpin(SUNXI_GPL(1), SUN50I_H6_GPL_R_TWI);
+ #elif CONFIG_MACH_SUN50I_H616
+ 	clock_twi_onoff(5, 1);
+ 	sunxi_gpio_set_cfgpin(SUNXI_GPL(0), SUN50I_H616_GPL_R_TWI);
+@@ -584,9 +588,7 @@ void sunxi_board_init(void)
+ 	power_failed = sy8106a_set_vout1(CONFIG_SY8106A_VOUT1_VOLT);
+ #endif
+ 
+-#if defined CONFIG_AXP152_POWER || defined CONFIG_AXP209_POWER || \
+-	defined CONFIG_AXP221_POWER || defined CONFIG_AXP305_POWER || \
+-	defined CONFIG_AXP809_POWER || defined CONFIG_AXP818_POWER
++#if 1
+ 	power_failed = axp_init();
+ 
+ 	if (IS_ENABLED(CONFIG_AXP_DISABLE_BOOT_ON_POWERON) && !power_failed) {
+@@ -603,10 +605,10 @@ void sunxi_board_init(void)
+ 	defined CONFIG_AXP818_POWER
+ 	power_failed |= axp_set_dcdc1(CONFIG_AXP_DCDC1_VOLT);
+ #endif
+-#if !defined(CONFIG_AXP305_POWER)
+-	power_failed |= axp_set_dcdc2(CONFIG_AXP_DCDC2_VOLT);
+-	power_failed |= axp_set_dcdc3(CONFIG_AXP_DCDC3_VOLT);
+-#endif
++//#if !defined(CONFIG_AXP305_POWER)
++//	power_failed |= axp_set_dcdc2(CONFIG_AXP_DCDC2_VOLT);
++//	power_failed |= axp_set_dcdc3(CONFIG_AXP_DCDC3_VOLT);
++//#endif
+ #if !defined(CONFIG_AXP209_POWER) && !defined(CONFIG_AXP818_POWER)
+ 	power_failed |= axp_set_dcdc4(CONFIG_AXP_DCDC4_VOLT);
+ #endif
+@@ -619,10 +621,11 @@ void sunxi_board_init(void)
+ 	defined CONFIG_AXP818_POWER
+ 	power_failed |= axp_set_aldo1(CONFIG_AXP_ALDO1_VOLT);
+ #endif
+-#if !defined(CONFIG_AXP305_POWER)
++#if !defined(CONFIG_AXP305_POWER) && !defined(CONFIG_AXP806_POWER)
+ 	power_failed |= axp_set_aldo2(CONFIG_AXP_ALDO2_VOLT);
+ #endif
+-#if !defined(CONFIG_AXP152_POWER) && !defined(CONFIG_AXP305_POWER)
++#if !defined(CONFIG_AXP152_POWER) && !defined(CONFIG_AXP305_POWER) && \
++	!defined(CONFIG_AXP806_POWER)
+ 	power_failed |= axp_set_aldo3(CONFIG_AXP_ALDO3_VOLT);
+ #endif
+ #ifdef CONFIG_AXP209_POWER
+diff --git a/configs/teclast_m8_defconfig b/configs/teclast_m8_defconfig
+index 1c20228e8e..11a8129327 100644
+--- a/configs/teclast_m8_defconfig
++++ b/configs/teclast_m8_defconfig
+@@ -3,6 +3,8 @@ CONFIG_ARCH_SUNXI=y
+ #CONFIG_DEFAULT_DEVICE_TREE="sun50i-h6-tanix-tx6"
+ CONFIG_DEFAULT_DEVICE_TREE="sun50i-a63-board"
+ CONFIG_SPL=y
++CONFIG_SPL_MAX_SIZE=0xbfa0
++CONFIG_SPL_PAD_TO=0xc000
+ CONFIG_MACH_SUN50I_H6=y
+ #dram part almost same as R40 and T7
+ #CONFIG_SUNXI_DRAM_LPDDR3_STOCK=y
+@@ -14,3 +16,6 @@ CONFIG_DRAM_ZQ=3881979
+ CONFIG_MMC0_CD_PIN="PF6"
+ CONFIG_MMC_SUNXI_SLOT_EXTRA=2
+ # CONFIG_SYS_MALLOC_CLEAR_ON_INIT is not set
++CONFIG_SYS_I2C_SUN8I_RSB=y
++CONFIG_AXP_PMIC_BUS=y
++
+diff --git a/drivers/i2c/sun8i_rsb.c b/drivers/i2c/sun8i_rsb.c
+index 47fa05b6d1..479609b642 100644
+--- a/drivers/i2c/sun8i_rsb.c
++++ b/drivers/i2c/sun8i_rsb.c
+@@ -21,6 +21,10 @@
+ #include <asm/arch/prcm.h>
+ #include <asm/arch/rsb.h>
+ 
++#define  SUNXI_RSB_BASE  0x7083000
++#define PRCM_APB0_GATE_PIO (0x1 << 0)
++#define PRCM_APB0_GATE_RSB (0x1 << 3)
++
+ static int sun8i_rsb_await_trans(struct sunxi_rsb_reg *base)
+ {
+ 	unsigned long tmo = timer_get_us() + 1000000;
+@@ -163,21 +167,12 @@ int rsb_init(void)
+ 	/* Enable RSB and PIO clk, and de-assert their resets */
+ 	prcm_apb0_enable(PRCM_APB0_GATE_PIO | PRCM_APB0_GATE_RSB);
+ 
+-	if (IS_ENABLED(CONFIG_MACH_SUN9I)) {
+-		sunxi_gpio_set_cfgpin(SUNXI_GPN(0), SUN9I_GPN_R_RSB);
+-		sunxi_gpio_set_cfgpin(SUNXI_GPN(1), SUN9I_GPN_R_RSB);
+-		sunxi_gpio_set_pull(SUNXI_GPN(0), 1);
+-		sunxi_gpio_set_pull(SUNXI_GPN(1), 1);
+-		sunxi_gpio_set_drv(SUNXI_GPN(0), 2);
+-		sunxi_gpio_set_drv(SUNXI_GPN(1), 2);
+-	} else {
+ 		sunxi_gpio_set_cfgpin(SUNXI_GPL(0), SUN8I_GPL_R_RSB);
+ 		sunxi_gpio_set_cfgpin(SUNXI_GPL(1), SUN8I_GPL_R_RSB);
+ 		sunxi_gpio_set_pull(SUNXI_GPL(0), 1);
+ 		sunxi_gpio_set_pull(SUNXI_GPL(1), 1);
+ 		sunxi_gpio_set_drv(SUNXI_GPL(0), 2);
+ 		sunxi_gpio_set_drv(SUNXI_GPL(1), 2);
+-	}
+ 
+ 	return sun8i_rsb_init(base);
+ }
+diff --git a/drivers/power/Kconfig b/drivers/power/Kconfig
+index bc47cf144d..bb32f949cf 100644
+--- a/drivers/power/Kconfig
++++ b/drivers/power/Kconfig
+@@ -56,6 +56,7 @@ choice
+ 	depends on ARCH_SUNXI
+ 	default AXP209_POWER if MACH_SUN4I || MACH_SUN5I || MACH_SUN7I
+ 	default AXP221_POWER if MACH_SUN6I || MACH_SUN8I_A23 || MACH_SUN8I_A33 || MACH_SUN8I_R40
++	default AXP806_POWER if MACH_SUN50I_H6
+ 	default AXP305_POWER if MACH_SUN50I_H616
+ 	default AXP818_POWER if MACH_SUN8I_A83T
+ 	default SUNXI_NO_PMIC if MACH_SUNXI_H3_H5 || MACH_SUN50I || MACH_SUN8I_V3S
+@@ -101,6 +102,15 @@ config AXP305_POWER
+ 	Select this to enable support for the axp305 pmic found on most
+ 	H616 boards.
+ 
++config AXP806_POWER
++	bool "axp806 pmic support"
++	depends on MACH_SUN50I_H6
++	select AXP_PMIC_BUS
++	select CMD_POWEROFF
++	---help---
++	Select this to enable support for the axp806 pmic found on most
++	H6 boards.
++
+ config AXP809_POWER
+ 	bool "axp809 pmic support"
+ 	depends on MACH_SUN9I
+@@ -180,12 +190,13 @@ config AXP_DCDC3_VOLT
+ 
+ config AXP_DCDC4_VOLT
+ 	int "axp pmic dcdc4 voltage"
+-	depends on AXP152_POWER || AXP221_POWER || AXP809_POWER || AXP818_POWER || AXP305_POWER
++	depends on AXP152_POWER || AXP221_POWER || AXP809_POWER || AXP818_POWER || AXP305_POWER || AXP806_POWER
+ 	default 1250 if AXP152_POWER
+ 	default 1200 if MACH_SUN6I
+ 	default 0 if MACH_SUN8I
+ 	default 900 if MACH_SUN9I
+ 	default 1500 if AXP305_POWER
++	default 980 if AXP806_POWER
+ 	---help---
+ 	Set the voltage (mV) to program the axp pmic dcdc4 at, set to 0 to
+ 	disable dcdc4.
+@@ -195,6 +206,7 @@ config AXP_DCDC4_VOLT
+ 	On A80 boards dcdc4 powers VDD-SYS, HDMI, USB OTG and should be 0.9V.
+ 	On A83T boards dcdc4 is used for VDD-GPU.
+ 	On H616 boards dcdcd is used for VCC-DRAM.
++	On H6 boards dcdcd is used for VCC-SYS.
+ 
+ config AXP_DCDC5_VOLT
+ 	int "axp pmic dcdc5 voltage"
+diff --git a/drivers/power/Makefile b/drivers/power/Makefile
+index f805027784..e2b3bfb0d5 100644
+--- a/drivers/power/Makefile
++++ b/drivers/power/Makefile
+@@ -15,6 +15,7 @@ obj-$(CONFIG_AXP152_POWER)	+= axp152.o
+ obj-$(CONFIG_AXP209_POWER)	+= axp209.o
+ obj-$(CONFIG_AXP221_POWER)	+= axp221.o
+ obj-$(CONFIG_AXP305_POWER)	+= axp305.o
++obj-$(CONFIG_AXP806_POWER)	+= axp806.o
+ obj-$(CONFIG_AXP809_POWER)	+= axp809.o
+ obj-$(CONFIG_AXP818_POWER)	+= axp818.o
+ obj-$(CONFIG_EXYNOS_TMU)	+= exynos-tmu.o
+diff --git a/drivers/power/axp806.c b/drivers/power/axp806.c
+new file mode 100644
+index 0000000000..0a4092ad35
+--- /dev/null
++++ b/drivers/power/axp806.c
+@@ -0,0 +1,339 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * AXP806 driver
++ *
++ * (C) Copyright 2020 Jernej Skrabec <jernej.skrabec@siol.net>
++ *
++ * Based on axp221.c
++ * (C) Copyright 2014 Hans de Goede <hdegoede@redhat.com>
++ * (C) Copyright 2013 Oliver Schinagl <oliver@schinagl.nl>
++ */
++
++#include <common.h>
++#include <command.h>
++#include <errno.h>
++#include <asm/arch/pmic_bus.h>
++#include <axp_pmic.h>
++
++#define pmu_bus_read pmic_bus_read
++#define pmu_bus_write pmic_bus_write
++
++#define RSB_SLAVE_ADDR   (0x3a3)
++#define RSB_RUNTIME_ADDR (0x2d)
++
++#define PMU_IC_TYPY_REG (0x3)
++
++typedef struct _axp_contrl_info
++{
++	char *name;
++
++	u16 min_vol;
++	u16 max_vol;
++	u16 cfg_reg_addr;
++	u16 cfg_reg_mask;
++
++	u16 step0_val;
++	u16 split1_val;
++	u16 step1_val;
++	u16 ctrl_reg_addr;
++
++	u16 ctrl_bit_ofs;
++	u16 res;
++}axp_contrl_info;
++
++
++#define AXP806_DCDC4_1600MV_OFFSET 46
++
++int axp_set_dcdc4(unsigned int mvolt)
++{
++	u8 reg_value;
++	u8 tmp_step;
++
++	if (mvolt > 0) {
++		if (mvolt <= 1500) {
++			if (mvolt < 600)
++				mvolt = 600;
++			tmp_step = (mvolt - 600) / 20;
++		} else {
++			if (mvolt < 1600)
++				mvolt = 1600;
++			else if (mvolt > 3300)
++				mvolt = 3300;
++
++			tmp_step = (mvolt - 1600) / 100 + 47;
++		}
++
++		if (pmic_bus_read(AXP806_DCDCD_VOLTAGE, &reg_value)) {
++			printf("sunxi pmu error : unable to read dcdcd reg\n");
++			return -1;
++		}
++
++		reg_value &= 0xC0;
++		reg_value |= tmp_step;
++		if (pmic_bus_write(AXP806_DCDCD_VOLTAGE, reg_value)) {
++			printf("sunxi pmu error : unable to set dcdcd\n");
++			return -1;
++		}
++	}
++
++	if (pmic_bus_read(AXP806_OUTPUT_CTRL1, &reg_value)) {
++		return -1;
++	}
++
++	reg_value |=  (1 << 3);
++
++	if (pmic_bus_write(AXP806_OUTPUT_CTRL1, reg_value)) {
++		printf("sunxi pmu error : unable to on dcdcd\n");
++		return -1;
++	}
++
++	return 0;
++}
++
++static inline void disable_pmu_pfm_mode(void)
++{
++	u8 val;
++
++	pmic_bus_read(AXP806_DCMOD_CTL2, &val);
++	val |= 0x1f;
++	pmic_bus_write(AXP806_DCMOD_CTL2, val);
++}
++
++int pwrok_restart_enable(void)
++{
++	u8 reg_val = 0;
++	if(pmu_bus_read( (0x8f), &reg_val))
++	{
++		return -1;
++	}
++	/* PWROK drive low restart function enable  */
++	/* for watchdog reset */
++	reg_val |= 1;
++	if(pmu_bus_write( (0x8f), reg_val))
++	{
++		return -1;
++	}
++	return 0;
++}
++
++static inline void disable_dcdc_pfm_mode(void)
++{
++	u8 val;
++
++	pmu_bus_read( 0x80, &val);
++	val |= (0x01 << 3); /*dcdc4 for gpu pwm mode*/
++	val |= (0x01 << 4); /*dcdc5 for dram pwm mode*/
++	pmu_bus_write( 0x80, val);
++
++	/* disable dcm mode for GPU stability Vdrop issue*/
++	pmu_bus_write( 0xff, 0x0);
++	pmu_bus_write( 0xf4, 0x6);
++	pmu_bus_write(  0xf2, 0x4);
++	pmu_bus_write(  0xf5, 0x4);
++	pmu_bus_write(  0xff, 0x1);
++	pmu_bus_write(  0x12, 0x40);
++	pmu_bus_write(  0xff, 0x0);
++
++}
++
++/*
++
++axp_contrl_info axp_ctrl_tbl[] = { \
++//   name        min,     max,    reg,    mask,  step0,   split1_val,  step1,  ctrl_reg, ctrl_bit
++
++   {"dcdc2",     500,     1300,   0x21,   0x7f,   10,     1200,         20,    (0x10),   1},
++   {"dcdc5",     800,     1840,   0x24,   0x7f,   10,     1120,         20,    (0x10),   4},
++
++int set_ddr_voltage(int set_vol)	return pmu_set_vol("dcdc5", 1240, 1);
++int set_pll_voltage(int set_vol)	return pmu_set_vol("dcdc2", 900, 1);
++*/
++
++static int pmu_set_ddr_vol(int set_vol)
++{
++	u8   reg_value;
++	axp_contrl_info* p_item = NULL;
++	u8 base_step;
++	char* name="dcdc5";
++
++	if(set_vol <=0){ printf (" set_vol value error! \n"); return 0;}
++
++	p_item->name = name ;
++	p_item->min_vol = 800;
++	p_item->max_vol = 1840;
++	p_item->cfg_reg_addr = 0x24;
++	p_item->cfg_reg_mask = 0x7f;
++	p_item->step0_val = 10;
++	p_item->split1_val = 1120;
++	p_item->step1_val = 20;
++	p_item->ctrl_reg_addr = 0x10;
++	p_item->ctrl_bit_ofs = 4;
++
++	printf ("name %s, min_vol %dmv, max_vol %d, cfg_reg 0x%x, cfg_mask 0x%x \
++		step0_val %d, split1_val %d, step1_val %d, ctrl_reg_addr 0x%x, ctrl_bit_ofs %d\n",
++	p_item->name,
++	p_item->min_vol,
++	p_item->max_vol,
++	p_item->cfg_reg_addr,
++	p_item->cfg_reg_mask,
++	p_item->step0_val,
++	p_item->split1_val,
++	p_item->step1_val,
++	p_item->ctrl_reg_addr,
++	p_item->ctrl_bit_ofs);
++
++	if(set_vol < p_item->min_vol)
++	{
++		set_vol = p_item->min_vol;
++	}
++	else if(set_vol > p_item->max_vol)
++	{
++		set_vol = p_item->max_vol;
++	}
++	if(pmu_bus_read(  p_item->cfg_reg_addr, &reg_value))
++    {
++        return -1;
++    }
++
++	reg_value &= ~p_item->cfg_reg_mask;
++	if(p_item->split1_val && (set_vol > p_item->split1_val))
++	{
++		if(p_item->split1_val < p_item->min_vol)
++		{
++			printf("bad split val(%d) for %s\n",p_item->split1_val, name);
++			return -1;
++		}
++
++		base_step = (p_item->split1_val - p_item->min_vol)/p_item->step0_val;
++		reg_value |= (base_step + (set_vol - p_item->split1_val)/p_item->step1_val);
++	}
++	else
++	{
++		reg_value |= (set_vol - p_item->min_vol)/p_item->step0_val;
++	}
++
++	if(pmu_bus_write(  p_item->cfg_reg_addr, reg_value))
++	{
++		printf("unable to set %s\n", name);
++		return -1;
++	}
++
++	return 0;
++}
++
++
++static int pmu_set_pll_vol(int set_vol)
++{
++	u8   reg_value;
++	axp_contrl_info* p_item = NULL;
++	u8 base_step;
++	char* name="dcdc2";
++
++	if(set_vol <=0){ printf (" set_vol value error! \n"); return 0;}
++
++	p_item->name = name ;
++	p_item->min_vol = 500;
++	p_item->max_vol = 1300;
++	p_item->cfg_reg_addr = 0x21;
++	p_item->cfg_reg_mask = 0x7f;
++	p_item->step0_val = 10;
++	p_item->split1_val = 1200;
++	p_item->step1_val = 20;
++	p_item->ctrl_reg_addr = 0x10;
++	p_item->ctrl_bit_ofs = 1;
++
++	printf ("name %s, min_vol %dmv, max_vol %d, cfg_reg 0x%x, cfg_mask 0x%x \
++		step0_val %d, split1_val %d, step1_val %d, ctrl_reg_addr 0x%x, ctrl_bit_ofs %d\n",
++	p_item->name,
++	p_item->min_vol,
++	p_item->max_vol,
++	p_item->cfg_reg_addr,
++	p_item->cfg_reg_mask,
++	p_item->step0_val,
++	p_item->split1_val,
++	p_item->step1_val,
++	p_item->ctrl_reg_addr,
++	p_item->ctrl_bit_ofs);
++
++	if(set_vol < p_item->min_vol)
++	{
++		set_vol = p_item->min_vol;
++	}
++	else if(set_vol > p_item->max_vol)
++	{
++		set_vol = p_item->max_vol;
++	}
++	if(pmu_bus_read(  p_item->cfg_reg_addr, &reg_value))
++    {
++        return -1;
++    }
++
++	reg_value &= ~p_item->cfg_reg_mask;
++	if(p_item->split1_val && (set_vol > p_item->split1_val))
++	{
++		if(p_item->split1_val < p_item->min_vol)
++		{
++			printf("bad split val(%d) for %s\n",p_item->split1_val, name);
++			return -1;
++		}
++
++		base_step = (p_item->split1_val - p_item->min_vol)/p_item->step0_val;
++		reg_value |= (base_step + (set_vol - p_item->split1_val)/p_item->step1_val);
++	}
++	else
++	{
++		reg_value |= (set_vol - p_item->min_vol)/p_item->step0_val;
++	}
++
++	if(pmu_bus_write(  p_item->cfg_reg_addr, reg_value))
++	{
++		printf("unable to set %s\n", name);
++		return -1;
++	}
++
++	return 0;
++}
++
++
++int axp_init(void)
++{
++	u8 axp_chip_id;
++        u8 val;
++	int ret;
++
++	ret = pmic_bus_init();
++	if (ret)
++		return ret;
++
++	ret = pmic_bus_read(AXP806_CHIP_VERSION, &axp_chip_id);
++	if (ret) {
++		printf ("PMU: pmic_bus_read failed at axp_init()\n");
++		return ret;
++	};
++	printf ("axp_chip_id & 0xcf = %d  <-- should be 0x41 \n", (axp_chip_id & 0xcf) );
++
++	if ((axp_chip_id & 0xcf) != 0x41)
++		return -ENODEV;
++
++	printf("PMU: AXP802 :success!\n");
++
++	pwrok_restart_enable();
++	disable_dcdc_pfm_mode();
++
++	pmu_set_pll_vol(900);
++	pmu_set_ddr_vol(1240); //LPDDR3
++
++	return ret;
++}
++
++#ifndef CONFIG_PSCI_RESET
++int do_poweroff(struct cmd_tbl *cmdtp, int flag, int argc, char *const argv[])
++{
++	pmic_bus_write(AXP806_SHUTDOWN, AXP806_POWEROFF);
++
++	/* infinite loop during shutdown */
++	while (1) {}
++
++	/* not reached */
++	return 0;
++}
++#endif
+diff --git a/include/axp806.h b/include/axp806.h
+new file mode 100644
+index 0000000000..748ea8d1f8
+--- /dev/null
++++ b/include/axp806.h
+@@ -0,0 +1,18 @@
++/* SPDX-License-Identifier: GPL-2.0+ */
++/*
++ * (C) Copyright 2020 Jernej Skrabec <jernej.skrabec@siol.net>
++ */
++
++enum axp806_reg {
++	AXP806_CHIP_VERSION = 0x3,
++	AXP806_OUTPUT_CTRL1 = 0x10,
++	AXP806_DCDCD_VOLTAGE = 0x15,
++	AXP806_DCMOD_CTL2 = 0x1b,
++	AXP806_SHUTDOWN = 0x32,
++};
++
++#define AXP806_CHIP_VERSION_MASK	0xcf
++
++#define AXP806_OUTPUT_CTRL1_DCDCD_EN	(1 << 3)
++
++#define AXP806_POWEROFF			(1 << 7)
+diff --git a/include/axp_pmic.h b/include/axp_pmic.h
+index 01ebba6347..1be6a9290a 100644
+--- a/include/axp_pmic.h
++++ b/include/axp_pmic.h
+@@ -13,6 +13,7 @@
+ #include <axp209.h>
+ #include <axp221.h>
+ #include <axp305.h>
++#include <axp806.h>
+ #include <axp809.h>
+ #include <axp818.h>
+ 
+-- 
+
