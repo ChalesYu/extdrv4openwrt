@@ -1,0 +1,16 @@
+unsigned int __fastcall id_judge_fun(unsigned __int16 disturb_code)
+{
+  unsigned int v2; // r3
+  int v3; // r4
+
+  v2 = (MEMORY[0x3006200] & 7) - 1;
+  if ( v2 > 2 )
+    v3 = 4;
+  else
+    v3 = CSWTCH_4[v2];
+  printf("the chip id is 0x%x\n", MEMORY[0x3006200] & 7);
+  if ( (unsigned int)(v3 - 1) <= 0xF )
+    return disturb_coding(disturb_code, v3);
+  printf("Please assign a legal ID number!\n");
+  return 0;
+}

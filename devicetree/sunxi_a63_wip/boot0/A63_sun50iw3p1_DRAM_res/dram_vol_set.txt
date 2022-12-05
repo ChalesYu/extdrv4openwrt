@@ -1,0 +1,28 @@
+unsigned int __fastcall dram_vol_set(__dram_para_t *para)
+{
+  int dram_tpr3_high; // r3
+  unsigned int v2; // r4
+
+  switch ( para->dram_type )
+  {
+    case 2u:
+      dram_tpr3_high = HIBYTE(para->dram_tpr3);
+      goto LABEL_6;
+    case 3u:
+      dram_tpr3_high = LOBYTE(para->dram_tpr3);
+      goto LABEL_6;
+    case 6u:
+      dram_tpr3_high = BYTE2(para->dram_tpr3);
+      goto LABEL_6;
+    case 7u:
+      dram_tpr3_high = BYTE1(para->dram_tpr3);
+LABEL_6:
+      v2 = 10 * dram_tpr3_high;
+      if ( !set_ddr_voltage(10 * dram_tpr3_high) )
+        return v2;
+      printf("[ERROR DEBUG]: POWER SETTING ERROR!\n");
+      return 0;
+    default:
+      return 0;
+  }
+}

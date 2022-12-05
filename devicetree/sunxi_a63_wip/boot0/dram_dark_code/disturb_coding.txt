@@ -1,4 +1,0 @@
-unsigned int __fastcall disturb_coding(unsigned __int16 disturb_code, unsigned __int8 id_num)
-{
-  return (disturb_code + id_num) | (crc_16(disturb_code, id_num) << 16);
-}

@@ -1,0 +1,30 @@
+int DRAMC_get_dram_size()
+{
+  int v0; // r3
+
+  v0 = MEMORY[0x4002000] & 3;
+  if ( (MEMORY[0x4002000] & 3) != 0 )
+  {
+    if ( MEMORY[0x4002004] << 30 )
+      v0 = 1 << ((MEMORY[0x4002005] & 0xF) + (MEMORY[0x4002004] >> 4) - 14 + ((MEMORY[0x4002004] >> 2) & 3));
+    else
+      v0 = 1 << ((MEMORY[0x4002001] & 0xF) + (MEMORY[0x4002000] >> 4) - 14 + ((MEMORY[0x4002000] >> 2) & 3));
+  }
+  return v0 + (1 << ((MEMORY[0x4002001] & 0xF) + (MEMORY[0x4002000] >> 4) - 14 + ((MEMORY[0x4002000] >> 2) & 3)));
+}
+
+
+int DRAMC_get_dram_size()
+{
+  int v0; // r3
+
+  v0 =  mctl_read_w(0x4002000) & 3;
+  if (  (mctl_read_w(0x4002000) & 3) != 0 )
+  {
+    if (  mctl_read_w(0x4002004) << 30 )
+      v0 = 1 << (( mctl_read_w(0x4002005) & 0xF) + ( mctl_read_w(0x4002004) >> 4) - 14 + (( mctl_read_w(0x4002004) >> 2) & 3));
+    else
+      v0 = 1 << (( mctl_read_w(0x4002001) & 0xF) + ( mctl_read_w(0x4002000) >> 4) - 14 + (( mctl_read_w(0x4002000) >> 2) & 3));
+  }
+  return v0 + (1 << (( mctl_read_w(0x4002001) & 0xF) + ( mctl_read_w(0x4002000) >> 4) - 14 + (( mctl_read_w(0x4002000) >> 2) & 3)));
+}

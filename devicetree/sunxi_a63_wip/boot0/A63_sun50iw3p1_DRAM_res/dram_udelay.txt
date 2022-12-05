@@ -1,0 +1,5 @@
+// attributes: thunk
+void __fastcall dram_udelay(unsigned int n)
+{
+  _usdelay(n);
+}

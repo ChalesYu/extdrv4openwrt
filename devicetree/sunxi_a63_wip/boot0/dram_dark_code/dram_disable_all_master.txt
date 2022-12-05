@@ -1,6 +1,0 @@
-void dram_disable_all_master()
-{
-  mctl_write_w(1, 0x4002020);
-  mctl_write_w(0, 0x4002024);
-  _usdelay(10);
-}

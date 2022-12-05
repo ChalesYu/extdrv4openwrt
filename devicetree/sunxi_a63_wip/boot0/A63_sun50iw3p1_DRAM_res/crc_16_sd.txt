@@ -1,0 +1,20 @@
+// local variable allocation has failed, the output may be wrong!
+unsigned __int16 __fastcall crc_16_sd(unsigned __int16 reg, unsigned __int8 data_crc)
+{
+  unsigned __int16 result; // r0
+  int v3; // r3
+  int v4; // r1
+
+  result = reg ^ (data_crc << 8);
+  LOWORD(v3) = 8;
+  do
+  {
+    v4 = result & 0x8000;
+    result *= 2;
+    if ( v4 )
+      result ^= 0x8005u;
+    v3 = (unsigned __int16)(v3 - 1);
+  }
+  while ( v3 );
+  return result;
+}
