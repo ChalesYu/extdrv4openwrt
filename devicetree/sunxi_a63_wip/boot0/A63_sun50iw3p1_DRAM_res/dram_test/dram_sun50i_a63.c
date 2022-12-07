@@ -24,7 +24,7 @@ unsigned long sunxi_dram_init(void)
 {
 
 __dram_para_t now_dram_para = {
-
+//FIXME
 //A63 SBC
 #if 1
    .dram_clk = 792 ,
@@ -99,8 +99,8 @@ __dram_para_t now_dram_para = {
 // size = 0 ?
 // force set a value
 
-  printf("size FORCE set to 3072 ! \n");
-   size = 3072;
+//  printf("size FORCE set to 3072 ! \n");
+//   size = 3072;
    return (size << 20);
 
 };

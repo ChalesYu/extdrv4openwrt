@@ -30,11 +30,10 @@ int init_DRAM(int type, __dram_para_t *para)
   if ( dram_size )
   {
     printf("chip id check OK\n");
-//    if ( ((para->dram_tpr13 & 0x2000) == 0 || (v4 = dram_vol_set(para)) != 0)
-//      && ((para->dram_tpr13 & 1) != 0 || (v4 = auto_scan_dram_config(para)) != 0) )
+    if ( ((para->dram_tpr13 & 0x2000) == 0 || (v4 = dram_vol_set(para)) != 0)
+      && ((para->dram_tpr13 & 1) != 0 || (v4 = auto_scan_dram_config(para)) != 0) )
 //  disable auto_scan_dram_config func temporary
-//  to avoid hang
-if (1)
+//if (1)
     {
       printf("DRAM BOOT DRIVE INFO: %s\n", "V0.573");
       printf("DRAM CLK = %d MHZ\n", para->dram_clk);
