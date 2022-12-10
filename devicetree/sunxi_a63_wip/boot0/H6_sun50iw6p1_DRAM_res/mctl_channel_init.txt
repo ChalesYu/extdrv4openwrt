@@ -73,18 +73,10 @@ unsigned int __fastcall mctl_channel_init(unsigned int ch_index, __dram_para_t *
   for ( i = 67131144; i != 67132168; i += 256 )
   {
 
-    _DWORD * pi = (_DWORD *)i; 
-    *pi = (HIWORD(*pi) << 16) | 0x5555;
-
 //    *(_DWORD *)i = (HIWORD(*(_DWORD *)i) << 16) | 0x5555;
 
 
 //    *(_DWORD *)(i + 4) = *(_DWORD *)(i + 4) & 0xFFFFCFCF | 0x1010;
-
-     i += 4;
-    _DWORD * pip4 = (_DWORD *)i; 
-    *pip4 = *pip4 & (0xFFFFCFCF | 0x1010);
-     i -= 4;
 
   }
   if ( (para->dram_tpr13 & 0x2000000) != 0 )

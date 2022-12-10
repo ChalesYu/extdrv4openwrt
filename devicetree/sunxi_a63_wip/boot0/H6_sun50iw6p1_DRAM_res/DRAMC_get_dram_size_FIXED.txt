@@ -1,0 +1,18 @@
+
+
+unsigned int  DRAMC_get_dram_size(__dram_para_t *para)
+{
+  unsigned int dram_para2; // r2
+  unsigned int v2; // r0
+
+  dram_para2 = para->dram_para2;
+  v2 = (uint8_t)(para->dram_para1 >> 4)
+     + ((para->dram_para1 >> 12) & 3)
+     + (para->dram_para1 & 0xF)
+     + ((uint16_t)para->dram_para1 >> 14)
+     + ((uint16_t)dram_para2 >> 12);
+  if ( (dram_para2 & 0xF) != 0 )
+    return 1 << (v2 - 19);
+  else
+    return 1 << (v2 - 18);
+}

@@ -1,4 +1,4 @@
-
+#include "dram_base.h"
 
 unsigned int  dramc_simple_wr_test(unsigned int dram_size, unsigned int test_length)
 {

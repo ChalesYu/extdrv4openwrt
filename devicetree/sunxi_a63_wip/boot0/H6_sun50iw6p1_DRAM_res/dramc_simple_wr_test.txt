@@ -1,3 +1,23 @@
+/*
+
+*(_DWORD *)(a1 + 1544) = 12
+
+可以将这一句拆分成三步开来会比较好理解：
+a1 += 1544; // 第一步先将al的值加上1544
+_DWORD * p = (_DWORD *)a1;  // 第二步将al的值类型强制转换为_DWORD*类型指针
+*p = 12; // 往这个内存指针写入一个_DWORD类型整数"12" 
+
+*/
+
+#define WORD uint16_t
+#define DWORD uint32_t
+#define _DWORD uint32_t
+#define BYTE uint8_t
+#define LOWORD(l)           ((WORD)((DWORD)(l) & 0xffff))
+#define HIWORD(l)           ((WORD)((DWORD)(l) >> 16))
+#define LOBYTE(w)           ((BYTE)((DWORD)(w) & 0xff))
+#define HIBYTE(w)           ((BYTE)((DWORD)(w) >> 8))
+
 unsigned int __fastcall dramc_simple_wr_test(unsigned int dram_size, unsigned int test_length)
 {
   int v2; // r2
