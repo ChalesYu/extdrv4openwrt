@@ -1,0 +1,28 @@
+From 90f574b9c5505ab43295bb12fa57ef489b605da8 Mon Sep 17 00:00:00 2001
+From: chalesyu <574249312@qq.com>
+Date: Wed, 14 Dec 2022 00:00:00 +0000
+Subject: [PATCH 4/4] A63: Adjust AXP803 dcdc5 to 1.2V
+
+dcdc5 regulator for DRAM
+should be 1.2V on LPDDR3
+---
+ arch/arm/dts/sun50i-a63-board.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm/dts/sun50i-a63-board.dts b/arch/arm/dts/sun50i-a63-board.dts
+index 6a582b5eb3..7a0fc8ef7e 100644
+--- a/arch/arm/dts/sun50i-a63-board.dts
++++ b/arch/arm/dts/sun50i-a63-board.dts
+@@ -198,8 +198,8 @@ eldo2_vol = 1001800
+ 
+ &reg_dcdc5 {
+ 	regulator-always-on;
+-	regulator-min-microvolt = <1500000>;
+-	regulator-max-microvolt = <1500000>;
++	regulator-min-microvolt = <1240000>;
++	regulator-max-microvolt = <1240000>;
+ 	regulator-name = "vcc-dram";
+ };
+ 
+-- 
+

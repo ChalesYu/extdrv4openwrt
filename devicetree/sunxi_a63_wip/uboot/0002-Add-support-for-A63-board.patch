@@ -1,34 +1,34 @@
-From 3a0e3410a5cc1662cfad168f4363ddf66fc3e636 Mon Sep 17 00:00:00 2001
+From 215fdbc8a075c4e7b68e560f4c74faf2a02c5a20 Mon Sep 17 00:00:00 2001
 From: chalesyu <574249312@qq.com>
-Date: Mon, 3 Jan 2022 00:00:00 +0800
-Subject: [PATCH 4/7] add a base a63 device tree
+Date: Wed, 14 Dec 2022 00:00:00 +0000
+Subject: [PATCH 2/4] Add support for A63 board
 
-Note: This device tree contain error.
-Don't use it unless nesseary.
+WARNING: NOT a final version , just for basic work.
 ---
  arch/arm/dts/Makefile             |   1 +
  arch/arm/dts/axp803.dtsi          |   8 +
  arch/arm/dts/sun50i-a63-board.dts | 350 +++++++++++++
  arch/arm/dts/sun50i-a63.dtsi      | 798 ++++++++++++++++++++++++++++++
- configs/teclast_m8_defconfig      |   3 +-
- 5 files changed, 1159 insertions(+), 1 deletion(-)
+ configs/teclast_m8_defconfig      |  18 +
+ 5 files changed, 1175 insertions(+)
  create mode 100644 arch/arm/dts/sun50i-a63-board.dts
  create mode 100644 arch/arm/dts/sun50i-a63.dtsi
+ create mode 100644 configs/teclast_m8_defconfig
 
 diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-index fc16a57e60..4d14f5f6f4 100644
+index 43951a7731..368cc3b1f6 100644
 --- a/arch/arm/dts/Makefile
 +++ b/arch/arm/dts/Makefile
-@@ -642,6 +642,7 @@ dtb-$(CONFIG_MACH_SUN50I_H6) += \
- 	sun50i-h6-orangepi-lite2.dtb \
+@@ -714,6 +714,7 @@ dtb-$(CONFIG_MACH_SUN50I_H6) += \
  	sun50i-h6-orangepi-one-plus.dtb \
  	sun50i-h6-pine-h64.dtb \
+ 	sun50i-h6-pine-h64-model-b.dtb \
 +	sun50i-a63-board.dtb \
- 	sun50i-h6-tanix-tx6.dtb
+ 	sun50i-h6-tanix-tx6.dtb \
+ 	sun50i-h6-tanix-tx6-mini.dtb
  dtb-$(CONFIG_MACH_SUN50I_H616) += \
- 	sun50i-h616-orangepi-zero2.dtb
 diff --git a/arch/arm/dts/axp803.dtsi b/arch/arm/dts/axp803.dtsi
-index 10e9186a76..055bf6d2e0 100644
+index 578ef368e2..82664fd72a 100644
 --- a/arch/arm/dts/axp803.dtsi
 +++ b/arch/arm/dts/axp803.dtsi
 @@ -87,6 +87,10 @@
@@ -1214,17 +1214,29 @@ index 0000000000..5fd49d06df
 +	};
 +};
 diff --git a/configs/teclast_m8_defconfig b/configs/teclast_m8_defconfig
-index ddf60ce38b..ca675e2040 100644
---- a/configs/teclast_m8_defconfig
+new file mode 100644
+index 0000000000..e7cf0d3665
+--- /dev/null
 +++ b/configs/teclast_m8_defconfig
-@@ -1,6 +1,7 @@
- CONFIG_ARM=y
- CONFIG_ARCH_SUNXI=y
--CONFIG_DEFAULT_DEVICE_TREE="sun50i-h6-tanix-tx6"
+@@ -0,0 +1,18 @@
++CONFIG_ARM=y
++CONFIG_ARCH_SUNXI=y
 +#CONFIG_DEFAULT_DEVICE_TREE="sun50i-h6-tanix-tx6"
 +CONFIG_DEFAULT_DEVICE_TREE="sun50i-a63-board"
- CONFIG_SPL=y
- CONFIG_MACH_SUN50I_H6=y
- #dram part almost same as R40 and T7
++CONFIG_SPL=y
++CONFIG_SPL_MAX_SIZE=0xbfa0
++CONFIG_SPL_PAD_TO=0xc000
++CONFIG_MACH_SUN50I_H6=y
++#dram part almost same as R40 and T7
++#CONFIG_SUNXI_DRAM_LPDDR3_STOCK=y
++CONFIG_SUNXI_DRAM_H6_LPDDR3=y
++#lpddr3 aw52a8g32 1G clk-792MHZ ZQ-0x3d3dfb
++#lpddr3 h9tq26adftac 3G clk-720MHZ ZQ-0x3b3bfb
++CONFIG_DRAM_CLK=720
++CONFIG_DRAM_ZQ=3881979
++CONFIG_MMC0_CD_PIN="PF6"
++CONFIG_MMC_SUNXI_SLOT_EXTRA=2
++# CONFIG_SYS_MALLOC_CLEAR_ON_INIT is not set
 -- 
+
 
