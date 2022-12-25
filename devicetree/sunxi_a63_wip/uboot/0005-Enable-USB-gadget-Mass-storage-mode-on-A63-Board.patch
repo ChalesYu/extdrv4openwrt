@@ -1,0 +1,50 @@
+From 9f76137c4527fe95fb7306a6cb480e6d3eb99e4f Mon Sep 17 00:00:00 2001
+From: chalesyu <574249312@qq.com>
+Date: Fri, 23 Dec 2022 00:00:00 +0000
+Subject: [PATCH] Enable USB gadget Mass storage mode on A63 Board
+
+It can help to modify data on board eMMC .
+---
+ arch/arm/dts/sun50i-a63-board.dts |  2 +-
+ configs/teclast_m8_defconfig      | 10 ++++++++++
+ 2 files changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm/dts/sun50i-a63-board.dts b/arch/arm/dts/sun50i-a63-board.dts
+index 7a0fc8ef7e..692763f979 100644
+--- a/arch/arm/dts/sun50i-a63-board.dts
++++ b/arch/arm/dts/sun50i-a63-board.dts
+@@ -339,7 +339,7 @@ eldo2_vol = 1001800
+ };
+ 
+ &usb2otg {
+-	dr_mode = "host";
++	dr_mode = "otg";
+ 	status = "okay";
+ };
+ 
+diff --git a/configs/teclast_m8_defconfig b/configs/teclast_m8_defconfig
+index e7cf0d3665..fa56043892 100644
+--- a/configs/teclast_m8_defconfig
++++ b/configs/teclast_m8_defconfig
+@@ -1,5 +1,6 @@
+ CONFIG_ARM=y
+ CONFIG_ARCH_SUNXI=y
++CONFIG_BOOTCOMMAND="ums 0 mmc 1; run distro_bootcmd"
+ #CONFIG_DEFAULT_DEVICE_TREE="sun50i-h6-tanix-tx6"
+ CONFIG_DEFAULT_DEVICE_TREE="sun50i-a63-board"
+ CONFIG_SPL=y
+@@ -16,3 +17,12 @@ CONFIG_DRAM_ZQ=3881979
+ CONFIG_MMC0_CD_PIN="PF6"
+ CONFIG_MMC_SUNXI_SLOT_EXTRA=2
+ # CONFIG_SYS_MALLOC_CLEAR_ON_INIT is not set
++CONFIG_CMD_USB=y
++CONFIG_CMD_USB_MASS_STORAGE=y
++CONFIG_USB_MUSB_GADGET=y
++CONFIG_USB_MUSB_PIO_ONLY=y
++CONFIG_USB_GADGET=y
++CONFIG_USB_GADGET_MANUFACTURER="Fantasy"
++CONFIG_USB_GADGET_VENDOR_NUM=0x1F3A
++CONFIG_USB_GADGET_PRODUCT_NUM=0x0DDF
++CONFIG_USB_GADGET_DOWNLOAD=y
+-- 
+
