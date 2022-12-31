@@ -1,242 +1,613 @@
-                                                                                     
-[106]HELLO! BOOT0 is starting!                                                                                     
-[109]boot0 commit : xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                                       
-                                                                                                                   
-[120]rsb_send_initseq: rsb clk 400Khz -> 3Mhz                                                                      
-[125]PMU: AXP803                                                                                                   
-[129]set pll start                                                                                                 
-[131]set pll end                                                                                                   
-[133]rtc[2] value = 0x5aa5a55a                                                                                     
-[136]rtc[3] value = 0x0000b00d                                                                                     
-[139]eraly jump fel                                                                                                
-[8981]HELLO! BOOT0 is starting!                                                                                    
-[8984]boot0 commit : xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                                      
-                                                                                                                   
-[8994]rsb_send_initseq: rsb clk 400Khz -> 3Mhz                                                                     
-[8998]PMU: AXP803                                                                                                  
-[9000]set pll start                                                                                                
-[9003]periph0 has been enabled                                                                                     
-[9006]set pll end                                                                                                  
-[9008]rtc[3] value = 0x0000b00d                                                                                    
-[9011]the chip id is 0x00000001                                                                                    
-[9014]the chip id is 0x00000001                                                                                    
-[9017]the chip id is 0x00000001                                                                                    
-[9020]the chip id is 0x00000001                                                                                    
-[9023]the chip id is 0x00000001                                                                                    
-[9026]chip id check OK                                                                                             
-[9029]DRAM BOOT DRIVE INFO: V0.571                                                                                 
-[9032]DRAM CLK = 792 MHZ                                                                                           
-[9034]DRAM Type = 7 (2:DDR2,3:DDR3,6:LPDDR2,7:LPDDR3)                                                              
-[9039]DRAM ZQ value: 0x003d3dfb                                                                                    
-[9044]DRAM SIZE =1024 M                                                                                            
-[9046]Disable Auto SR                                                                                              
-[9055]DRAM simple test OK.                                                                                         
-[9058]dram size =1024                                                                                              
-[9061]card no is 0                                                                                                 
-[9063]sdcard 0 line count 4                                                                                        
-[9065][mmc]: mmc driver ver 2017-9-26 13:50                                                                        
-[9070][mmc]: sdc0 spd mode error, 2                                                                                
-[9073][mmc]: mmc 0 bias 00000004                                                                                   
-[9082][mmc]: ***Try MMC card 0***                                                                                  
-[9089][mmc]: mmc 0 cmd 1 timeout, err 00000100                                                                     
-[9094][mmc]: mmc 0 cmd 1 err 00000100                                                                              
-[9098][mmc]: mmc 0 send op cond failed                                                                             
-[9101][mmc]: MMC card 0 Card did not respond to voltage select!                                                    
-[9108][mmc]: ***SD/MMC 0 init error!!!***                                                                          
-[9112][mmc]: mmc 0 register failed                                                                                 
-[9115]Loading boot-pkg fail(error=2)                                                                               
-[9119]Ready to disable icache.                                                                                     
-NOTICE:  BL31: v2.6(debug):v2.6-139-gab6ea0abf                                                                     
-NOTICE:  BL31: Built : 00:00:00, Jan  2 2022                                                                       
-NOTICE:  BL31: Detected Allwinner A63 SoC (1719)                                                                   
-NOTICE:  BL31: Found U-Boot DTB at 0xa0878f0, model: A63 Board                                                     
-INFO:    ARM GICv2 driver initialized                                                                              
-INFO:    Configuring SPC Controller                                                                                
-INFO:    PMIC: Probing AXP802 on RSB                                                                               
-INFO:    PMIC: Enabling DRIVEVBUS                                                                                  
-INFO:    PMIC: dcdc1 voltage: 3.300V                                                                               
-INFO:    PMIC: dcdc5 voltage: 1.500V                                                                               
-INFO:    PMIC: dcdc6 voltage: 0.900V                                                                               
-INFO:    PMIC: dldo1 voltage: 3.300V                                                                               
-INFO:    PMIC: dldo2 voltage: 3.300V                                                                               
-INFO:    PMIC: dldo3 voltage: 1.200V                                                                               
-INFO:    PMIC: dldo4 voltage: 1.800V                                                                               
-INFO:    PMIC: fldo1 voltage: 1.200V                                                                               
-INFO:    PMIC: Enabling DC SW                                                                                      
-INFO:    BL31: Platform setup done                                                                                 
-INFO:    BL31: Initializing runtime services                                                                       
-INFO:    BL31: cortex_a53: CPU workaround for 855873 was applied                                                   
-INFO:    BL31: cortex_a53: CPU workaround for 1530924 was applied                                                  
-INFO:    PSCI: Suspend is unavailable                                                                              
-INFO:    BL31: Preparing for EL3 exit to normal world                                                              
-INFO:    Entry point address = 0x4a000000                                                                          
-INFO:    SPSR = 0x3c9                                                                                              
-                                                                                                                   
-                                                                                                                   
-U-Boot 2021.10-00012-g5996ff978d-dirty (Jan 05 2022 - 00:00:00 +0800) Allwinner Technology                         
-                                                                                                                   
-CPU:   Allwinner H6 (SUN50I)                                                                                       
-Model: A63 Board                                                                                                   
-DRAM:  1 GiB                                                                                                       
-MMC:   mmc@4020000: 0, mmc@4021000: 2, mmc@4022000: 1                                                              
-Loading Environment from FAT... Unable to read "uboot.env" from mmc0:1... In:    serial@5000000                    
-Out:   serial@5000000                                                                                              
-Err:   serial@5000000                                                                                              
-Net:   No ethernet found.                                                                                          
-starting USB...                                                                                                    
-Bus usb@5101000: USB EHCI 1.00                                                                                     
-Bus usb@5101400: USB OHCI 1.0                                                                                      
-scanning bus usb@5101000 for devices... 1 USB Device(s) found                                                      
-scanning bus usb@5101400 for devices... 1 USB Device(s) found                                                      
-       scanning usb for storage devices... 0 Storage Device(s) found                                               
-Hit any key to stop autoboot:  0                                                                                   
-switch to partitions #0, OK                                                                                        
-mmc1(part 0) is current device                                                                                     
-Scanning mmc 1:1...                                                                                                
-libfdt fdt_check_header(): FDT_ERR_BADMAGIC                                                                        
-Scanning disk mmc@4020000.blk...                                                                                   
-Card did not respond to voltage select! : -110                                                                     
-Scanning disk mmc@4021000.blk...                                                                                   
-Disk mmc@4021000.blk not ready                                                                                     
-Scanning disk mmc@4022000.blk...                                                                                   
-Found 18 disks                                                                                                     
-No EFI system partition                                                                                            
-BootOrder not defined                                                                                              
-EFI boot manager: Cannot load any image                                                                            
-switch to partitions #0, OK                                                                                        
-mmc0 is current device                                                                                             
-Scanning mmc 0:1...                                                                                                
-Found /extlinux/extlinux.conf                                                                                      
-Retrieving file: /extlinux/extlinux.conf                                                                           
-196 bytes read in 4 ms (47.9 KiB/s)                                                                                
-1:      linux                                                                                                      
-Retrieving file: /initrd.img                                                                        
-12042995 bytes read in 708 ms (16.2 MiB/s)                                                                         
-Retrieving file: /a63/Image                                                                                        
-4454408 bytes read in 266 ms (16 MiB/s)                                                                            
-append: initrd=/initrd.img root=/dev/mmcblk0p1 rootwait rw console=ttyS0
-Retrieving file: /a63/sun50iw3p1-t1.dtb                                                                            
-262144 bytes read in 20 ms (12.5 MiB/s)                                                                            
-## Flattened Device Tree blob at 4fa00000                                                                          
-   Booting using the fdt blob at 0x4fa00000                                                                        
-   Loading Ramdisk to 49483000, end 49fff2f3 ... OK                                                                
-ERROR: reserving fdt memory region failed (addr=48000000 size=2000000 flags=0)                                     
-   Loading Device Tree to 0000000049440000, end 0000000049482fff ... OK                                            
-                                                                                                                   
-Starting kernel ...                                                                                                
-                                                                                                                   
-[    0.000000] Booting Linux on physical CPU 0x0                                                                   
-[    0.000000] Linux version 4.9.170+ (xxx@xxx) (gcc version x.x.x 
-[    0.000000] Boot CPU: AArch64 Processor [410fd034]                                                              
-[    0.000000] cma: Reserved 16 MiB at 0x000000007f000000                                                          
-[    0.000000] psci: probing for conduit method from DT.                                                           
-[    0.000000] psci: PSCIv1.1 detected in firmware.                                                                
-[    0.000000] psci: Using standard PSCI v0.2 function IDs                                                         
-[    0.000000] psci: MIGRATE_INFO_TYPE not supported.                                                              
-[    0.000000] psci: SMC Calling Convention v1.0                                                                   
-[    0.000000] percpu: Embedded 20 pages/cpu @ffffffc03ef4b000 s44176 r8192 d29552 u81920                          
-[    0.000000] Detected VIPT I-cache on CPU0                                                                       
-[    0.000000] CPU features: enabling workaround for ARM erratum 845719                                            
-[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 258048                         
-[    0.000000] Kernel command line: initrd=/initrd.img root=/dev/mmcblk0p1 rootwait rw console=ttyS0
-[    0.000000] log_buf_len individual max cpu contribution: 4096 bytes                                             
-[    0.000000] log_buf_len total cpu_extra contributions: 12288 bytes                                              
-[    0.000000] log_buf_len min size: 16384 bytes                                                                   
-[    0.000000] log_buf_len: 32768 bytes                                                                            
-[    0.000000] early log buf free: 14780(90%)                                                                      
-[    0.000000] PID hash table entries: 4096 (order: 3, 32768 bytes)                                                
-[    0.000000] Dentry cache hash table entries: 131072 (order: 8, 1048576 bytes)                                   
-[    0.000000] Inode-cache hash table entries: 65536 (order: 7, 524288 bytes)                                      
-[    0.000000] Memory: 976212K/1048576K available (2302K kernel code, 254K rwdata, 1412K rodata, 320K init, 133K b)
-[    0.000000] Virtual kernel memory layout:                                                                       
-[    0.000000]     modules : 0xffffff8000000000 - 0xffffff8008000000   (   128 MB)                                 
-[    0.000000]     vmalloc : 0xffffff8008000000 - 0xffffffbebfff0000   (   250 GB)                                 
-[    0.000000]       .text : 0xffffff8008080000 - 0xffffff80082c0000   (  2304 KB)                                 
-[    0.000000]     .rodata : 0xffffff80082c0000 - 0xffffff8008430000   (  1472 KB)                                 
-[    0.000000]       .init : 0xffffff8008430000 - 0xffffff8008480000   (   320 KB)                                 
-[    0.000000]       .data : 0xffffff8008480000 - 0xffffff80084bf808   (   255 KB)                                 
-[    0.000000]        .bss : 0xffffff80084bf808 - 0xffffff80084e0f94   (   134 KB)                                 
-[    0.000000]     fixed   : 0xffffffbefe7fb000 - 0xffffffbefec00000   (  4116 KB)                                 
-[    0.000000]     PCI I/O : 0xffffffbefee00000 - 0xffffffbeffe00000   (    16 MB)                                 
-[    0.000000]     vmemmap : 0xffffffbf00000000 - 0xffffffc000000000   (     4 GB maximum)                         
-[    0.000000]               0xffffffbf00000000 - 0xffffffbf01000000   (    16 MB actual)                          
-[    0.000000]     memory  : 0xffffffc000000000 - 0xffffffc040000000   (  1024 MB)                                 
-[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=4, Nodes=1                                          
-[    0.000000] Preemptible hierarchical RCU implementation.                                                        
-[    0.000000]  Build-time adjustment of leaf fanout to 64.                                                        
-[    0.000000] NR_IRQS:64 nr_irqs:64 0                                                                             
-[    0.000000] GIC: Using split EOI/Deactivate mode                                                                
-[    0.000000] clk lvds0 not found in of_sunxi_periph_clk_setup                                                    
-[    0.000000] clocksource: timer: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 58327039986419 ns         
-[    0.000000] arm_arch_timer: Architected cp15 timer(s) running at 24.00MHz (phys).                               
-[    0.000000] clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0x588fe9dc0, max_idle_ns: 4407952s
-[    0.000010] sched_clock: 56 bits at 24MHz, resolution 41ns, wraps every 4398046511097ns                         
-[    0.000514] Console: colour dummy device 80x25                                                                  
-[    0.003444] console [tty1] enabled                                                                              
-[    0.003520] Calibrating delay loop (skipped), value calculated using timer frequency.. 48.00 BogoMIPS (lpj=9600)
-[    0.003644] pid_max: default: 32768 minimum: 301                                                                
-[    0.004747] Mount-cache hash table entries: 2048 (order: 2, 16384 bytes)                                        
-[    0.004826] Mountpoint-cache hash table entries: 2048 (order: 2, 16384 bytes)                                   
-[    0.011461] sched-energy: CPU device node has no sched-energy-costs                                             
-[    0.011559] Invalid sched_group_energy for CPU0                                                                 
-[    0.011631] CPU0: update cpu_capacity 1024                                                                      
-[    0.023313] ASID allocator initialised with 32768 entries                                                       
-[    0.079913] Detected VIPT I-cache on CPU1                                                                       
-[    0.080001] Invalid sched_group_energy for CPU1                                                                 
-[    0.080009] CPU1: update cpu_capacity 1024                                                                      
-[    0.080016] CPU1: Booted secondary processor [410fd034]                                                         
-[    0.107931] Detected VIPT I-cache on CPU2                                                                       
-[    0.107997] Invalid sched_group_energy for CPU2                                                                 
-[    0.108004] CPU2: update cpu_capacity 1024                                                                      
-[    0.108011] CPU2: Booted secondary processor [410fd034]                                                         
-[    0.136092] Detected VIPT I-cache on CPU3                                                                       
-[    0.136154] Invalid sched_group_energy for CPU3                                                                 
-[    0.136160] CPU3: update cpu_capacity 1024                                                                      
-[    0.136167] CPU3: Booted secondary processor [410fd034]                                                         
-[    0.136339] Brought up 4 CPUs                                                                                   
-[    0.137095] SMP: Total of 4 processors activated.                                                               
-[    0.137171] CPU features: detected feature: 32-bit EL0 Support                                                  
-[    0.137248] CPU features: detected feature: Kernel page table isolation (KPTI)                                  
-[    0.140991] CPU: All CPU(s) started at EL2                                                                      
-[    0.141094] alternatives: patching kernel code                                                                  
-[    0.141824] Invalid sched_group_energy for Cluster3                                                             
-[    0.141902] Invalid sched_group_energy for Cluster2                                                             
-[    0.141976] Invalid sched_group_energy for Cluster1                                                             
-[    0.142050] Invalid sched_group_energy for Cluster0                                                             
-[    0.144441] devtmpfs: initialized                                                                               
-[    0.520306] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns     
-[    0.520464] futex hash table entries: 1024 (order: 5, 131072 bytes)                                             
-[    0.522159] atomic64_test: passed                                                                               
-[    0.522237] pinctrl core: initialized pinctrl subsystem                                                         
-[    0.533725] dump_class_init,861, success                                                                        
-[    0.534468] vdso: 2 pages (1 code @ ffffff80082c7000, 1 data @ ffffff8008484000)                                
-[    0.534636] hw-breakpoint: found 6 breakpoint and 4 watchpoint registers.                                       
-[    0.537673] DMA: preallocated 256 KiB pool for atomic allocations                                               
-[    0.586496] sun50iw3p1-r-pinctrl r_pio: initialized sunXi PIO driver                                            
-[    0.674855] sun50iw3p1-pinctrl pio: initialized sunXi PIO driver                                                
-[    0.862006] sunxi-pm debug v3.10                                                                                
-[    0.868125] SCSI subsystem initialized                                                                          
-[    0.869725] clocksource: Switched to clocksource arch_sys_counter                                               
-[    0.978319] Unpacking initramfs...                                                                              
-[    2.739777] Freeing initrd memory: 11760K                                                                       
-[    2.742695] hw perfevents: enabled with armv8_pmuv3 PMU driver, 7 counters available                            
-[    2.761385] workingset: timestamp_bits=61 max_order=18 bucket_order=0                                           
-[    2.914227] io scheduler noop registered                                                                        
-[    2.918892] io scheduler cfq registered (default)                                                               
-[    2.936331] sunxi_suspend_init, 0x40020000, 0x0, 0x800                                                          
-[    2.980514] sun50iw3p1-pinctrl pio: can not get function on pin PB9                                             
-[    2.980623] sun50iw3p1-pinctrl pio: can not get function on pin PB10                                            
-[    2.980963] sun50iw3p1-pinctrl pio: can not get function on pin PB9                                             
-[    2.981057] sun50iw3p1-pinctrl pio: can not get function on pin PB10                                            
-[    2.981791] uart uart0: get regulator failed                                                                    
-[    2.982633] sun50iw3p1-pinctrl pio: can not get function on pin PB9                                             
-[    2.982728] sun50iw3p1-pinctrl pio: can not get function on pin PB10                                            
-[    2.983039] sun50iw3p1-pinctrl pio: can not get function on pin PB9                                             
-[    2.983132] sun50iw3p1-pinctrl pio: can not get function on pin PB10                                            
-[    2.983320] sw_uart_select_gpio_state()1236 - UART0 pinctrl_lookup_state(default) failed! return ffffffffffffff 
-[    2.983471] uart0: ttyS0 at MMIO 0x5000000 (irq = 211, base_baud = 1500000) is a SUNXI                          
-[    2.983614] sw_console_setup()1706 - console setup baud 115200 parity n bits 8, flow n                          
-[    3.737588] console [ttyS0] enabled                                                                             
-[    3.746638] misc dump reg init                                                                                  
-[    3.753561] Unable to detect cache hierarchy for CPU 0                                                          
-[    3.839265] Freeing unused kernel memory: 320K
+U-Boot SPL 2023.01-rc3-00053-g9f76137c45 (Dec 23 2022 - 00:00:00 +0000)
+DRAM:Init DRAM controller for Allwinner A63
+chip id check OK
+do auto_scan_dram_type !
+do mctl_sys_init !
+do mctl_com_init !
+do auto_set_timing_para !
+do mctl_channel_init !
+do auto_scan_dram_rank_width !
+do mctl_sys_init !
+do mctl_com_init !
+do auto_set_timing_para !
+do mctl_channel_init !
+do auto_scan_dram_size !
+do mctl_sys_init !
+do mctl_com_init !
+do auto_set_timing_para !
+do mctl_channel_init !
+DRAM BOOT DRIVE INFO: V0.573
+DRAM CLK = 792 MHZ
+DRAM Type = 7 (2:DDR2,3:DDR3,6:LPDDR2,7:LPDDR3)
+DRAM ZQ value: 0x3d3dfb
+do mctl_sys_init !
+do mctl_com_init !
+do auto_set_timing_para !
+do mctl_channel_init !
+DRAM SIZE =67108864 M
+Disable Auto SR
+DRAM simple test OK.
+size = 3072
+ 3072 MiB
+Trying to boot from MMC1
+NOTICE:  BL31: v2.8(debug):v2.8-56-g9f5300fe8
+NOTICE:  BL31: Built : 00:00:00, Dec 23 2022
+NOTICE:  BL31: Detected Allwinner A63 SoC (1719)
+NOTICE:  BL31: Found U-Boot DTB at 0xa096d18, model: A63 Board
+INFO:    ARM GICv2 driver initialized
+INFO:    Configuring SPC Controller
+INFO:    PMIC: Probing AXP802 on RSB
+INFO:    PMIC: aldo1 voltage: 3.300V
+INFO:    PMIC: dcdc1 voltage: 3.300V
+INFO:    PMIC: dcdc5 voltage: 1.240V
+INFO:    PMIC: dcdc6 voltage: 0.900V
+INFO:    PMIC: dldo1 voltage: 3.300V
+INFO:    PMIC: dldo2 voltage: 3.300V
+INFO:    PMIC: dldo3 voltage: 1.200V
+INFO:    PMIC: dldo4 voltage: 1.800V
+INFO:    PMIC: fldo1 voltage: 1.200V
+INFO:    PMIC: Enabling DC SW
+INFO:    BL31: Platform setup done
+INFO:    BL31: Initializing runtime services
+INFO:    BL31: cortex_a53: CPU workaround for 855873 was applied
+INFO:    BL31: cortex_a53: CPU workaround for 1530924 was applied
+INFO:    PSCI: Suspend is unavailable
+INFO:    BL31: Preparing for EL3 exit to normal world
+INFO:    Entry point address = 0x4a000000
+INFO:    SPSR = 0x3c9
+
+
+U-Boot 2023.01-rc3-00053-g9f76137c45 (Dec 23 2022 - 00:00:00 +0000) Allwinner Technology
+
+CPU:   Allwinner H6 (SUN50I)
+Model: A63 Board
+DRAM:  3 GiB
+Core:  27 devices, 15 uclasses, devicetree: separate
+MMC:   mmc@4020000: 0, mmc@4021000: 2, mmc@4022000: 1
+Loading Environment from FAT... Unable to read "uboot.env" from mmc0:1... 
+In:    serial@5000000
+Out:   serial@5000000
+Err:   serial@5000000
+Allwinner mUSB OTG (Peripheral)
+Net:   eth0: usb_ether
+Hit any key to stop autoboot:  0 
+=> 
+=> run distro_bootcmd 
+switch to partitions #0, OK
+mmc0 is current device
+Scanning mmc 0:1...
+Found /extlinux/extlinux.conf
+Retrieving file: /extlinux/extlinux.conf
+1:      linux
+Retrieving file: /initrd.img
+Retrieving file: /a63/Image
+append: initrd=/initrd.img root=/dev/abcdefg rootwait rw earlyprintk console=ttyS0,115200n8 
+Retrieving file: /a63/a63.dtb
+## Flattened Device Tree blob at 4fa00000
+   Booting using the fdt blob at 0x4fa00000
+Working FDT set to 4fa00000
+   Loading Ramdisk to 49118000, end 49fffe8d ... OK
+ERROR: reserving fdt memory region failed (addr=48000000 size=2000000 flags=0)
+   Loading Device Tree to 0000000049103000, end 0000000049117764 ... OK
+Working FDT set to 49103000
+
+Starting kernel ...
+
+[    0.000000] Booting Linux on physical CPU 0x0
+[    0.000000] Linux version 4.9.170+ (XXX@XXX) (gcc version XXXXXXXX (GCC) ) #3 SMP PREEMPT Sat Jan 29 00:00:00 CST 2022
+[    0.000000] Boot CPU: AArch64 Processor [410fd034]
+[    0.000000] No earlyprintk arguments passed.
+[    0.000000] cma: Reserved 16 MiB at 0x00000000ff000000
+[    0.000000] psci: probing for conduit method from DT.
+[    0.000000] psci: PSCIv1.1 detected in firmware.
+[    0.000000] psci: Using standard PSCI v0.2 function IDs
+[    0.000000] psci: MIGRATE_INFO_TYPE not supported.
+[    0.000000] psci: SMC Calling Convention v1.0
+[    0.000000] percpu: Embedded 22 pages/cpu @ffffffc0bef3a000 s49688 r8192 d32232 u90112
+[    0.000000] Detected VIPT I-cache on CPU0
+[    0.000000] CPU features: enabling workaround for ARM erratum 845719
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 774144
+[    0.000000] Kernel command line: initrd=/initrd.img root=/dev/abcdefg rootwait rw earlyprintk console=ttyS0,115200n8 
+[    0.000000] log_buf_len individual max cpu contribution: 131072 bytes
+[    0.000000] log_buf_len total cpu_extra contributions: 393216 bytes
+[    0.000000] log_buf_len min size: 131072 bytes
+[    0.000000] log_buf_len: 524288 bytes
+[    0.000000] early log buf free: 129416(98%)
+[    0.000000] PID hash table entries: 4096 (order: 3, 32768 bytes)
+[    0.000000] Dentry cache hash table entries: 524288 (order: 10, 4194304 bytes)
+[    0.000000] Inode-cache hash table entries: 262144 (order: 9, 2097152 bytes)
+[    0.000000] Memory: 3015140K/3145728K available (12094K kernel code, 2212K rwdata, 6640K rodata, 3136K init, 677K bss, 114204K reserved, 16384K cma-reserved)
+[    0.000000] Virtual kernel memory layout:
+[    0.000000]     modules : 0xffffff8000000000 - 0xffffff8008000000   (   128 MB)
+[    0.000000]     vmalloc : 0xffffff8008000000 - 0xffffffbebfff0000   (   250 GB)
+[    0.000000]       .text : 0xffffff8008080000 - 0xffffff8008c50000   ( 12096 KB)
+[    0.000000]     .rodata : 0xffffff8008c50000 - 0xffffff80092d0000   (  6656 KB)
+[    0.000000]       .init : 0xffffff80092d0000 - 0xffffff80095e0000   (  3136 KB)
+[    0.000000]       .data : 0xffffff80095e0000 - 0xffffff8009809008   (  2213 KB)
+[    0.000000]        .bss : 0xffffff8009809008 - 0xffffff80098b268c   (   678 KB)
+[    0.000000]     fixed   : 0xffffffbefe7fb000 - 0xffffffbefec00000   (  4116 KB)
+[    0.000000]     PCI I/O : 0xffffffbefee00000 - 0xffffffbeffe00000   (    16 MB)
+[    0.000000]     vmemmap : 0xffffffbf00000000 - 0xffffffc000000000   (     4 GB maximum)
+[    0.000000]               0xffffffbf00000000 - 0xffffffbf03000000   (    48 MB actual)
+[    0.000000]     memory  : 0xffffffc000000000 - 0xffffffc0c0000000   (  3072 MB)
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=4, Nodes=1
+[    0.000000] Preemptible hierarchical RCU implementation.
+[    0.000000]  Build-time adjustment of leaf fanout to 64.
+[    0.000000] NR_IRQS:64 nr_irqs:64 0
+[    0.000000] GIC: Using split EOI/Deactivate mode
+[    0.000000] clk lvds0 not found in of_sunxi_periph_clk_setup
+[    0.000000] clk stwi not found in of_sunxi_periph_cpus_clk_setup
+[    0.000000] clocksource: timer: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 58327039986419 ns
+[    0.000000] arm_arch_timer: Architected cp15 timer(s) running at 24.00MHz (phys).
+[    0.000000] clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0x588fe9dc0, max_idle_ns: 440795202592 ns
+[    0.000005] sched_clock: 56 bits at 24MHz, resolution 41ns, wraps every 4398046511097ns
+[    0.000124] Console: colour dummy device 80x25
+[    0.000141] Calibrating delay loop (skipped), value calculated using timer frequency.. 48.00 BogoMIPS (lpj=80000)
+[    0.000151] pid_max: default: 32768 minimum: 301
+[    0.000362] Security Framework initialized
+[    0.000373] AppArmor: AppArmor disabled by boot time parameter
+[    0.000499] Mount-cache hash table entries: 8192 (order: 4, 65536 bytes)
+[    0.000509] Mountpoint-cache hash table entries: 8192 (order: 4, 65536 bytes)
+[    0.001660] sched-energy: CPU device node has no sched-energy-costs
+[    0.001675] Invalid sched_group_energy for CPU0
+[    0.001685] CPU0: update cpu_capacity 1024
+[    0.009693] ASID allocator initialised with 32768 entries
+[    0.028611] BOOTEVENT:        28.601040: ON
+[    0.056812] Detected VIPT I-cache on CPU1
+[    0.056860] Invalid sched_group_energy for CPU1
+[    0.056863] CPU1: update cpu_capacity 1024
+[    0.056866] CPU1: Booted secondary processor [410fd034]
+[    0.080054] Detected VIPT I-cache on CPU2
+[    0.080081] Invalid sched_group_energy for CPU2
+[    0.080084] CPU2: update cpu_capacity 1024
+[    0.080086] CPU2: Booted secondary processor [410fd034]
+[    0.103465] Detected VIPT I-cache on CPU3
+[    0.103491] Invalid sched_group_energy for CPU3
+[    0.103493] CPU3: update cpu_capacity 1024
+[    0.103496] CPU3: Booted secondary processor [410fd034]
+[    0.103582] Brought up 4 CPUs
+[    0.103629] SMP: Total of 4 processors activated.
+[    0.103640] CPU features: detected feature: 32-bit EL0 Support
+[    0.103649] CPU features: detected feature: Kernel page table isolation (KPTI)
+[    0.107497] CPU: All CPU(s) started at EL2
+[    0.107523] alternatives: patching kernel code
+[    0.107708] Invalid sched_group_energy for CPU3
+[    0.107721] CPU3: update max cpu_capacity 1024
+[    0.107730] Invalid sched_group_energy for Cluster3
+[    0.107738] Invalid sched_group_energy for CPU2
+[    0.107747] Invalid sched_group_energy for Cluster2
+[    0.107756] Invalid sched_group_energy for CPU1
+[    0.107765] Invalid sched_group_energy for Cluster1
+[    0.107773] Invalid sched_group_energy for CPU0
+[    0.107782] Invalid sched_group_energy for Cluster0
+[    0.109610] devtmpfs: initialized
+[    0.113467] CPU2: update max cpu_capacity 1024
+[    0.134753] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 6370867519511994 ns
+[    0.134781] futex hash table entries: 1024 (order: 5, 131072 bytes)
+[    0.135492] xor: measuring software checksum speed
+[    0.166894]    8regs     :  1702.800 MB/sec
+[    0.200293]    8regs_prefetch:  1515.600 MB/sec
+[    0.233693]    32regs    :  2014.800 MB/sec
+[    0.267093]    32regs_prefetch:  1705.200 MB/sec
+[    0.267103] xor: using function: 32regs (2014.800 MB/sec)
+[    0.267160] atomic64_test: passed
+[    0.267170] pinctrl core: initialized pinctrl subsystem
+[    0.268801] NET: Registered protocol family 16
+[    0.270135] dump_class_init,861, success
+[    0.283820] cpuidle: using governor menu
+[    0.284861] sunxi iommu: irq = 7
+[    0.285093] vdso: 2 pages (1 code @ ffffff8008c57000, 1 data @ ffffff80095e4000)
+[    0.285112] hw-breakpoint: found 6 breakpoint and 4 watchpoint registers.
+[    0.286563] DMA: preallocated 256 KiB pool for atomic allocations
+[    0.291280] sun50iw3p1-r-pinctrl r_pio: initialized sunXi PIO driver
+[    0.299203] sun50iw3p1-pinctrl pio: initialized sunXi PIO driver
+[    0.301238] sunxi hwspinlock vbase:0xffffff8008056000
+[    0.315341] pstore: using zlib compression
+[    0.315873] console [pstore-1] enabled
+[    0.316127] pstore: Registered ramoops as persistent store backend
+[    0.316142] ramoops: attached 0x60000@0x48106000, ecc: 0/0
+[    0.351518] HugeTLB registered 2 MB page size, pre-allocated 0 pages
+[    0.407799] raid6: int64x1  gen()   319 MB/s
+[    0.464455] raid6: int64x1  xor()   308 MB/s
+[    0.521311] raid6: int64x2  gen()   496 MB/s
+[    0.578013] raid6: int64x2  xor()   439 MB/s
+[    0.634745] raid6: int64x4  gen()   718 MB/s
+[    0.691495] raid6: int64x4  xor()   538 MB/s
+[    0.748242] raid6: int64x8  gen()   877 MB/s
+[    0.805025] raid6: int64x8  xor()   570 MB/s
+[    0.861835] raid6: neonx1   gen()   553 MB/s
+[    0.918542] raid6: neonx1   xor()   551 MB/s
+[    0.975306] raid6: neonx2   gen()   832 MB/s
+[    1.032076] raid6: neonx2   xor()   707 MB/s
+[    1.088820] raid6: neonx4   gen()  1091 MB/s
+[    1.145592] raid6: neonx4   xor()   834 MB/s
+[    1.202368] raid6: neonx8   gen()  1140 MB/s
+[    1.259127] raid6: neonx8   xor()   864 MB/s
+[    1.259138] raid6: using algorithm neonx8 gen() 1140 MB/s
+[    1.259149] raid6: .... xor() 864 MB/s, rmw enabled
+[    1.259159] raid6: using intx1 recovery algorithm
+[    1.259299] pwm module init!
+[    1.262673] sunxi-pm debug v3.10
+[    1.264015] SCSI subsystem initialized
+[    1.264610] usbcore: registered new interface driver usbfs
+[    1.264701] usbcore: registered new interface driver hub
+[    1.264832] usbcore: registered new device driver usb
+[    1.264975] media: Linux media interface: v0.10
+[    1.265033] Linux video capture interface: v2.00
+[    1.265870] Advanced Linux Sound Architecture Driver Initialized.
+[    1.266601] Bluetooth: Core ver 2.22
+[    1.266664] NET: Registered protocol family 31
+[    1.266676] Bluetooth: HCI device and connection manager initialized
+[    1.266698] Bluetooth: HCI socket layer initialized
+[    1.266716] Bluetooth: L2CAP socket layer initialized
+[    1.266763] Bluetooth: SCO socket layer initialized
+[    1.267931] failed read to 0x03
+[    1.267946] [axp803] try to read chip id failed!
+[    1.267972] axp803: probe of pmu0 failed with error -1
+[    1.268461] clocksource: Switched to clocksource arch_sys_counter
+[    1.268794] VFS: Disk quotas dquot_6.6.0
+[    1.268892] VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+[    1.283062] sunxi_i2c_adap_init()2522 - init
+[    1.284819] NET: Registered protocol family 2
+[    1.311999] TCP established hash table entries: 32768 (order: 6, 262144 bytes)
+[    1.312292] TCP bind hash table entries: 32768 (order: 7, 524288 bytes)
+[    1.312885] TCP: Hash tables configured (established 32768 bind 32768)
+[    1.312974] UDP hash table entries: 2048 (order: 4, 65536 bytes)
+[    1.313079] UDP-Lite hash table entries: 2048 (order: 4, 65536 bytes)
+[    1.313525] NET: Registered protocol family 1
+[    1.314117] RPC: Registered named UNIX socket transport module.
+[    1.314127] RPC: Registered udp transport module.
+[    1.314134] RPC: Registered tcp transport module.
+[    1.314142] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[    1.314778] Trying to unpack rootfs image as initramfs...
+[    1.919515] Freeing initrd memory: 15260K
+[    1.920353] hw perfevents: enabled with armv8_pmuv3 PMU driver, 7 counters available
+[    1.924305] audit: initializing netlink subsys (disabled)
+[    1.924370] audit: type=2000 audit(1.916:1): initialized
+[    1.925336] workingset: timestamp_bits=45 max_order=20 bucket_order=0
+[    1.939136] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[    1.939493] Registering sdcardfs 0.1
+[    1.940898] NFS: Registering the id_resolver key type
+[    1.940930] Key type id_resolver registered
+[    1.940941] Key type id_legacy registered
+[    1.940962] nfs4filelayout_init: NFSv4 File Layout Driver Registering...
+[    1.940982] Installing knfsd (copyright (C) 1996 okir@monad.swb.de).
+[    1.942486] ntfs: driver 2.1.32 [Flags: R/W].
+[    1.949397] NET: Registered protocol family 38
+[    1.949758] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 248)
+[    1.949920] io scheduler noop registered
+[    1.949934] io scheduler deadline registered
+[    1.950095] io scheduler cfq registered (default)
+[    1.951777] failed to get easy_light_used assign
+[    1.952039] failed to get normal led pin assign
+[    1.952053] failed to get standby led pin assign
+[    1.952064] failed to get standby led pin assign
+[    1.952128] gpio_pin_1(368) gpio_is_valid
+[    1.952342] gpio_pin_2(362) gpio_is_valid
+[    1.952518] gpio_pin_3(363) gpio_is_valid
+[    1.952809] gpio name is PL16, ret = 0
+[    1.952993] gpio name is PL10, ret = 0
+[    1.953161] gpio name is PL11, ret = 0
+[    1.953335] gpio_init finish with uesd
+[    1.953558] [DISP]disp_module_init
+[    1.954460] [DISP] parser_disp_init_para,line:1187:
+[    1.954472] of_property_read disp_init.disp_init_enable fail
+[    1.957758] [DISP]disp_module_init finish
+[    1.959455] sunxi_suspend_init, 0x40020000, 0x0, 0x800
+[    1.960663] sun50iw3p1-pinctrl pio: can not get function on pin PB9
+[    1.960684] sun50iw3p1-pinctrl pio: can not get function on pin PB10
+[    1.960895] uart uart0: get regulator failed
+[    1.961064] sun50iw3p1-pinctrl pio: can not get function on pin PB9
+[    1.961081] sun50iw3p1-pinctrl pio: can not get function on pin PB10
+[    1.961142] sw_uart_select_gpio_state()1236 - UART0 pinctrl_lookup_state(default) failed! return ffffffffffffffed 
+[    1.961160] uart0: ttyS0 at MMIO 0x5000000 (irq = 213, base_baud = 1500000) is a SUNXI
+[    1.961186] sw_console_setup()1706 - console setup baud 115200 parity n bits 8, flow n
+[    3.228885] console [ttyS0] enabled
+[    3.233893] misc dump reg init
+[    3.237699] Unable to detect cache hierarchy for CPU 0
+[    3.256723] brd: module loaded
+[    3.267924] loop: module loaded
+[    3.271505] [NAND]nand comperaliti: allwinner,sun50iw3-nand
+[    3.282358] [NAND]Failed to insmod nand!!!
+[    3.287392] Get boot type cmd line fail
+[    3.292363] sunxi-wlan soc@03000000:wlan: wlan_busnum (1)
+[    3.298467] sunxi-wlan soc@03000000:wlan: wlan_power_name (vcc-wifi-18)
+[    3.305914] sunxi-wlan soc@03000000:wlan: io_regulator_name (vcc-wifi-io)
+[    3.313586] sunxi-wlan soc@03000000:wlan: wlan_regon gpio=384  mul-sel=1  pull=1  drv_level=1  data=0
+[    3.323986] sunxi-wlan soc@03000000:wlan: chip_en gpio=389  mul-sel=1  pull=0  drv_level=1  data=0
+[    3.334081] sunxi-wlan soc@03000000:wlan: get gpio power_en failed
+[    3.341072] sunxi-wlan soc@03000000:wlan: wlan_hostwake gpio=385  mul-sel=6  pull=0  drv_level=0  data=0
+[    3.351856] sunxi-wlan soc@03000000:wlan: devm_pinctrl_get() failed!
+[    3.361338] libphy: Fixed MDIO Bus: probed
+[    3.366380] tun: Universal TUN/TAP device driver, 1.6
+[    3.372078] tun: (C) 1999-2004 Max Krasnyansky <maxk@qualcomm.com>
+[    3.379275] PPP generic driver version 2.4.2
+[    3.384304] PPP BSD Compression module registered
+[    3.389602] PPP Deflate Compression module registered
+[    3.395313] PPP MPPE Compression module registered
+[    3.400706] NET: Registered protocol family 24
+[    3.405731] PPTP driver version 0.8.5
+[    3.410176] usbcore: registered new interface driver r8152
+[    3.416431] usbcore: registered new interface driver asix
+[    3.422590] usbcore: registered new interface driver ax88179_178a
+[    3.429512] usbcore: registered new interface driver cdc_ether
+[    3.436133] usbcore: registered new interface driver net1080
+[    3.442565] usbcore: registered new interface driver cdc_subset
+[    3.449289] usbcore: registered new interface driver zaurus
+[    3.455650] usbcore: registered new interface driver cdc_ncm
+[    3.462018] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[    3.469872] sunxi-ehci 5101000.ehci0-controller: SW USB2.0 'Enhanced' Host Controller (EHCI) Driver
+[    3.480068] sunxi-ehci 5101000.ehci0-controller: new USB bus registered, assigned bus number 1
+[    3.490277] sunxi-ehci 5101000.ehci0-controller: irq 215, io mem 0xffffff8009a33000
+[    3.511821] sunxi-ehci 5101000.ehci0-controller: USB 0.0 started, EHCI 1.00
+[    3.519905] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002
+[    3.527546] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    3.535677] usb usb1: Product: SW USB2.0 'Enhanced' Host Controller (EHCI) Driver
+[    3.544093] usb usb1: Manufacturer: Linux 4.9.170+ ehci_hcd
+[    3.550363] usb usb1: SerialNumber: sunxi-ehci
+[    3.556136] hub 1-0:1.0: USB hub found
+[    3.560392] hub 1-0:1.0: 1 port detected
+[    3.565677] sunxi-ehci 5200000.ehci1-controller: SW USB2.0 'Enhanced' Host Controller (EHCI) Driver
+[    3.575870] sunxi-ehci 5200000.ehci1-controller: new USB bus registered, assigned bus number 2
+[    3.585808] sunxi-ehci 5200000.ehci1-controller: irq 217, io mem 0xffffff8009a3d000
+[    3.605153] sunxi-ehci 5200000.ehci1-controller: USB 0.0 started, EHCI 1.00
+[    3.612997] sunxi-ehci 5200000.ehci1-controller: ehci_irq: highspeed device connect
+[    3.613166] usb usb2: New USB device found, idVendor=1d6b, idProduct=0002
+[    3.613173] usb usb2: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    3.613179] usb usb2: Product: SW USB2.0 'Enhanced' Host Controller (EHCI) Driver
+[    3.613185] usb usb2: Manufacturer: Linux 4.9.170+ ehci_hcd
+[    3.613190] usb usb2: SerialNumber: sunxi-ehci
+[    3.657153] hub 2-0:1.0: USB hub found
+[    3.661405] hub 2-0:1.0: 1 port detected
+[    3.667684] ohci_hcd: USB 1.1 'Open' Host Controller (OHCI) Driver
+[    3.675220] sunxi-ohci 5101000.ohci0-controller: SW USB2.0 'Open' Host Controller (OHCI) Driver
+[    3.685027] sunxi-ohci 5101000.ohci0-controller: new USB bus registered, assigned bus number 3
+[    3.694779] sunxi-ohci 5101000.ohci0-controller: irq 216, io mem 0x00000000
+[    3.762668] usb usb3: New USB device found, idVendor=1d6b, idProduct=0001
+[    3.770397] usb usb3: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    3.778523] usb usb3: Product: SW USB2.0 'Open' Host Controller (OHCI) Driver
+[    3.786547] usb usb3: Manufacturer: Linux 4.9.170+ ohci_hcd
+[    3.792816] usb usb3: SerialNumber: sunxi-ohci
+[    3.798587] hub 3-0:1.0: USB hub found
+[    3.802841] hub 3-0:1.0: 1 port detected
+[    3.808010] hci: request ohci1-controller gpio:361
+[    3.813530] sunxi-ohci 5200000.ohci1-controller: SW USB2.0 'Open' Host Controller (OHCI) Driver
+[    3.823338] sunxi-ohci 5200000.ohci1-controller: new USB bus registered, assigned bus number 4
+[    3.833086] sunxi-ohci 5200000.ohci1-controller: irq 218, io mem 0x00000000
+[    3.899311] usb usb4: New USB device found, idVendor=1d6b, idProduct=0001
+[    3.906952] usb usb4: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    3.915112] usb usb4: Product: SW USB2.0 'Open' Host Controller (OHCI) Driver
+[    3.923280] usb usb4: Manufacturer: Linux 4.9.170+ ohci_hcd
+[    3.929635] usb usb4: SerialNumber: sunxi-ohci
+[    3.935404] hub 4-0:1.0: USB hub found
+[    3.939659] hub 4-0:1.0: 1 port detected
+[    3.944840] ohci-platform: OHCI generic platform driver
+[    3.951111] usbcore: registered new interface driver uas
+[    3.957229] usbcore: registered new interface driver usb-storage
+[    3.964054] usbcore: registered new interface driver ums-alauda
+[    3.970778] usbcore: registered new interface driver ums-cypress
+[    3.977599] usbcore: registered new interface driver ums-datafab
+[    3.984418] usbcore: registered new interface driver ums_eneub6250
+[    3.985159] usb 2-1: new high-speed USB device number 2 using sunxi-ehci
+[    3.998997] usbcore: registered new interface driver ums-freecom
+[    4.005832] usbcore: registered new interface driver ums-isd200
+[    4.012555] usbcore: registered new interface driver ums-jumpshot
+[    4.019477] usbcore: registered new interface driver ums-karma
+[    4.026105] usbcore: registered new interface driver ums-onetouch
+[    4.033043] usbcore: registered new interface driver ums-realtek
+[    4.039863] usbcore: registered new interface driver ums-sddr09
+[    4.046707] usbcore: registered new interface driver ums-sddr55
+[    4.053432] usbcore: registered new interface driver ums-usbat
+[    4.060083] usb_serial_number:20080411
+[    4.064918] sunxi_keyboard_startup: keyboard has no clk.
+[    4.071231] input: sunxi-keyboard as /devices/virtual/input/input0
+[    4.078702] usbcore: registered new interface driver xpad
+[    4.084866] usbcore: registered new interface driver usb_acecad
+[    4.091598] usbcore: registered new interface driver aiptek
+[    4.097945] usbcore: registered new interface driver gtco
+[    4.104117] usbcore: registered new interface driver hanwang
+[    4.110607] usbcore: registered new interface driver kbtab
+[    4.117985] sunxi-rtc rtc: rtc core: registered sunxi-rtc as rtc0
+[    4.124919] sunxi-rtc rtc: RTC enabled
+[    4.129424] i2c /dev entries driver
+[    4.133698] lirc_dev: IR Remote Control driver registered, major 244
+[    4.140869] IR NEC protocol handler initialized
+[    4.145990] IR RC5(x/sz) protocol handler initialized
+[    4.151692] IR RC6 protocol handler initialized
+[    4.151703] usb 2-1: New USB device found, idVendor=05e3, idProduct=0608
+[    4.151711] usb 2-1: New USB device strings: Mfr=0, Product=1, SerialNumber=0
+[    4.151716] usb 2-1: Product: USB2.0 Hub
+[    4.157039] hub 2-1:1.0: USB hub found
+[    4.164364] hub 2-1:1.0: 4 ports detected
+[    4.185583] IR JVC protocol handler initialized
+[    4.190698] IR Sony protocol handler initialized
+[    4.195908] IR SANYO protocol handler initialized
+[    4.201203] IR Sharp protocol handler initialized
+[    4.206495] IR MCE Keyboard/mouse protocol handler initialized
+[    4.213057] IR LIRC bridge handler initialized
+[    4.218064] IR XMP protocol handler initialized
+[    4.223716] cedar_ve: cedar-ve the get irq is 211
+[    4.229411] VE: get debugfs_mpp_root is NULL, please check mpp
+[    4.229411] 
+[    4.237642] VE: sunxi ve debug register driver failed!
+[    4.237642] 
+[    4.254840] sunxi-wdt 30090a0.watchdog: Watchdog enabled (timeout=16 sec, nowayout=0)
+[    4.264677] device-mapper: ioctl: 4.35.0-ioctl (2016-06-23) initialised: dm-devel@redhat.com
+[    4.274459] Bluetooth: HCI UART driver ver 2.3
+[    4.279471] Bluetooth: HCI UART protocol H4 registered
+[    4.285258] Bluetooth: HCI UART protocol LL registered
+[    4.291039] Bluetooth: HCI UART protocol Three-wire (H5) registered
+[    4.301883] sunxi-mmc sdc2: SD/MMC/SDIO Host Controller Driver(v3.35 2019-12-11 14:29)
+[    4.310988] sunxi-mmc sdc2: ***ctl-spec-caps*** 8
+[    4.316362] sunxi-mmc sdc2: Can't get vmmc regulator string
+[    4.322698] sunxi-mmc sdc2: Can't get vqmmc regulator string
+[    4.329132] sunxi-mmc sdc2: Can't get vdmmc regulator string
+[    4.335563] sunxi-mmc sdc2: Can't get vdmmc33sw regulator string
+[    4.342384] sunxi-mmc sdc2: Can't get vdmmc18sw regulator string
+[    4.349193] sunxi-mmc sdc2: Can't get vqmmc33sw regulator string
+[    4.356008] sunxi-mmc sdc2: Can't get vqmmc18sw regulator string
+[    4.362812] get() with no identifier
+[    4.366872] get() with no identifier
+[    4.370922] get() with no identifier
+[    4.374974] get() with no identifier
+[    4.379054] get() with no identifier
+[    4.383112] get() with no identifier
+[    4.387175] get() with no identifier
+[    4.391231] sunxi-mmc sdc2: No vmmc regulator found
+[    4.396761] sunxi-mmc sdc2: No vqmmc regulator found
+[    4.402389] sunxi-mmc sdc2: No vdmmc regulator found
+[    4.408016] sunxi-mmc sdc2: No vd33sw regulator found
+[    4.413731] sunxi-mmc sdc2: No vd18sw regulator found
+[    4.419453] sunxi-mmc sdc2: No vq33sw regulator found
+[    4.425180] sunxi-mmc sdc2: No vq18sw regulator found
+[    4.431459] sunxi-mmc sdc2: set host busy
+[    4.436094] mmc:failed to get gpios
+[    4.440326] sunxi-mmc sdc2: sdc set ios:clk 0Hz bm PP pm UP vdd 21 width 1 timing LEGACY(SDR12) dt B
+[    4.465156] sunxi-mmc sdc2: sdc set ios:clk 400000Hz bm PP pm ON vdd 21 width 1 timing LEGACY(SDR12) dt B
+[    4.491832] sunxi-mmc sdc2: detmode:alway in(non removable)
+[    4.491856] sunxi-mmc sdc2: sdc set ios:clk 400000Hz bm PP pm ON vdd 21 width 1 timing LEGACY(SDR12) dt B
+[    4.500298] sunxi-mmc sdc2: sdc set ios:clk 400000Hz bm PP pm ON vdd 21 width 1 timing LEGACY(SDR12) dt B
+[    4.501380] sunxi-mmc sdc2: sdc set ios:clk 400000Hz bm OD pm ON vdd 21 width 1 timing LEGACY(SDR12) dt B
+[    4.512324] sunxi-mmc sdc2: sdc set ios:clk 400000Hz bm OD pm ON vdd 21 width 1 timing LEGACY(SDR12) dt B
+[    4.512405] sunxi-mmc sdc2: sdc set ios:clk 400000Hz bm OD pm ON vdd 21 width 1 timing LEGACY(SDR12) dt B
+[    4.525332] sunxi-mmc sdc2: sdc set ios:clk 400000Hz bm OD pm ON vdd 21 width 1 timing LEGACY(SDR12) dt B
+[    4.531823] usb 2-1.2: new high-speed USB device number 3 using sunxi-ehci
+[    4.578175] sunxi-mmc sdc0: SD/MMC/SDIO Host Controller Driver(v3.35 2019-12-11 14:29)
+[    4.587328] sunxi-mmc sdc0: regulator prop vmmc,str vcc-card
+[    4.593784] sunxi-mmc sdc0: regulator prop vqmmc,str vcc-pf
+[    4.600112] sunxi-mmc sdc0: regulator prop vdmmc,str vcc-pf
+[    4.606440] sunxi-mmc sdc0: Can't get vdmmc33sw regulator string
+[    4.613273] sunxi-mmc sdc0: Can't get vdmmc18sw regulator string
+[    4.620110] sunxi-mmc sdc0: Can't get vqmmc33sw regulator string
+[    4.626958] sunxi-mmc sdc0: Can't get vqmmc18sw regulator string
+[    4.633798] sunxi-mmc sdc2: sdc set ios:clk 400000Hz bm PP pm ON vdd 21 width 1 timing LEGACY(SDR12) dt B
+[    4.644789] get() with no identifier
+[    4.648898] get() with no identifier
+[    4.652953] get() with no identifier
+[    4.657004] get() with no identifier
+[    4.661103] sunxi-mmc sdc0: No vmmc regulator found
+[    4.666659] sunxi-mmc sdc0: No vqmmc regulator found
+[    4.672340] sunxi-mmc sdc0: No vdmmc regulator found
+[    4.678031] sunxi-mmc sdc0: No vd33sw regulator found
+[    4.683793] sunxi-mmc sdc2: sdc set ios:clk 400000Hz bm PP pm ON vdd 21 width 8 timing LEGACY(SDR12) dt B
+[    4.694782] sunxi-mmc sdc0: No vd18sw regulator found
+[    4.700542] sunxi-mmc sdc2: sdc set ios:clk 400000Hz bm PP pm ON vdd 21 width 8 timing MMC-HS200 dt B
+[    4.700663] usb 2-1.2: New USB device found, idVendor=05e3, idProduct=0608
+[    4.700670] usb 2-1.2: New USB device strings: Mfr=0, Product=1, SerialNumber=0
+[    4.700676] usb 2-1.2: Product: USB2.0 Hub
+[    4.711105] sunxi-mmc sdc2: sdc set ios:clk 100000000Hz bm PP pm ON vdd 21 width 8 timing MMC-HS200 dt B
+[    4.711643] hub 2-1.2:1.0: USB hub found
+[    4.719195] sunxi-mmc sdc2: sdc set ios:clk 100000000Hz bm PP pm ON vdd 21 width 8 timing MMC-HS(SDR20) dt B
+[    4.719372] sunxi-mmc sdc2: sdc set ios:clk 52000000Hz bm PP pm ON vdd 21 width 8 timing MMC-HS(SDR20) dt B
+[    4.719586] hub 2-1.2:1.0: 4 ports detected
+[    4.732622] sunxi-mmc sdc2: sdc set ios:clk 50000000Hz bm PP pm ON vdd 21 width 8 timing MMC-HS400 dt B
+[    4.732801] sunxi-mmc sdc2: sdc set ios:clk 100000000Hz bm PP pm ON vdd 21 width 8 timing MMC-HS400 dt B
+[    4.743941] mmc0: new HS400 MMC card at address 0001
+[    4.744829] mmcblk0: mmc0:0001 8GTF4R 7.28 GiB 
+[    4.745354] mmcblk0boot0: mmc0:0001 8GTF4R partition 1 4.00 MiB
+[    4.749189] mmcblk0boot1: mmc0:0001 8GTF4R partition 2 4.00 MiB
+[    4.753027] mmcblk0rpmb: mmc0:0001 8GTF4R partition 3 512 KiB
+[    4.755188] Alternate GPT is invalid, using primary GPT.
+[    4.755242]  mmcblk0: p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12 p13 p14
+[    4.840622] sunxi-mmc sdc0: No vq33sw regulator found
+[    4.846346] sunxi-mmc sdc0: No vq18sw regulator found
+[    4.852784] sunxi-mmc sdc0: set host busy
+[    4.857399] sunxi-mmc sdc0: Got CD GPIO
+[    4.862124] sunxi-mmc sdc0: sdc set ios:clk 0Hz bm PP pm UP vdd 21 width 1 timing LEGACY(SDR12) dt B
+[    4.872512] sunxi-mmc sdc0: no vqmmc,Check if there is regulator
+[    4.895166] sunxi-mmc sdc0: sdc set ios:clk 400000Hz bm PP pm ON vdd 21 width 1 timing LEGACY(SDR12) dt B
+[    4.921840] sunxi-mmc sdc0: detmode:gpio polling
+[    4.921866] sunxi-mmc sdc0: sdc set ios:clk 0Hz bm PP pm OFF vdd 0 width 1 timing LEGACY(SDR12) dt B
+[    4.938999] sunxi-mmc sdc1: SD/MMC/SDIO Host Controller Driver(v3.35 2019-12-11 14:29)
+[    4.948133] sunxi-mmc sdc1: Can't get vmmc regulator string
+[    4.954455] sunxi-mmc sdc1: Can't get vqmmc regulator string
+[    4.960872] sunxi-mmc sdc1: Can't get vdmmc regulator string
+[    4.967281] sunxi-mmc sdc1: Can't get vdmmc33sw regulator string
+[    4.974091] sunxi-mmc sdc1: Can't get vdmmc18sw regulator string
+[    4.980895] sunxi-mmc sdc1: Can't get vqmmc33sw regulator string
+[    4.987692] sunxi-mmc sdc1: Can't get vqmmc18sw regulator string
+[    4.994490] get() with no identifier
+[    4.998549] get() with no identifier
+[    5.002603] get() with no identifier
+[    5.006655] get() with no identifier
+[    5.010703] get() with no identifier
+[    5.014752] get() with no identifier
+[    5.018805] get() with no identifier
+[    5.022855] sunxi-mmc sdc1: No vmmc regulator found
+[    5.028381] sunxi-mmc sdc1: No vqmmc regulator found
+[    5.034010] sunxi-mmc sdc1: No vdmmc regulator found
+[    5.039630] sunxi-mmc sdc1: No vd33sw regulator found
+[    5.045345] sunxi-mmc sdc1: No vd18sw regulator found
+[    5.051063] sunxi-mmc sdc1: No vq33sw regulator found
+[    5.056790] sunxi-mmc sdc1: No vq18sw regulator found
+[    5.063049] sunxi-mmc sdc1: set host busy
+[    5.067691] mmc:failed to get gpios
+[    5.071901] sunxi-mmc sdc1: sdc set ios:clk 0Hz bm PP pm UP vdd 21 width 1 timing LEGACY(SDR12) dt B
+[    5.082273] sunxi-mmc sdc1: no vqmmc,Check if there is regulator
+[    5.105160] sunxi-mmc sdc1: sdc set ios:clk 400000Hz bm PP pm ON vdd 21 width 1 timing LEGACY(SDR12) dt B
+[    5.131841] sunxi-mmc sdc1: detmode:manually by software
+[    5.149086] ledtrig-cpu: registered to indicate activity on CPUs
+[    5.162403] [EMCE]:Unsupport Current Storage!
+[    5.167390] sunxi_emce_probe()590emce hw init failed!
+[    5.173132] emce: probe of emce failed with error -22
+[    5.179176] hidraw: raw HID events driver (C) Jiri Kosina
+[    5.189781] usbcore: registered new interface driver usbhid
+[    5.196094] usbhid: USB HID core driver
+[    5.201243] optee: probing for conduit method from DT.
+[    5.207063] optee: api uid mismatch
+[    5.211501] usbcore: registered new interface driver snd-usb-audio
+[    5.221231] pktgen: Packet Generator for packet performance testing. Version: 2.75
+[    5.232087] u32 classifier
+[    5.235157]     Actions configured
+[    5.239017] Netfilter messages via NETLINK v0.30.
+[    5.244419] nfnl_acct: registering with nfnetlink.
+[    5.250224] nf_conntrack version 0.5.0 (16384 buckets, 65536 max)
+[    5.257349] ctnetlink v0.93: registering with nfnetlink.
+[    5.264142] xt_time: kernel timezone is -0000
+[    5.269079] IPVS: Registered protocols (TCP, UDP)
+[    5.274485] IPVS: Connection hash table configured (size=4096, memory=64Kbytes)
+[    5.282858] IPVS: Creating netns size=1920 id=0
+[    5.288166] IPVS: ipvs loaded.
+[    5.291639] IPVS: [rr] scheduler registered.
+[    5.296563] ipip: IPv4 and MPLS over IPv4 tunneling driver
+[    5.303488] gre: GRE over IPv4 demultiplexor driver
+[    5.309005] ip_gre: GRE over IPv4 tunneling driver
+[    5.315679] IPv4 over IPsec tunneling driver
+[    5.321373] ip_tables: (C) 2000-2006 Netfilter Core Team
+[    5.327659] arp_tables: arp_tables: (C) 2002 David S. Miller
+[    5.334164] Initializing XFRM netlink socket
+[    5.339031] IPsec XFRM device driver
+[    5.343988] NET: Registered protocol family 10
+[    5.350661] mip6: Mobile IPv6
+[    5.354059] ip6_tables: (C) 2000-2006 Netfilter Core Team
+[    5.361621] sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+[    5.369916] NET: Registered protocol family 17
+[    5.374979] NET: Registered protocol family 15
+[    5.380150] Bridge firewalling registered
+[    5.384801] Bluetooth: RFCOMM TTY layer initialized
+[    5.390332] Bluetooth: RFCOMM socket layer initialized
+[    5.396149] Bluetooth: RFCOMM ver 1.11
+[    5.400439] Bluetooth: BNEP (Ethernet Emulation) ver 1.3
+[    5.406425] Bluetooth: BNEP filters: protocol multicast
+[    5.412326] Bluetooth: BNEP socket layer initialized
+[    5.417937] Bluetooth: HIDP (Human Interface Emulation) ver 1.2
+[    5.424628] Bluetooth: HIDP socket layer initialized
+[    5.430330] l2tp_core: L2TP core driver, V2.0
+[    5.435291] l2tp_ppp: PPPoL2TP kernel driver, V2.0
+[    5.440692] 8021q: 802.1Q VLAN Support v1.8
+[    5.445609] sctp: Hash tables configured (bind 256/256)
+[    5.452116] Key type dns_resolver registered
+[    5.457073] Registered cp15_barrier emulation handler
+[    5.462794] Registered setend emulation handler
+[    5.468874] registered taskstats version 1
+[    5.481043] zswap: default zpool zbud not available
+[    5.486579] zswap: pool creation failed
+[    5.493925] Btrfs loaded, crc32c=crc32c-arm64-hw
+[    5.499492] edp edp0: Welcome to edp_probe 0
+[    5.515159] sunxi-rtc rtc: setting system clock to 1970-01-01 00:00:10 UTC (10)
+[    5.524206] vcc-3v3: incomplete constraints, leaving on
+[    5.530124] vcc-1v8: incomplete constraints, leaving on
+[    5.536025] ALSA device list:
+[    5.539384]   No soundcards found.
+[    5.545596] Freeing unused kernel memory: 3136K
+[  ...  ] ...
