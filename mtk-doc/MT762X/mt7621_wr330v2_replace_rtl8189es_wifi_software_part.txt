@@ -1,0 +1,70 @@
+
+The Background of the story is a WR330v2 MT7621 board(a variant of youhua wr1200js) have broken Wifi part.
+MT7603EN and MT7612E chip is damaged and has been removed by accident.
+This board use SPI flash to boot and have a empty NAND part.
+That empty NAND part is able to make a hardware MOD, add a SD card slot on it.
+Then add a rtl8189es on SD card slot.
+Due to the linux upstream not support rtl8188e with sdio interface hardware yet.
+Need to compile vendor driver manually.
+
+
+The Progress is:
+Patch the OpenWRT wr1200js image to make it able to find SDIO device.
+Compile rtl8189es realtek vendor driver to make wifi part work.
+
+
+
+
+
+Unpack the OpenWRT image:
+
+binwalk -e <Your OpenWRT image>
+
+The test image build for a MT7621 board,with 'squashfs-sysupgrade.bin' ending.
+file list:
+
+XXXX.squashfs
+40
+40.7z
+
+And it also show the firmware map:
+
+0x0: u-boot legacy uImage header
+0x40: a lzma compressed vmlinux and devicetree
+0xXXX : a squashfs-root rootfs
+
+Do Some modify:
+
+The file 40 is include vmlinux and devicetree
+Modify devicetree can support more board.
+After modify , repack image is needed.
+
+
+Reference: ` cat vmlinux xxxxx.dtb > 40 `
+
+
+Then Repack image:
+(Reference the build step)
+
+Repack need tools:
+
+lzma   --  from lzma-4.65.tar.bz2 /lzma-4.65/C/LzmaUtil/
+mkimage   -- from u-boot tools
+padjffs2  -- from OpenWRT source at tools/padjffs2/src
+
+So Reference command is like:
+
+cp ./40 ./kerneldtb
+lzma e ./kerneldtb  -lc1 -lp2 -pb2 ./kerneldtb.lzma
+# ( -lc1 -lp2 -pb2 may not use ?)
+mkimage -A mips -O linux -T kernel -C lzma -a 0x80001000 -e 0x80001000 -n 'MIPS OpenWrt Linux-XXXX repack'  -d ./kerneldtb.lzma ./uimage
+dd if=uimage  >> upgrade.bin
+dd if=XXXXXX.squashfs  >> upgrade.bin
+padjffs2  upgrade.bin   4 8 16 64 128 256
+
+
+
+NOTE: Don't need to assign signature for repacked image.
+
+
+Compile rtl8189es progress can reference make rtl8822bs driver part.
