@@ -1,0 +1,222 @@
+From 63b851e928facd90a0cc5a4835fae43edb8e6405 Mon Sep 17 00:00:00 2001
+From: chalesyu <574249312@qq.com>
+Date: Mon, 24 Nov 2025 00:00:00 +0800
+Subject: [PATCH] Newer Meson GX HDMI patch for linux
+
+---
+ drivers/gpu/drm/meson/meson_dw_hdmi.c | 143 +++++++++++++++++++++++++-
+ 1 file changed, 138 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/meson/meson_dw_hdmi.c b/drivers/gpu/drm/meson/meson_dw_hdmi.c
+index 0d7c68b..232616b 100644
+--- a/drivers/gpu/drm/meson/meson_dw_hdmi.c
++++ b/drivers/gpu/drm/meson/meson_dw_hdmi.c
+@@ -5,6 +5,10 @@
+  * Copyright (C) 2015 Amlogic, Inc. All rights reserved.
+  */
+ 
++//From Linux 6.16.0
++//For new Meson GX SoC
++//Need device-tree Modify
++
+ #include <linux/clk.h>
+ #include <linux/component.h>
+ #include <linux/kernel.h>
+@@ -25,6 +29,12 @@
+ 
+ #include <linux/videodev2.h>
+ 
++#include <linux/bitfield.h>
++#include <linux/regmap.h>
++#include <linux/mfd/syscon.h>
++#define AO_SEC_SD_CFG8 0xe0
++#define AO_SEC_SOCINFO_OFFSET AO_SEC_SD_CFG8
++
+ #include "meson_drv.h"
+ #include "meson_dw_hdmi.h"
+ #include "meson_registers.h"
+@@ -148,8 +158,59 @@ struct meson_dw_hdmi {
+ 	u32 irq_stat;
+ 	struct dw_hdmi *hdmi;
+ 	struct drm_bridge *bridge;
++	unsigned int soc_major_id;
+ };
+ 
++static unsigned int socinfo_to_major(u32 socinfo)
++{
++	return FIELD_GET( GENMASK(31, 24) , socinfo);
++}
++
++static unsigned int hdmi_get_socinfo(void)
++{
++
++	struct device_node *np;
++	unsigned int socinfo;
++	struct regmap *regmap;
++	int ret;
++
++	/* look up for chipid node */
++	np = of_find_compatible_node(NULL, NULL, "amlogic,meson-gx-ao-secure");
++	if (!np)
++		return -ENODEV;
++
++	/* check if interface is enabled */
++	if (!of_device_is_available(np)) {
++		of_node_put(np);
++		return -ENODEV;
++	}
++
++	/* check if chip-id is available */
++	if (!of_property_read_bool(np, "amlogic,has-chip-id")) {
++		of_node_put(np);
++		return -ENODEV;
++	}
++
++	/* node should be a syscon */
++	regmap = syscon_node_to_regmap(np);
++	of_node_put(np);
++	if (IS_ERR(regmap)) {
++		pr_err("%s: failed to get regmap\n", __func__);
++		return -ENODEV;
++	}
++
++	ret = regmap_read(regmap, AO_SEC_SOCINFO_OFFSET, &socinfo);
++	if (ret < 0)
++		return -EINVAL;
++
++	if (!socinfo) {
++		pr_err("%s: invalid chipid value\n", __func__);
++		return -EINVAL;
++	}
++
++	return socinfo;
++}
++
+ static inline int dw_hdmi_is_compatible(struct meson_dw_hdmi *dw_hdmi,
+ 					const char *compat)
+ {
+@@ -269,7 +330,71 @@ static inline void dw_hdmi_dwc_write(struct meson_dw_hdmi *dw_hdmi,
+ static inline void dw_hdmi_g12a_dwc_write(struct meson_dw_hdmi *dw_hdmi,
+ 					  unsigned int addr, unsigned int data)
+ {
+-	writeb(data, dw_hdmi->hdmitx + addr);
++	writeb(data & 0xff, dw_hdmi->hdmitx + addr);
++}
++
++static unsigned int dw_hdmi_gx_g12a_top_read(struct meson_dw_hdmi *dw_hdmi,
++  unsigned int addr)
++{
++	if ((addr >= 0x2000) && (addr <= 0x365E)) {
++		return readb(dw_hdmi->hdmitx + HDMITX_TOP_G12A_OFFSET + addr);
++	} else {
++		return readl(dw_hdmi->hdmitx + HDMITX_TOP_G12A_OFFSET + (addr << 2));
++	}
++}
++
++static inline void dw_hdmi_gx_g12a_top_write(struct meson_dw_hdmi *dw_hdmi,
++  unsigned int addr, unsigned int data)
++{
++	if ((addr >= 0x2000) && (addr <= 0x365E)) {
++		writeb(data & 0xff, dw_hdmi->hdmitx + HDMITX_TOP_G12A_OFFSET + addr);
++	} else {
++		writel(data, dw_hdmi->hdmitx + HDMITX_TOP_G12A_OFFSET + (addr << 2));
++	}
++}
++
++static unsigned int dw_hdmi_gx_top_read(struct meson_dw_hdmi *dw_hdmi,
++     unsigned int addr)
++{
++	if ( dw_hdmi->soc_major_id >= 0x28)
++	{
++		return dw_hdmi_gx_g12a_top_read(dw_hdmi, addr);
++	} else {
++		return dw_hdmi_top_read(dw_hdmi, addr);
++	}
++}
++
++static inline void dw_hdmi_gx_top_write(struct meson_dw_hdmi *dw_hdmi,
++  unsigned int addr, unsigned int data)
++{
++	if ( dw_hdmi->soc_major_id >= 0x28)
++	{
++		return dw_hdmi_gx_g12a_top_write(dw_hdmi, addr, data);
++	} else {
++		return dw_hdmi_top_write(dw_hdmi, addr, data);
++	}
++}
++
++static unsigned int dw_hdmi_gx_dwc_read(struct meson_dw_hdmi *dw_hdmi,
++     unsigned int addr)
++{
++	if ( dw_hdmi->soc_major_id >= 0x28)
++	{
++		return dw_hdmi_g12a_dwc_read(dw_hdmi, addr);
++	} else {
++		return dw_hdmi_dwc_read(dw_hdmi, addr);
++	}
++}
++
++static inline void dw_hdmi_gx_dwc_write(struct meson_dw_hdmi *dw_hdmi,
++  unsigned int addr, unsigned int data)
++{
++	if ( dw_hdmi->soc_major_id >= 0x28)
++	{
++		return dw_hdmi_g12a_dwc_write(dw_hdmi, addr, data);
++	} else {
++		return dw_hdmi_dwc_write(dw_hdmi, addr, data);
++	}
+ }
+ 
+ /* Bridge */
+@@ -578,10 +703,10 @@ static const struct meson_dw_hdmi_data meson_dw_hdmi_gxbb_data = {
+ };
+ 
+ static const struct meson_dw_hdmi_data meson_dw_hdmi_gxl_data = {
+-	.top_read = dw_hdmi_top_read,
+-	.top_write = dw_hdmi_top_write,
+-	.dwc_read = dw_hdmi_dwc_read,
+-	.dwc_write = dw_hdmi_dwc_write,
++	.top_read = dw_hdmi_gx_top_read,
++	.top_write = dw_hdmi_gx_top_write,
++	.dwc_read = dw_hdmi_gx_dwc_read,
++	.dwc_write = dw_hdmi_gx_dwc_write,
+ 	.cntl0_init = 0x0,
+ 	.cntl1_init = PHY_CNTL1_INIT,
+ };
+@@ -611,12 +736,15 @@ static void meson_dw_hdmi_init(struct meson_dw_hdmi *meson_dw_hdmi)
+ 	reset_control_reset(meson_dw_hdmi->hdmitx_phy);
+ 
+ 	/* Enable APB3 fail on error */
++if (meson_dw_hdmi->soc_major_id  < 0x28)
++{
+ 	if (!meson_vpu_is_compatible(priv, VPU_COMPATIBLE_G12A)) {
+ 		writel_bits_relaxed(BIT(15), BIT(15),
+ 				    meson_dw_hdmi->hdmitx + HDMITX_TOP_CTRL_REG);
+ 		writel_bits_relaxed(BIT(15), BIT(15),
+ 				    meson_dw_hdmi->hdmitx + HDMITX_DWC_CTRL_REG);
+ 	}
++}
+ 
+ 	/* Bring out of reset */
+ 	meson_dw_hdmi->data->top_write(meson_dw_hdmi,
+@@ -677,6 +805,7 @@ static int meson_dw_hdmi_bind(struct device *dev, struct device *master,
+ 	struct dw_hdmi_plat_data *dw_plat_data;
+ 	int irq;
+ 	int ret;
++	unsigned int socinfo;
+ 
+ 	DRM_DEBUG_DRIVER("\n");
+ 
+@@ -754,6 +883,10 @@ static int meson_dw_hdmi_bind(struct device *dev, struct device *master,
+ 		return ret;
+ 	}
+ 
++	/////////
++	socinfo = hdmi_get_socinfo();
++	meson_dw_hdmi->soc_major_id = socinfo_to_major( socinfo );
++
+ 	meson_dw_hdmi_init(meson_dw_hdmi);
+ 
+ 	/* Bridge / Connector */
+-- 
+

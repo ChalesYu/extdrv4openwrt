@@ -1,0 +1,159 @@
+From c5305b7820a9ad8b57144d9f0170c52a7d5fe3a2 Mon Sep 17 00:00:00 2001
+From: chalesyu <574249312@qq.com>
+Date: Sun, 9 Nov 2025 00:00:00 +0800
+Subject: [PATCH] s905l3 hdmi test
+
+make ARCH=arm CROSS_COMPILE=aarch64-linux-gnu- libretech-cc_defconfig -j
+make ARCH=arm CROSS_COMPILE=aarch64-linux-gnu-  -j
+NOTE:
+S905L3(B) is more like S905X(GX)
+S905L3A(B) is more like S905X2(G12A)
+
+---
+ drivers/video/meson/meson_dw_hdmi.c | 74 +++++++++++++++++++++++++++++
+ 1 file changed, 74 insertions(+)
+
+diff --git a/drivers/video/meson/meson_dw_hdmi.c b/drivers/video/meson/meson_dw_hdmi.c
+index 1631dc38416..771b0d3205a 100644
+--- a/drivers/video/meson/meson_dw_hdmi.c
++++ b/drivers/video/meson/meson_dw_hdmi.c
+@@ -4,6 +4,7 @@
+  * Author: Jorge Ramirez-Ortiz <jramirez@baylibre.com>
+  */
+ 
++#define DEBUG
+ #include <display.h>
+ #include <dm.h>
+ #include <edid.h>
+@@ -19,6 +20,15 @@
+ #include <linux/delay.h>
+ #include <reset.h>
+ #include <media_bus_format.h>
++
++#include <linux/bitfield.h>
++//#include <regmap.h>
++//#include <syscon.h>
++#include <asm/arch-meson/boot.h>
++//compatible = "amlogic,meson-gx-dw-hdmi";
++//reg = <0x0 0x???????? 0x0 0x10000>;
++#define TO_NEW_GX_HDMITX_ADDR ( 0x???????? - 0xc883a000 ) /////////Fix Me
++
+ #include "meson_dw_hdmi.h"
+ #include "meson_vpu.h"
+ 
+@@ -56,6 +66,37 @@ enum hdmi_compatible {
+ 	HDMI_COMPATIBLE_G12A = 3,
+ };
+ 
++static inline unsigned int socinfo_to_major(u32 socinfo)
++{
++	return FIELD_GET( GENMASK(31, 24) , socinfo);
++}
++
++unsigned int get_socinfo_rev(void)
++{
++	u32 socinfo;
++
++	socinfo = meson_get_socinfo();
++	if (!socinfo)
++		return 0;
++
++	printf("SoC:   Amlogic Meson GXL S905L gxl(x)(2)_p %x 1_1G like Board \n",
++	       socinfo_to_major(socinfo) );
++
++	return 0;
++}
++
++unsigned int chip_major_id(void)
++{
++	u32 socinfo;
++
++	socinfo = meson_get_socinfo();
++	if (!socinfo)
++		return 0;
++
++	return socinfo_to_major(socinfo);
++}
++
++
+ static inline bool meson_hdmi_is_compatible(struct meson_dw_hdmi *priv,
+ 					    enum hdmi_compatible family)
+ {
+@@ -74,6 +115,16 @@ static unsigned int dw_hdmi_top_read(struct dw_hdmi *hdmi, unsigned int addr)
+ 		return readl(hdmi->ioaddr +
+ 			     HDMITX_TOP_G12A_OFFSET + (addr << 2));
+ 
++	if ( chip_major_id() >= 0x28 ) {
++		if ( (addr >= 0x2000) && (addr <= 0x365E) ) {
++			return readb(hdmi->ioaddr + TO_NEW_GX_HDMITX_ADDR +
++				     HDMITX_TOP_G12A_OFFSET + addr);
++		} else {
++			return readl(hdmi->ioaddr + TO_NEW_GX_HDMITX_ADDR +
++				     HDMITX_TOP_G12A_OFFSET + (addr << 2));
++		}
++	}
++
+ 	/* ADDR must be written twice */
+ 	writel(addr & 0xffff, hdmi->ioaddr + HDMITX_TOP_ADDR_REG);
+ 	writel(addr & 0xffff, hdmi->ioaddr + HDMITX_TOP_ADDR_REG);
+@@ -97,6 +148,17 @@ static inline void dw_hdmi_top_write(struct dw_hdmi *hdmi,
+ 		return;
+ 	}
+ 
++	if ( chip_major_id() >= 0x28 ) {
++		if ( (addr >= 0x2000) && (addr <= 0x365E) ) {
++			writeb(data & 0xff, hdmi->ioaddr + TO_NEW_GX_HDMITX_ADDR +
++			      HDMITX_TOP_G12A_OFFSET + addr);
++		} else {
++			writel(data, hdmi->ioaddr + TO_NEW_GX_HDMITX_ADDR +
++			      HDMITX_TOP_G12A_OFFSET + (addr << 2));
++		}
++		return;
++	}
++
+ 	/* ADDR must be written twice */
+ 	writel(addr & 0xffff, hdmi->ioaddr + HDMITX_TOP_ADDR_REG);
+ 	writel(addr & 0xffff, hdmi->ioaddr + HDMITX_TOP_ADDR_REG);
+@@ -121,6 +183,9 @@ static u8 dw_hdmi_dwc_read(struct dw_hdmi *hdmi, int addr)
+ {
+ 	unsigned int data;
+ 
++	if ( chip_major_id() >= 0x28 )
++		return readb(hdmi->ioaddr + TO_NEW_GX_HDMITX_ADDR + addr);
++
+ 	/* ADDR must be written twice */
+ 	writel(addr & 0xffff, hdmi->ioaddr + HDMITX_DWC_ADDR_REG);
+ 	writel(addr & 0xffff, hdmi->ioaddr + HDMITX_DWC_ADDR_REG);
+@@ -134,6 +199,11 @@ static u8 dw_hdmi_dwc_read(struct dw_hdmi *hdmi, int addr)
+ 
+ static inline void dw_hdmi_dwc_write(struct dw_hdmi *hdmi, u8 data, int addr)
+ {
++	if ( chip_major_id() >= 0x28 ) {
++		writeb(data & 0xff, hdmi->ioaddr + TO_NEW_GX_HDMITX_ADDR + addr);
++		return;
++	}
++
+ 	/* ADDR must be written twice */
+ 	writel(addr & 0xffff, hdmi->ioaddr + HDMITX_DWC_ADDR_REG);
+ 	writel(addr & 0xffff, hdmi->ioaddr + HDMITX_DWC_ADDR_REG);
+@@ -458,13 +528,17 @@ static int meson_dw_hdmi_probe(struct udevice *dev)
+ 	if (ret)
+ 		return ret;
+ 
++	get_socinfo_rev();
++
+ 	if (!meson_hdmi_is_compatible(priv, HDMI_COMPATIBLE_G12A)) {
+ 		/* Enable APB3 fail on error */
++	if ( chip_major_id() < 0x28 ) {
+ 		writel_bits(BIT(15), BIT(15),
+ 			    priv->hdmi.ioaddr + HDMITX_TOP_CTRL_REG);
+ 		writel_bits(BIT(15), BIT(15),
+ 			    priv->hdmi.ioaddr + HDMITX_DWC_CTRL_REG);
+ 	}
++	}
+ 
+ 	/* Bring out of reset */
+ 	dw_hdmi_top_write(&priv->hdmi, HDMITX_TOP_SW_RESET,  0);
+-- 
+
+
