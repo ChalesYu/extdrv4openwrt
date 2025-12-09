@@ -35,7 +35,7 @@ index 1631dc38416..771b0d3205a 100644
 +//#include <syscon.h>
 +#include <asm/arch-meson/boot.h>
 +//compatible = "amlogic,meson-gx-dw-hdmi";
-+//reg = <0x0 0x???????? 0x0 0x10000>;
++//reg = <0x0 0x???????? 0x0 0x10000>;   //( 0x???????? - 0xc883a000 ) = 0x11fc6000
 +#define TO_NEW_GX_HDMITX_ADDR ( 0x???????? - 0xc883a000 ) /////////Fix Me
 +
  #include "meson_dw_hdmi.h"
