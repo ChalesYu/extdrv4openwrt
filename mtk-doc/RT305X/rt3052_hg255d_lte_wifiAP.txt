@@ -22,4 +22,33 @@ HG255D 在OpenWRT上游没有现成的最新版本固件。(用老版本还是�
 HG255D用老版本固件有时jffs2会报I/O错误，可能是flash有坏块或者设定的频率太高。
 
 
+参考答案：
+OpenWRT版本： LEDE 17.01.7
+喜马拉雅陪伴机mini 通过安卓数据线插在 HG255D 的USB口上。
+
+opkg安装USB相关软件包:
+kmod-usb-core - 4.4.182-1
+kmod-usb-dwc2 - 4.4.182-1
+kmod-usb-net - 4.4.182-1
+kmod-usb-net-cdc-ether - 4.4.182-1
+kmod-usb-net-rndis - 4.4.182-1
+kmod-usb-serial - 4.4.182-1
+kmod-usb-serial-simple - 4.4.182-1
+
+
+/etc/rc.local 启动脚本：
+
+sleep 3
+echo 2ecc 3010 > /sys/bus/usb-serial/drivers/generic/new_id
+sleep 1
+echo "AT+LOG=15,0" > /dev/ttyUSB0
+
+sleep 1
+rmmod usb_serial_simple
+rmmod usbserial
+sleep 2
+/etc/init.d/network restart
+
+exit 0
+
 
