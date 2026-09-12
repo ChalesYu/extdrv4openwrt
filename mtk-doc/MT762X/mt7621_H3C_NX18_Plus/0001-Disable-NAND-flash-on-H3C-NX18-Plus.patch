@@ -1,0 +1,92 @@
+From 7b35d285d55b5c4b186e0fff9cc6ceb283ebc953 Mon Sep 17 00:00:00 2001
+From: Zhao Yu <574249312@qq.com>
+Date: Sat, 12 Sep 2026 19:36:00 +0800
+Subject: [PATCH 1/2] Disable NAND flash on H3C NX18 Plus
+
+---
+ tx1801plus.dts | 64 +-------------------------------------------------
+ 1 file changed, 1 insertion(+), 63 deletions(-)
+
+diff --git a/tx1801plus.dts b/tx1801plus.dts
+index e9493c6..bf4d86b 100644
+--- a/tx1801plus.dts
++++ b/tx1801plus.dts
+@@ -424,74 +424,12 @@
+ 	};
+ 
+ 	nand@1e003000 {
+-		status = "okay";
++		status = "disabled";
+ 		compatible = "mediatek,mt7621-nfc";
+ 		reg = <0x1e003000 0x800 0x1e003800 0x800>;
+ 		reg-names = "nfi\0ecc";
+ 		clocks = <0x02 0x0f>;
+ 		clock-names = "nfi_clk";
+-		mediatek,nmbm;
+-		mediatek,bmt-max-ratio = <0x01>;
+-		mediatek,bmt-max-reserved-blocks = <0x40>;
+-		mediatek,bmt-remap-range = <0x00 0xa00000>;
+-
+-		partitions {
+-			compatible = "fixed-partitions";
+-			#address-cells = <0x01>;
+-			#size-cells = <0x01>;
+-
+-			partition@0 {
+-				label = "u-boot";
+-				reg = <0x00 0x80000>;
+-				read-only;
+-			};
+-
+-			partition@80000 {
+-				label = "u-boot-env";
+-				reg = <0x80000 0x80000>;
+-			};
+-
+-			partition@100000 {
+-				label = "exp";
+-				reg = <0x100000 0x80000>;
+-				read-only;
+-			};
+-
+-			partition@180000 {
+-				label = "factory";
+-				reg = <0x180000 0x80000>;
+-				read-only;
+-
+-				nvmem-layout {
+-					compatible = "fixed-layout";
+-					#address-cells = <0x01>;
+-					#size-cells = <0x01>;
+-
+-					eeprom@0 {
+-						reg = <0x00 0xe00>;
+-						phandle = <0x1c>;
+-					};
+-				};
+-			};
+-
+-			partition@200000 {
+-				label = "firmware";
+-				reg = <0x200000 0x7600000>;
+-				compatible = "fixed-partitions";
+-				#address-cells = <0x01>;
+-				#size-cells = <0x01>;
+-
+-				partition@0 {
+-					label = "kernel";
+-					reg = <0x00 0x800000>;
+-				};
+-
+-				partition@800000 {
+-					label = "ubi";
+-					reg = <0x800000 0x6e00000>;
+-				};
+-			};
+-		};
+ 	};
+ 
+ 	crypto@1e004000 {
+-- 
+2.53.0
+

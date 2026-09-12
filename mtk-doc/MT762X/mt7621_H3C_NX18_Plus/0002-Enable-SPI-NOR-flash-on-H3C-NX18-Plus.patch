@@ -1,0 +1,97 @@
+From b4938d4247312225c8260833669126d484cb2de5 Mon Sep 17 00:00:00 2001
+From: Zhao Yu <574249312@qq.com>
+Date: Sat, 12 Sep 2026 19:37:43 +0800
+Subject: [PATCH 2/2] Enable SPI-NOR flash on H3C NX18 Plus
+
+---
+ tx1801plus.dts | 60 ++++++++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 58 insertions(+), 2 deletions(-)
+
+diff --git a/tx1801plus.dts b/tx1801plus.dts
+index bf4d86b..d92bea3 100644
+--- a/tx1801plus.dts
++++ b/tx1801plus.dts
+@@ -4,7 +4,7 @@
+ 	#address-cells = <0x01>;
+ 	#size-cells = <0x01>;
+ 	compatible = "h3c,tx1801-plus\0mediatek,mt7621-soc";
+-	model = "H3C TX1801 Plus";
++	model = "H3C NX18 Plus";
+ 
+ 	aliases {
+ 		serial0 = "/palmbus@1e000000/uartlite@c00";
+@@ -191,7 +191,7 @@
+ 		};
+ 
+ 		spi@b00 {
+-			status = "disabled";
++			status = "okay";
+ 			compatible = "ralink,mt7621-spi";
+ 			reg = <0xb00 0x100>;
+ 			clocks = <0x02 0x12>;
+@@ -202,6 +202,62 @@
+ 			#size-cells = <0x00>;
+ 			pinctrl-names = "default";
+ 			pinctrl-0 = <0x09>;
++
++			flash@0 {
++				compatible = "jedec,spi-nor";
++				reg = <0x00>;
++				spi-max-frequency = <0x2faf080>;
++
++				partitions {
++					compatible = "fixed-partitions";
++					#address-cells = <0x01>;
++					#size-cells = <0x01>;
++
++					partition@0 {
++						label = "u-boot";
++						reg = <0x00 0x30000>;
++						read-only;
++					};
++
++					partition@30000 {
++						label = "u-boot-env";
++						reg = <0x30000 0x10000>;
++						read-only;
++					};
++
++					partition@40000 {
++						label = "exp";
++						reg = <0x40000 0x10000>;
++						read-only;
++					};
++
++					partition@50000 {
++						label = "factory";
++						reg = <0x50000 0x40000>;
++						read-only;
++
++						nvmem-layout {
++							compatible = "fixed-layout";
++							#address-cells = <0x01>;
++							#size-cells = <0x01>;
++
++							eeprom@0 {
++								reg = <0x00 0xe00>;
++								phandle = <0x1c>;
++							};
++
++						};
++					};
++
++					partition@90000 {
++						compatible = "denx,uimage";
++						label = "firmware";
++						reg = <0x90000 0xf70000>;
++					};
++				};
++
++			};
++
+ 		};
+ 
+ 		gdma@2800 {
+-- 
+2.53.0
+
